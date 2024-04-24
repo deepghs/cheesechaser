@@ -2,8 +2,8 @@
 
 [![PyPI](https://img.shields.io/pypi/v/cheesechaser)](https://pypi.org/project/cheesechaser/)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/cheesechaser)
-![Loc](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/narugo1992/b98a0fd1468c4858abf2a355bc9b4039/raw/loc.json)
-![Comments](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/narugo1992/b98a0fd1468c4858abf2a355bc9b4039/raw/comments.json)
+![Loc](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/narugo1992/eedf334ff9d7ff02e7ec9535e43a1faa/raw/loc.json)
+![Comments](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/narugo1992/eedf334ff9d7ff02e7ec9535e43a1faa/raw/comments.json)
 
 [![Code Test](https://github.com/deepghs/cheesechaser/workflows/Code%20Test/badge.svg)](https://github.com/deepghs/cheesechaser/actions?query=workflow%3A%22Code+Test%22)
 [![Package Release](https://github.com/deepghs/cheesechaser/workflows/Package%20Release/badge.svg)](https://github.com/deepghs/cheesechaser/actions?query=workflow%3A%22Package+Release%22)

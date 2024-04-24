@@ -4,3 +4,4 @@ huggingface_hub>=0.22
 tqdm
 requests
 click>=7
+pillow

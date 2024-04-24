@@ -22,3 +22,71 @@ Swiftly get tons of images from indexed tars on Huggingface
 
 (Still WIP ...)
 
+## Installation
+
+```shell
+git clone https://github.com/deepghs/cheesechaser.git
+cd cheesechaser
+pip install -r requirements.txt
+```
+
+## How this library works
+
+This library is based on the mirror datasets on huggingface.
+
+## Batch Download Images
+
+* Danbooru
+
+```python
+from cheesechaser.datapool import DanbooruStableDataPool
+
+pool = DanbooruStableDataPool()
+
+# download danbooru #2010000-2010300, to directory /data/exp2
+pool.batch_download_to_directory(
+    resource_ids=range(2010000, 2010300),
+    dst_dir='/data/exp2',
+    max_workers=12,
+)
+```
+
+* Konachan
+
+```python
+from cheesechaser.datapool import KonachanDataPool
+
+pool = KonachanDataPool()
+
+# download konachan #210000-210300, to directory /data/exp2
+pool.batch_download_to_directory(
+    resource_ids=range(210000, 210300),
+    dst_dir='/data/exp2',
+    max_workers=12,
+)
+```
+
+* Civitai (this mirror repository on hf is private for now, you have to use hf token of an authorized account)
+
+```python
+from cheesechaser.datapool import CivitaiDataPool
+
+pool = CivitaiDataPool()
+
+# download civitai #7810000-7810300, to directory /data/exp2
+# should contain one image and one json metadata file
+pool.batch_download_to_directory(
+    resource_ids=range(7810000, 7810300),
+    dst_dir='/data/exp2',
+    max_workers=12,
+)
+```
+
+More supported:
+
+* `RealbooruDataPool`
+* `ThreedbooruDataPool`
+* `FancapsDataPool`
+* `BangumiBaseDataPool`
+* `AnimePicturesDataPool`
+

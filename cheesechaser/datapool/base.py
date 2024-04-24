@@ -156,10 +156,12 @@ class GenericDataPool:
     def retrieve_resource_data(self, resource_id):
         raise NotImplementedError
 
-    def batch_retrieve_resource_queue(self, resource_ids, max_workers: int = 12) -> Tuple[Queue, Event]:
+    def batch_retrieve_resource_queue(self, resource_ids, max_workers: int = 12) -> Tuple[Queue, Event, Event, Event]:
         pg = tqdm(resource_ids, desc='Batch Retrieving')
         queue = Queue(maxsize=max_workers * 3)
+        is_started = Event()
         is_stopped = Event()
+        is_finished = Event()
 
         def _func(resource_id):
             if is_stopped.is_set():
@@ -191,6 +193,14 @@ class GenericDataPool:
                 logging.error(f'Error occurred when retrieving resource {resource_id!r} - {err!r}')
 
         def _productor():
+            while True:
+                if not is_started.wait(timeout=1.0):
+                    if is_stopped.is_set():
+                        return
+                    else:
+                        continue
+                else:
+                    break
             tp = ThreadPoolExecutor(max_workers=max_workers)
             for rid in resource_ids:
                 if is_stopped.is_set():
@@ -199,10 +209,12 @@ class GenericDataPool:
 
             tp.shutdown(wait=True)
             is_stopped.set()
+            is_finished.set()
 
         t_productor = Thread(target=_productor)
         t_productor.start()
-        return queue, is_stopped
+
+        return queue, is_started, is_stopped, is_finished
 
 
 def id_modulo_cut(id_text: str):

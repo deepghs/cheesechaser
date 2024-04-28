@@ -73,11 +73,10 @@ class DataPool:
 
                             pg_downloaded.update()
                             copied = True
-
                     if not copied:
                         logging.warning(f'No files found for resource {resource_id!r}.')
             except ResourceNotFoundError:
-                logging.error(f'Resource {resource_id!r} not found, skipped.')
+                logging.warning(f'Resource {resource_id!r} not found, skipped.')
             except Exception as err:
                 logging.error(f'Error occurred when downloading resource {resource_id!r} - {err!r}')
             finally:

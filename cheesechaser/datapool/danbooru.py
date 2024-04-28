@@ -1,20 +1,21 @@
 import fnmatch
 import os
-from typing import Iterable
+from contextlib import contextmanager
+from typing import Iterable, ContextManager, Tuple, Any
 
 from hfutils.operate.base import get_hf_fs
 from natsort import natsorted
 
-from .image import ImageOnlyDataPool
+from .base import DataPool, ResourceNotFoundError, IncrementIDDataPool
 
 _DEFAULT_DATA_REPO_ID = 'nyanko7/danbooru2023'
 _DEFAULT_IDX_REPO_ID = 'deepghs/danbooru2023_index'
 
 
-class _BaseDanbooruDataPool(ImageOnlyDataPool):
+class _BaseDanbooruDataPool(IncrementIDDataPool):
     def __init__(self, data_repo_id: str, data_revision: str = 'main',
                  idx_repo_id: str = None, idx_revision: str = 'main'):
-        ImageOnlyDataPool.__init__(
+        IncrementIDDataPool.__init__(
             self,
             data_repo_id=data_repo_id,
             data_revision=data_revision,
@@ -61,3 +62,40 @@ class DanbooruStableDataPool(DanbooruDataPool):
             data_revision='81652caef9403712b4112a3fcb5d9b4997424ac3',
             idx_revision='20240319',
         )
+
+
+_N_REPO_ID = 'deepghs/danbooru_newest'
+
+
+class _DanbooruNewestPartialDataPool(IncrementIDDataPool):
+    def __init__(self, data_revision: str = 'main', idx_revision: str = 'main'):
+        IncrementIDDataPool.__init__(
+            self,
+            data_repo_id=_N_REPO_ID,
+            data_revision=data_revision,
+            idx_repo_id=_N_REPO_ID,
+            idx_revision=idx_revision,
+        )
+
+
+class DanbooruNewestDataPool(DataPool):
+    def __init__(self):
+        self._old_pool = DanbooruStableDataPool()
+        self._newest_pool = _DanbooruNewestPartialDataPool()
+
+    @contextmanager
+    def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
+        pools = [self._old_pool, self._newest_pool]
+        found = False
+        for pool in pools:
+            try:
+                with pool.mock_resource(resource_id, resource_info) as (td, info):
+                    yield td, info
+            except ResourceNotFoundError:
+                pass
+            else:
+                found = True
+                break
+
+        if not found:
+            raise ResourceNotFoundError(f'Resource {resource_id!r} not found.')

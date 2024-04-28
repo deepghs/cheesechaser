@@ -1,46 +1,46 @@
 import json
+import mimetypes
 import os
 import warnings
 from dataclasses import dataclass
-from typing import Union
+from typing import Optional
 
 from PIL import Image
 
-from .base import IncrementIDDataPool, InvalidResourceDataError, ResourceNotFoundError
+from .base import Pipe
+from ..datapool import ResourceNotFoundError, InvalidResourceDataError
 
 
-@dataclass
-class ImageData:
-    id: Union[int, str]
-    image: Image.Image
-
-
-class ImageOnlyDataPool(IncrementIDDataPool):
-    def retrieve_resource_data(self, resource_id):
-        with self._mock_resource(resource_id) as td:
+class SimpleImagePipe(Pipe):
+    def retrieve(self, resource_id, resource_metainfo):
+        with self.pool.mock_resource(resource_id, resource_metainfo) as (td, resource_metainfo):
             files = os.listdir(td)
-            if len(files) == 0:
+            image_files = []
+            for file in files:
+                mimetype, _ = mimetypes.guess_type(file)
+                if not mimetype or mimetype.startswith('image/'):
+                    image_files.append(file)
+            if len(image_files) == 0:
                 raise ResourceNotFoundError(f'Image not found for resource {resource_id!r}.')
-            elif len(files) != 1:
-                raise InvalidResourceDataError(f'Image file not unique for resource {resource_id!r}.')
+            elif len(image_files) != 1:
+                raise InvalidResourceDataError(f'Image file not unique for resource {resource_id!r} '
+                                               f'- {image_files!r}.')
 
-            src_file = os.path.join(td, files[0])
+            src_file = os.path.join(td, image_files[0])
             image = Image.open(src_file)
             image.load()
-
-            return ImageData(resource_id, image)
+            return image
 
 
 @dataclass
-class ImageJsonAttachedData:
-    id: Union[int, str]
+class DataAttachedImage:
     image: Image.Image
-    data: dict
+    data: Optional[dict]
 
 
-class ImageJsonAttachedDataPool(IncrementIDDataPool):
-    def retrieve_resource_data(self, resource_id):
-        with self._mock_resource(resource_id) as td:
+class DataAttachedImagePipe(Pipe):
+    def retrieve(self, resource_id, resource_metainfo):
+        with self.pool.mock_resource(resource_id, resource_metainfo) as (td, resource_metainfo):
             files = os.listdir(td)
             if len(files) == 0:
                 raise ResourceNotFoundError(f'Image not found for resource {resource_id!r}.')
@@ -72,4 +72,4 @@ class ImageJsonAttachedDataPool(IncrementIDDataPool):
                 else:
                     json_data = None
 
-                return ImageJsonAttachedData(resource_id, image, json_data)
+                return DataAttachedImage(image, json_data)

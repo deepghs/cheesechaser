@@ -1,11 +1,11 @@
-from .image import ImageOnlyDataPool
+from .base import IncrementIDDataPool
 
 _ANIME_PICTURES_REPO = 'deepghs/anime_pictures_full'
 
 
-class AnimePicturesDataPool(ImageOnlyDataPool):
+class AnimePicturesDataPool(IncrementIDDataPool):
     def __init__(self, revision: str = 'main'):
-        ImageOnlyDataPool.__init__(
+        IncrementIDDataPool.__init__(
             self,
             data_repo_id=_ANIME_PICTURES_REPO,
             data_revision=revision,

@@ -39,9 +39,9 @@ This library is based on the mirror datasets on huggingface.
 * Danbooru
 
 ```python
-from cheesechaser.datapool import DanbooruStableDataPool
+from cheesechaser.datapool import DanbooruNewestDataPool
 
-pool = DanbooruStableDataPool()
+pool = DanbooruNewestDataPool()
 
 # download danbooru #2010000-2010300, to directory /data/exp2
 pool.batch_download_to_directory(
@@ -90,3 +90,23 @@ More supported:
 * `BangumiBaseDataPool`
 * `AnimePicturesDataPool`
 
+## Batch Retrieving Images
+
+```python
+from itertools import islice
+
+from cheesechaser.datapool import DanbooruNewestDataPool
+from cheesechaser.pipe import SimpleImagePipe, PipeItem
+
+pool = DanbooruNewestDataPool()
+pipe = SimpleImagePipe(pool)
+
+# select from danbooru 7349990-7359990
+ids = range(7349990, 7359990)
+with pipe.batch_retrieve(ids) as session:
+    # only need 20 images
+    for i, item in enumerate(islice(session, 20)):
+        item: PipeItem
+        print(i, item)
+
+```

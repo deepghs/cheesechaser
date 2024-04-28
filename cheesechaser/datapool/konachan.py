@@ -1,11 +1,11 @@
-from .image import ImageOnlyDataPool
+from .base import IncrementIDDataPool
 
 _KONACHAN_REPO = 'deepghs/konachan_full'
 
 
-class KonachanDataPool(ImageOnlyDataPool):
+class KonachanDataPool(IncrementIDDataPool):
     def __init__(self, revision: str = 'main'):
-        ImageOnlyDataPool.__init__(
+        IncrementIDDataPool.__init__(
             self,
             data_repo_id=_KONACHAN_REPO,
             data_revision=revision,

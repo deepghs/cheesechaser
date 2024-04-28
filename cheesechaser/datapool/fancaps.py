@@ -1,11 +1,11 @@
-from .image import ImageOnlyDataPool
+from .base import IncrementIDDataPool
 
 _FANCAPS_REPO = 'deepghs/fancaps_full'
 
 
-class FancapsDataPool(ImageOnlyDataPool):
+class FancapsDataPool(IncrementIDDataPool):
     def __init__(self, revision: str = 'main'):
-        ImageOnlyDataPool.__init__(
+        IncrementIDDataPool.__init__(
             self,
             data_repo_id=_FANCAPS_REPO,
             data_revision=revision,

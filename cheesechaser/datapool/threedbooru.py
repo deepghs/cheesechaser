@@ -1,11 +1,11 @@
-from .image import ImageOnlyDataPool
+from .base import IncrementIDDataPool
 
 _3DBOORU_REPO = 'deepghs/3dbooru_full'
 
 
-class ThreedbooruDataPool(ImageOnlyDataPool):
+class ThreedbooruDataPool(IncrementIDDataPool):
     def __init__(self, revision: str = 'main'):
-        ImageOnlyDataPool.__init__(
+        IncrementIDDataPool.__init__(
             self,
             data_repo_id=_3DBOORU_REPO,
             data_revision=revision,

@@ -1,11 +1,11 @@
-from .image import ImageJsonAttachedDataPool
+from .base import IncrementIDDataPool
 
 _CIVITAI_REPO = 'deepghs/civitai_full'
 
 
-class CivitaiDataPool(ImageJsonAttachedDataPool):
+class CivitaiDataPool(IncrementIDDataPool):
     def __init__(self, revision: str = 'main'):
-        ImageJsonAttachedDataPool.__init__(
+        IncrementIDDataPool.__init__(
             self,
             data_repo_id=_CIVITAI_REPO,
             data_revision=revision,

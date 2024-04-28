@@ -63,6 +63,8 @@ class DataPool:
                         for file in files:
                             src_file = os.path.abspath(os.path.join(root, file))
                             dst_file = os.path.join(dst_dir, os.path.relpath(src_file, td))
+                            logging.warning(
+                                f'td: {td!r}, root: {root!r}, file: {file!r}, src: {src_file!r}, dst: {dst_file!r}')
                             if os.path.dirname(dst_file):
                                 os.makedirs(os.path.dirname(dst_file), exist_ok=True)
                             shutil.copyfile(src_file, dst_file)

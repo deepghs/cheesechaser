@@ -6,5 +6,6 @@ from .civitai import CivitaiDataPool
 from .danbooru import DanbooruDataPool, DanbooruStableDataPool, DanbooruNewestDataPool
 from .fancaps import FancapsDataPool
 from .konachan import KonachanDataPool
+from .nhentai import NHentaiImagesDataPool, NHentaiMangaDataPool
 from .realbooru import RealbooruDataPool
 from .threedbooru import ThreedbooruDataPool

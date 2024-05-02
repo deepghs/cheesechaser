@@ -54,6 +54,7 @@ class DataPool:
                                     save_metainfo: bool = True, metainfo_fmt: str = '{resource_id}_metainfo.json'):
         pg_res = tqdm(resource_ids, desc='Batch Downloading')
         pg_downloaded = tqdm(desc='Files Downloaded')
+        os.makedirs(dst_dir, exist_ok=True)
 
         def _func(resource_id, resource_info):
             try:
@@ -63,8 +64,6 @@ class DataPool:
                         for file in files:
                             src_file = os.path.abspath(os.path.join(root, file))
                             dst_file = os.path.join(dst_dir, os.path.relpath(src_file, td))
-                            logging.warning(
-                                f'td: {td!r}, root: {root!r}, file: {file!r}, src: {src_file!r}, dst: {dst_file!r}')
                             if os.path.dirname(dst_file):
                                 os.makedirs(os.path.dirname(dst_file), exist_ok=True)
                             shutil.copyfile(src_file, dst_file)

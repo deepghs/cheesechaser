@@ -51,6 +51,23 @@ pool.batch_download_to_directory(
 )
 ```
 
+* Danbooru With Tags Query
+
+```python
+from cheesechaser.datapool import DanbooruNewestDataPool
+from cheesechaser.query import DanbooruIdQuery
+
+pool = DanbooruNewestDataPool()
+my_waifu_ids = DanbooruIdQuery(['surtr_(arknights)', 'solo'])
+
+# download danbooru images with surtr+solo, to directory /data/exp2_surtr
+pool.batch_download_to_directory(
+    resource_ids=my_waifu_ids,
+    dst_dir='/data/exp2_surtr',
+    max_workers=12,
+)
+```
+
 * Konachan
 
 ```python

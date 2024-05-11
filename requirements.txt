@@ -5,3 +5,5 @@ tqdm
 requests
 click>=7
 pillow
+httpx[http2]
+random_user_agent

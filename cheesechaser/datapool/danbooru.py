@@ -99,3 +99,27 @@ class DanbooruNewestDataPool(DataPool):
 
         if not found:
             raise ResourceNotFoundError(f'Resource {resource_id!r} not found.')
+
+
+_DEFAULT_WEBP_DATA_REPO_ID = 'KBlueLeaf/danbooru2023-webp-4Mpixel'
+_DEFAULT_WEBP_IDX_REPO_ID = 'deepghs/danbooru2023-webp-4Mpixel_index'
+
+
+class DanbooruWebpDataPool(_BaseDanbooruDataPool):
+    def __init__(self, data_revision: str = 'main', idx_revision: str = 'main'):
+        _BaseDanbooruDataPool.__init__(
+            self,
+            data_repo_id=_DEFAULT_WEBP_DATA_REPO_ID,
+            data_revision=data_revision,
+            idx_repo_id=_DEFAULT_WEBP_IDX_REPO_ID,
+            idx_revision=idx_revision,
+        )
+
+    def _request_possible_archives(self, resource_id) -> Iterable[str]:
+        modulo = f'{resource_id % 1000:03d}'
+        return [
+            f'images/data-0{modulo}.tar',
+            f'images/data-1{modulo}.tar',
+            *[file for file in self._get_update_files() if
+              fnmatch.fnmatch(os.path.basename(file), f'*-{resource_id % 10}.tar')]
+        ]

@@ -4,6 +4,7 @@ import os.path
 import shutil
 from contextlib import contextmanager
 from functools import lru_cache
+from threading import Lock
 from typing import ContextManager, Tuple, Any
 
 import pandas as pd
@@ -29,6 +30,8 @@ class NHentaiImagesDataPool(IncrementIDDataPool):
 
 
 class NHentaiMangaDataPool(DataPool):
+    __data_lock__ = Lock()
+
     def __init__(self, revision: str = 'main'):
         self.revision = revision
         self.images_pool = NHentaiImagesDataPool(revision=revision)
@@ -67,7 +70,8 @@ class NHentaiMangaDataPool(DataPool):
 
     @contextmanager
     def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
-        maps = self.manga_id_map(self.revision, local_files_prefer=True)
+        with self.__data_lock__:
+            maps = self.manga_id_map(self.revision, local_files_prefer=True)
         if resource_id not in maps:
             raise ResourceNotFoundError(f'Manga {resource_id!r} not found.')
 

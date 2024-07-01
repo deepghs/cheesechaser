@@ -123,3 +123,40 @@ class DanbooruWebpDataPool(_BaseDanbooruDataPool):
             *[file for file in self._get_update_files() if
               fnmatch.fnmatch(os.path.basename(file), f'*-{resource_id % 10}.tar')]
         ]
+
+
+_N_WEBP_RPEO_ID = 'deepghs/danbooru_newest-webp-4Mpixel'
+
+
+class _DanbooruNewestPartialWebpDataPool(IncrementIDDataPool):
+    def __init__(self, data_revision: str = 'main', idx_revision: str = 'main'):
+        IncrementIDDataPool.__init__(
+            self,
+            data_repo_id=_N_WEBP_RPEO_ID,
+            data_revision=data_revision,
+            idx_repo_id=_N_WEBP_RPEO_ID,
+            idx_revision=idx_revision,
+        )
+
+
+class DanbooruNewestWebpDataPool(DataPool):
+    def __init__(self):
+        self._old_pool = DanbooruWebpDataPool()
+        self._newest_pool = _DanbooruNewestPartialWebpDataPool()
+
+    @contextmanager
+    def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
+        pools = [self._old_pool, self._newest_pool]
+        found = False
+        for pool in pools:
+            try:
+                with pool.mock_resource(resource_id, resource_info) as (td, info):
+                    yield td, info
+            except ResourceNotFoundError:
+                pass
+            else:
+                found = True
+                break
+
+        if not found:
+            raise ResourceNotFoundError(f'Resource {resource_id!r} not found.')

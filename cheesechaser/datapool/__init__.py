@@ -6,6 +6,7 @@ from .civitai import CivitaiDataPool
 from .danbooru import DanbooruDataPool, DanbooruStableDataPool, DanbooruNewestDataPool, DanbooruWebpDataPool, \
     DanbooruNewestWebpDataPool
 from .fancaps import FancapsDataPool
+from .gelbooru import GelbooruDataPool, GelbooruWebpDataPool
 from .hentaicosplay import HentaiCosplayDataPool
 from .konachan import KonachanDataPool
 from .nhentai import NHentaiImagesDataPool, NHentaiMangaDataPool

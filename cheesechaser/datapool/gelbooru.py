@@ -1,6 +1,6 @@
 from .base import IncrementIDDataPool
 
-_GELBOORU_REPO = 'deepghs/bangumibase_full'
+_GELBOORU_REPO = 'deepghs/gelbooru_full'
 
 
 class GelbooruDataPool(IncrementIDDataPool):

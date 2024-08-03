@@ -18,7 +18,7 @@ class TestDatapoolZerochan:
 
             dir_compare('.', get_testfile('zerochan_5'))
 
-    def test_download_webp(self):
+    def test_zerochan_webp(self):
         with isolated_directory():
             pool = ZerochanWebpDataPool()
             # 175 not exist

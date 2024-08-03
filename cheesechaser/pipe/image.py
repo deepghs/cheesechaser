@@ -1,3 +1,28 @@
+"""
+This module provides image processing pipes for retrieving and handling image resources.
+
+It includes two main classes:
+1. SimpleImagePipe: For retrieving single image files.
+2. DataAttachedImagePipe: For retrieving image files along with associated JSON data.
+
+These pipes work with a resource pool to mock and access resources, and handle various
+scenarios such as missing files, multiple files, and attached data.
+
+The module also defines a DataAttachedImage dataclass to represent images with optional
+associated data.
+
+Usage:
+    from .image import SimpleImagePipe, DataAttachedImagePipe
+
+    # Create and use a SimpleImagePipe
+    simple_pipe = SimpleImagePipe(pool)
+    image = simple_pipe.retrieve(resource_id, resource_metainfo)
+
+    # Create and use a DataAttachedImagePipe
+    data_pipe = DataAttachedImagePipe(pool)
+    image_with_data = data_pipe.retrieve(resource_id, resource_metainfo)
+"""
+
 import json
 import mimetypes
 import os
@@ -12,7 +37,27 @@ from ..datapool import ResourceNotFoundError, InvalidResourceDataError
 
 
 class SimpleImagePipe(Pipe):
+    """
+    A pipe for retrieving single image files from a resource pool.
+
+    This pipe searches for image files in the given resource, opens the first
+    found image file, and returns it as a PIL Image object.
+
+    :raises ResourceNotFoundError: If no image file is found in the resource.
+    :raises InvalidResourceDataError: If multiple image files are found in the resource.
+    """
+
     def retrieve(self, resource_id, resource_metainfo):
+        """
+        Retrieve an image from the resource pool.
+
+        :param resource_id: The identifier of the resource to retrieve.
+        :param resource_metainfo: Metadata information about the resource.
+        :return: A PIL Image object of the retrieved image.
+        :rtype: PIL.Image.Image
+        :raises ResourceNotFoundError: If no image file is found.
+        :raises InvalidResourceDataError: If multiple image files are found.
+        """
         with self.pool.mock_resource(resource_id, resource_metainfo) as (td, resource_metainfo):
             files = os.listdir(td)
             image_files = []
@@ -34,12 +79,38 @@ class SimpleImagePipe(Pipe):
 
 @dataclass
 class DataAttachedImage:
+    """
+    A dataclass representing an image with optional attached data.
+
+    :param image: The PIL Image object.
+    :param data: Optional dictionary containing additional data associated with the image.
+    """
     image: Image.Image
     data: Optional[dict]
 
 
 class DataAttachedImagePipe(Pipe):
+    """
+    A pipe for retrieving image files along with associated JSON data from a resource pool.
+
+    This pipe searches for an image file and an optional JSON file in the given resource.
+    It returns a DataAttachedImage object containing the image and any associated data.
+
+    :raises ResourceNotFoundError: If no image file is found in the resource.
+    :raises InvalidResourceDataError: If multiple image files or JSON files are found in the resource.
+    """
+
     def retrieve(self, resource_id, resource_metainfo):
+        """
+        Retrieve an image and its associated data from the resource pool.
+
+        :param resource_id: The identifier of the resource to retrieve.
+        :param resource_metainfo: Metadata information about the resource.
+        :return: A DataAttachedImage object containing the image and any associated data.
+        :rtype: DataAttachedImage
+        :raises ResourceNotFoundError: If no image file is found.
+        :raises InvalidResourceDataError: If multiple image files or JSON files are found.
+        """
         with self.pool.mock_resource(resource_id, resource_metainfo) as (td, resource_metainfo):
             files = os.listdir(td)
             if len(files) == 0:

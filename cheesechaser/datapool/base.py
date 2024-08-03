@@ -2,6 +2,8 @@ import json
 import logging
 import os
 import shutil
+import threading
+from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from dataclasses import dataclass
@@ -102,6 +104,7 @@ class HfBasedDataPool(DataPool):
         self.idx_revision = idx_revision
 
         self._tar_infos = {}
+        self._tar_locks = defaultdict(threading.Lock)
 
     def _file_to_resource_id(self, tar_file: str, body: str):
         raise NotImplementedError
@@ -110,7 +113,9 @@ class HfBasedDataPool(DataPool):
         key = _n_path(tar_file)
         if force or key not in self._tar_infos:
             data = {}
-            for file in hf_tar_list_files(
+            token = (self.data_repo_id, self.data_revision, self.idx_repo_id, self.idx_revision, tar_file)
+            with self._tar_locks[token]:
+                all_files = hf_tar_list_files(
                     repo_id=self.data_repo_id,
                     repo_type='dataset',
                     archive_in_repo=tar_file,
@@ -119,7 +124,9 @@ class HfBasedDataPool(DataPool):
                     idx_repo_id=self.idx_repo_id,
                     idx_repo_type='dataset',
                     idx_revision=self.idx_revision,
-            ):
+                )
+
+            for file in all_files:
                 try:
                     resource_id = self._file_to_resource_id(tar_file, file)
                 except FileUnrecognizableError:

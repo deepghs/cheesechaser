@@ -17,7 +17,22 @@ class GelbooruIdQuery(_BaseWebQuery):
         self._length = None
 
     def _get_session(self) -> Union[httpx.Client, requests.Session]:
-        return get_requests_session()
+        while True:
+            session = get_requests_session(use_httpx=False)
+
+            logging.info(f'Try initializing session for danbooru API, '
+                         f'user agent: {session.headers["User-Agent"]!r}.')
+            resp = srequest(session, 'GET', f'{self.site_url}/index.php', params={
+                'page': 'dapi',
+                's': 'post',
+                'q': 'index',
+                'tags': ' '.join(self.tags),
+                'json': '1',
+                'limit': '100',
+                'pid': str(0),
+            }, raise_for_status=False)
+            if resp.status_code // 100 == 2:
+                return session
 
     def _request(self, page: int):
         logging.info(f'Query gelbooru API for {self.tags!r}, page: {page!r}.')

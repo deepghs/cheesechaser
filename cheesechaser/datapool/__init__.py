@@ -12,4 +12,5 @@ from .konachan import KonachanDataPool
 from .nhentai import NHentaiImagesDataPool, NHentaiMangaDataPool
 from .realbooru import RealbooruDataPool
 from .threedbooru import ThreedbooruDataPool
+from .yande import YandeDataPool
 from .zerochan import ZerochanWebpDataPool, ZerochanDataPool

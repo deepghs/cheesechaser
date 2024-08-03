@@ -64,7 +64,7 @@ class Pipe:
         self.pool = pool
 
     def retrieve(self, resource_id, resource_metainfo):
-        raise NotImplementedError
+        raise NotImplementedError  # pragma: no cover
 
     def batch_retrieve(self, resource_ids, max_workers: int = 12) -> PipeSession:
         pg = tqdm(resource_ids, desc='Batch Retrieving')

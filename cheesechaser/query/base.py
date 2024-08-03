@@ -14,13 +14,13 @@ class _BaseWebQuery:
         self._filters = list(filters or [])
 
     def _get_session(self) -> Union[httpx.Client, requests.Session]:
-        raise NotImplementedError
+        raise NotImplementedError  # pragma: no cover
 
     def _iter_items(self) -> Iterator[Any]:
-        raise NotImplementedError
+        raise NotImplementedError  # pragma: no cover
 
     def _get_length(self) -> Optional[int]:
-        raise NotImplementedError
+        raise NotImplementedError  # pragma: no cover
 
     def _get_id_from_item(self, item) -> int:
         return item['id']

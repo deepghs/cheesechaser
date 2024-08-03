@@ -48,7 +48,7 @@ class FileUnrecognizableError(Exception):
 class DataPool:
     @contextmanager
     def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
-        raise NotImplementedError
+        raise NotImplementedError  # pragma: no cover
 
     def batch_download_to_directory(self, resource_ids, dst_dir: str, max_workers: int = 12,
                                     save_metainfo: bool = True, metainfo_fmt: str = '{resource_id}_metainfo.json'):
@@ -107,7 +107,7 @@ class HfBasedDataPool(DataPool):
         self._tar_locks = defaultdict(threading.Lock)
 
     def _file_to_resource_id(self, tar_file: str, body: str):
-        raise NotImplementedError
+        raise NotImplementedError  # pragma: no cover
 
     def _make_tar_info(self, tar_file: str, force: bool = False):
         key = _n_path(tar_file)
@@ -139,7 +139,7 @@ class HfBasedDataPool(DataPool):
         return self._tar_infos[key]
 
     def _request_possible_archives(self, resource_id) -> List[str]:
-        raise NotImplementedError
+        raise NotImplementedError  # pragma: no cover
 
     def _request_resource_by_id(self, resource_id) -> List[DataLocation]:
         for archive_file in self._request_possible_archives(resource_id):

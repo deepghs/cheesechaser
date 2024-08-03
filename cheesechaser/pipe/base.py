@@ -90,7 +90,7 @@ class Pipe:
                 finally:
                     pg.update()
             except Exception as err:
-                logging.error(f'Error occurred when retrieving resource {resource_id!r} - {err!r}')
+                logging.exception(f'Error occurred when retrieving resource {resource_id!r} - {err!r}')
                 error = err
 
             try:
@@ -119,7 +119,7 @@ class Pipe:
                     else:
                         break
             except Exception as err:
-                logging.error(f'Error occurred when queuing resource {resource_id!r} - {err!r}')
+                logging.exception(f'Error occurred when queuing resource {resource_id!r} - {err!r}')
                 return
 
         def _productor():

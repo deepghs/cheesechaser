@@ -4,6 +4,7 @@ from contextlib import contextmanager
 from typing import Iterable, ContextManager, Tuple, Any
 
 from hfutils.operate.base import get_hf_fs
+from hfutils.utils import parse_hf_fs_path, hf_fs_path
 from natsort import natsorted
 
 from .base import DataPool, ResourceNotFoundError, IncrementIDDataPool
@@ -28,8 +29,13 @@ class _BaseDanbooruDataPool(IncrementIDDataPool):
         if self._update_files is None:
             hf_fs = get_hf_fs()
             self._update_files = natsorted([
-                os.path.relpath(file, f'datasets/{self.data_repo_id}')
-                for file in hf_fs.glob(f'datasets/{self.data_repo_id}/updates/**/*.tar')
+                parse_hf_fs_path(file).filename
+                for file in hf_fs.glob(hf_fs_path(
+                    repo_id=self.data_repo_id,
+                    repo_type='dataset',
+                    filename='updates/**/*.tar',
+                    revision=self.data_revision,
+                ))
             ])
 
         return self._update_files

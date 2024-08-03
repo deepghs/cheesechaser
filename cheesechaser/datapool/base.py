@@ -77,7 +77,7 @@ class DataPool:
             except ResourceNotFoundError:
                 logging.warning(f'Resource {resource_id!r} not found, skipped.')
             except Exception as err:
-                logging.error(f'Error occurred when downloading resource {resource_id!r} - {err!r}')
+                logging.exception(f'Error occurred when downloading resource {resource_id!r} - {err!r}')
             finally:
                 pg_res.update()
 

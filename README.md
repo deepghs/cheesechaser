@@ -20,19 +20,32 @@
 
 Swiftly get tons of images from indexed tars on Huggingface
 
-(Still WIP ...)
-
 ## Installation
 
 ```shell
-git clone https://github.com/deepghs/cheesechaser.git
-cd cheesechaser
-pip install -r requirements.txt
+pip install cheesechaser
 ```
 
 ## How this library works
 
 This library is based on the mirror datasets on huggingface.
+
+For the Gelbooru mirror dataset repository, such
+as [deepghs/gelbooru_full](https://huggingface.co/datasets/deepghs/gelbooru_full), each data packet includes a tar
+archive file and a corresponding JSON index file. The JSON index file contains detailed information about the files
+within the tar archive, including file size, offset, and file fingerprint.
+
+The files in this dataset repository are organized according to a fixed pattern based on their IDs. For example, a file
+with the ID 114514 will have a modulus result of 4514 when divided by 10000. Consequently, it is stored
+in `images/4/0514.tar`.
+
+Utilizing the quick download feature
+from [hfutils.index](https://deepghs.github.io/hfutils/main/api_doc/index/index.html), users can instantly access
+individual files. Since the download service is provided through Huggingface's LFS service and not the original website
+or an image CDN, there is no risk of IP or account blocking. **The only limitations to your download speed are your
+network bandwidth and disk read/write speeds.**
+
+This efficient system ensures a seamless and reliable access to the dataset without any restrictions.
 
 ## Batch Download Images
 
@@ -106,6 +119,11 @@ More supported:
 * `FancapsDataPool`
 * `BangumiBaseDataPool`
 * `AnimePicturesDataPool`
+* `KonachanDataPool`
+* `YandeDataPool`
+* `ZerochanDataPool`
+* `GelbooruDataPool` and `GelbooruWebpDataPool`
+* `DanbooruNewestDataPool` and `DanbooruNewestWebpDataPool`
 
 ## Batch Retrieving Images
 

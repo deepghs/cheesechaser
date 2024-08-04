@@ -124,7 +124,7 @@ class DataPool:
         This method downloads a batch of resources to a specified directory, optionally saving metadata for each resource.
 
         :param resource_ids: List of resource IDs or tuples of (resource_id, resource_info) to download.
-        :type resource_ids: List[Union[str, Tuple[str, Any]]]
+        :type resource_ids: Iterable[Union[str, Tuple[str, Any]]]
         :param dst_dir: Destination directory for downloaded files.
         :type dst_dir: str
         :param max_workers: Maximum number of worker threads for parallel downloads.

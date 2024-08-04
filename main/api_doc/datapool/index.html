@@ -24,7 +24,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="cheesechaser.datapool.base" href="base.html" />
+    <link rel="next" title="cheesechaser.datapool.anime_pictures" href="anime_pictures.html" />
     <link rel="prev" title="cheesechaser.config.meta" href="../config/meta.html" /> 
 </head>
 
@@ -63,7 +63,20 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../config/index.html">cheesechaser.config</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">cheesechaser.datapool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="anime_pictures.html">cheesechaser.datapool.anime_pictures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bangumibase.html">cheesechaser.datapool.bangumibase</a></li>
 <li class="toctree-l2"><a class="reference internal" href="base.html">cheesechaser.datapool.base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="civitai.html">cheesechaser.datapool.civitai</a></li>
+<li class="toctree-l2"><a class="reference internal" href="danbooru.html">cheesechaser.datapool.danbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fancaps.html">cheesechaser.datapool.fancaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gelbooru.html">cheesechaser.datapool.gelbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hentaicosplay.html">cheesechaser.datapool.hentaicosplay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="konachan.html">cheesechaser.datapool.konachan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nhentai.html">cheesechaser.datapool.nhentai</a></li>
+<li class="toctree-l2"><a class="reference internal" href="realbooru.html">cheesechaser.datapool.realbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threedbooru.html">cheesechaser.datapool.threedbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yande.html">cheesechaser.datapool.yande</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zerochan.html">cheesechaser.datapool.zerochan</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../utils/index.html">cheesechaser.utils</a></li>
@@ -99,6 +112,20 @@
 <span id="cheesechaser-datapool"></span><h1>cheesechaser.datapool<a class="headerlink" href="#module-cheesechaser.datapool" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="anime_pictures.html">cheesechaser.datapool.anime_pictures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="anime_pictures.html#animepicturesdatapool">AnimePicturesDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="anime_pictures.html#cheesechaser.datapool.anime_pictures.AnimePicturesDataPool"><code class="docutils literal notranslate"><span class="pre">AnimePicturesDataPool</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bangumibase.html">cheesechaser.datapool.bangumibase</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bangumibase.html#bangumibasedatapool">BangumiBaseDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bangumibase.html#cheesechaser.datapool.bangumibase.BangumiBaseDataPool"><code class="docutils literal notranslate"><span class="pre">BangumiBaseDataPool</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">cheesechaser.datapool.base</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="base.html#datalocation">DataLocation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="base.html#cheesechaser.datapool.base.DataLocation"><code class="docutils literal notranslate"><span class="pre">DataLocation</span></code></a></li>
@@ -116,16 +143,121 @@
 <li class="toctree-l3"><a class="reference internal" href="base.html#cheesechaser.datapool.base.IncrementIDDataPool"><code class="docutils literal notranslate"><span class="pre">IncrementIDDataPool</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="base.html#resourcenotfounderror">ResourceNotFoundError</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="base.html#cheesechaser.datapool.base.ResourceNotFoundError"><code class="docutils literal notranslate"><span class="pre">ResourceNotFoundError</span></code></a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="base.html#invalidresourcedataerror">InvalidResourceDataError</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="base.html#cheesechaser.datapool.base.InvalidResourceDataError"><code class="docutils literal notranslate"><span class="pre">InvalidResourceDataError</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="base.html#fileunrecognizableerror">FileUnrecognizableError</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="base.html#cheesechaser.datapool.base.FileUnrecognizableError"><code class="docutils literal notranslate"><span class="pre">FileUnrecognizableError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#resourcenotfounderror">ResourceNotFoundError</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="base.html#cheesechaser.datapool.base.ResourceNotFoundError"><code class="docutils literal notranslate"><span class="pre">ResourceNotFoundError</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="civitai.html">cheesechaser.datapool.civitai</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="civitai.html#civitaidatapool">CivitaiDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="civitai.html#cheesechaser.datapool.civitai.CivitaiDataPool"><code class="docutils literal notranslate"><span class="pre">CivitaiDataPool</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="danbooru.html">cheesechaser.datapool.danbooru</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="danbooru.html#danboorudatapool">DanbooruDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="danbooru.html#cheesechaser.datapool.danbooru.DanbooruDataPool"><code class="docutils literal notranslate"><span class="pre">DanbooruDataPool</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="danbooru.html#danboorustabledatapool">DanbooruStableDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="danbooru.html#cheesechaser.datapool.danbooru.DanbooruStableDataPool"><code class="docutils literal notranslate"><span class="pre">DanbooruStableDataPool</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="danbooru.html#danboorunewestdatapool">DanbooruNewestDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestDataPool"><code class="docutils literal notranslate"><span class="pre">DanbooruNewestDataPool</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="danbooru.html#danbooruwebpdatapool">DanbooruWebpDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="danbooru.html#cheesechaser.datapool.danbooru.DanbooruWebpDataPool"><code class="docutils literal notranslate"><span class="pre">DanbooruWebpDataPool</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="danbooru.html#danboorunewestwebpdatapool">DanbooruNewestWebpDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool"><code class="docutils literal notranslate"><span class="pre">DanbooruNewestWebpDataPool</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fancaps.html">cheesechaser.datapool.fancaps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fancaps.html#fancapsdatapool">FancapsDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fancaps.html#cheesechaser.datapool.fancaps.FancapsDataPool"><code class="docutils literal notranslate"><span class="pre">FancapsDataPool</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gelbooru.html">cheesechaser.datapool.gelbooru</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gelbooru.html#gelboorudatapool">GelbooruDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gelbooru.html#cheesechaser.datapool.gelbooru.GelbooruDataPool"><code class="docutils literal notranslate"><span class="pre">GelbooruDataPool</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gelbooru.html#gelbooruwebpdatapool">GelbooruWebpDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gelbooru.html#cheesechaser.datapool.gelbooru.GelbooruWebpDataPool"><code class="docutils literal notranslate"><span class="pre">GelbooruWebpDataPool</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hentaicosplay.html">cheesechaser.datapool.hentaicosplay</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hentaicosplay.html#hentaicosplaydatapool">HentaiCosplayDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hentaicosplay.html#cheesechaser.datapool.hentaicosplay.HentaiCosplayDataPool"><code class="docutils literal notranslate"><span class="pre">HentaiCosplayDataPool</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="konachan.html">cheesechaser.datapool.konachan</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="konachan.html#konachandatapool">KonachanDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="konachan.html#cheesechaser.datapool.konachan.KonachanDataPool"><code class="docutils literal notranslate"><span class="pre">KonachanDataPool</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nhentai.html">cheesechaser.datapool.nhentai</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nhentai.html#nhentaiimagesdatapool">NHentaiImagesDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nhentai.html#cheesechaser.datapool.nhentai.NHentaiImagesDataPool"><code class="docutils literal notranslate"><span class="pre">NHentaiImagesDataPool</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nhentai.html#nhentaimangadatapool">NHentaiMangaDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nhentai.html#cheesechaser.datapool.nhentai.NHentaiMangaDataPool"><code class="docutils literal notranslate"><span class="pre">NHentaiMangaDataPool</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="realbooru.html">cheesechaser.datapool.realbooru</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="realbooru.html#realboorudatapool">RealbooruDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="realbooru.html#cheesechaser.datapool.realbooru.RealbooruDataPool"><code class="docutils literal notranslate"><span class="pre">RealbooruDataPool</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="threedbooru.html">cheesechaser.datapool.threedbooru</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="threedbooru.html#threedboorudatapool">ThreedbooruDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="threedbooru.html#cheesechaser.datapool.threedbooru.ThreedbooruDataPool"><code class="docutils literal notranslate"><span class="pre">ThreedbooruDataPool</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="yande.html">cheesechaser.datapool.yande</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="yande.html#yandedatapool">YandeDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="yande.html#cheesechaser.datapool.yande.YandeDataPool"><code class="docutils literal notranslate"><span class="pre">YandeDataPool</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="zerochan.html">cheesechaser.datapool.zerochan</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="zerochan.html#zerochanwebpdatapool">ZerochanWebpDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="zerochan.html#cheesechaser.datapool.zerochan.ZerochanWebpDataPool"><code class="docutils literal notranslate"><span class="pre">ZerochanWebpDataPool</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zerochan.html#zerochandatapool">ZerochanDataPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="zerochan.html#cheesechaser.datapool.zerochan.ZerochanDataPool"><code class="docutils literal notranslate"><span class="pre">ZerochanDataPool</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -140,7 +272,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../config/meta.html" class="btn btn-neutral float-left" title="cheesechaser.config.meta" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="base.html" class="btn btn-neutral float-right" title="cheesechaser.datapool.base" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="anime_pictures.html" class="btn btn-neutral float-right" title="cheesechaser.datapool.anime_pictures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

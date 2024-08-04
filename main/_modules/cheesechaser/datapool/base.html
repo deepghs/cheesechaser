@@ -218,7 +218,7 @@
 <span class="sd">        This method downloads a batch of resources to a specified directory, optionally saving metadata for each resource.</span>
 
 <span class="sd">        :param resource_ids: List of resource IDs or tuples of (resource_id, resource_info) to download.</span>
-<span class="sd">        :type resource_ids: List[Union[str, Tuple[str, Any]]]</span>
+<span class="sd">        :type resource_ids: Iterable[Union[str, Tuple[str, Any]]]</span>
 <span class="sd">        :param dst_dir: Destination directory for downloaded files.</span>
 <span class="sd">        :type dst_dir: str</span>
 <span class="sd">        :param max_workers: Maximum number of worker threads for parallel downloads.</span>

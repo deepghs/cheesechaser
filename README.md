@@ -81,7 +81,7 @@ pool.batch_download_to_directory(
 )
 ```
 
-* Konachan
+* Konachan (Gated dataset, you should be granted first and set `HF_TOKEN` environment variable)
 
 ```python
 from cheesechaser.datapool import KonachanDataPool
@@ -114,15 +114,15 @@ pool.batch_download_to_directory(
 
 More supported:
 
-* `RealbooruDataPool`
-* `ThreedbooruDataPool`
-* `FancapsDataPool`
-* `BangumiBaseDataPool`
-* `AnimePicturesDataPool`
-* `KonachanDataPool`
-* `YandeDataPool`
-* `ZerochanDataPool`
-* `GelbooruDataPool` and `GelbooruWebpDataPool`
+* `RealbooruDataPool` (Gated Dataset)
+* `ThreedbooruDataPool` (Gated Dataset)
+* `FancapsDataPool` (Gated Dataset)
+* `BangumiBaseDataPool` (Gated Dataset)
+* `AnimePicturesDataPool` (Gated Dataset)
+* `KonachanDataPool` (Gated Dataset)
+* `YandeDataPool` (Gated Dataset)
+* `ZerochanDataPool` (Gated Dataset)
+* `GelbooruDataPool` and `GelbooruWebpDataPool` (Gated Dataset)
 * `DanbooruNewestDataPool` and `DanbooruNewestWebpDataPool`
 
 ## Batch Retrieving Images

@@ -1,3 +1,15 @@
+"""
+This module provides data pool classes for managing and accessing NHentai manga and image data.
+
+The module includes two main classes:
+
+1. NHentaiImagesDataPool: A data pool for managing NHentai images.
+2. NHentaiMangaDataPool: A data pool for managing NHentai manga data, including image associations.
+
+These classes provide functionality for retrieving manga information, downloading images,
+and managing resources from a Hugging Face dataset repository.
+"""
+
 import json
 import logging
 import os.path
@@ -18,7 +30,23 @@ _DATA_REPO = 'deepghs/nhentai_full'
 
 
 class NHentaiImagesDataPool(IncrementIDDataPool):
+    """
+    A data pool class for managing NHentai images.
+
+    This class extends the IncrementIDDataPool to provide specific functionality
+    for handling NHentai image data.
+
+    :param revision: The revision of the data to use, defaults to 'main'.
+    :type revision: str
+    """
+
     def __init__(self, revision: str = 'main'):
+        """
+        Initialize the NHentaiImagesDataPool.
+
+        :param revision: The revision of the data to use, defaults to 'main'.
+        :type revision: str
+        """
         IncrementIDDataPool.__init__(
             self,
             data_repo_id=_DATA_REPO,
@@ -30,15 +58,43 @@ class NHentaiImagesDataPool(IncrementIDDataPool):
 
 
 class NHentaiMangaDataPool(DataPool):
+    """
+    A data pool class for managing NHentai manga data.
+
+    This class provides methods for retrieving manga information, downloading associated images,
+    and managing manga resources.
+
+    :param revision: The revision of the data to use, defaults to 'main'.
+    :type revision: str
+    """
+
     __data_lock__ = Lock()
 
     def __init__(self, revision: str = 'main'):
+        """
+        Initialize the NHentaiMangaDataPool.
+
+        :param revision: The revision of the data to use, defaults to 'main'.
+        :type revision: str
+        """
         self.revision = revision
         self.images_pool = NHentaiImagesDataPool(revision=revision)
 
     @classmethod
     @lru_cache()
     def manga_id_map(cls, revision: str = 'main', local_files_prefer: bool = True):
+        """
+        Get a mapping of manga IDs to their associated image IDs.
+
+        This method is cached for efficiency.
+
+        :param revision: The revision of the data to use, defaults to 'main'.
+        :type revision: str
+        :param local_files_prefer: Whether to prefer local files, defaults to True.
+        :type local_files_prefer: bool
+        :return: A dictionary mapping manga IDs to lists of image IDs.
+        :rtype: dict
+        """
         df = cls.manga_posts_table(revision, local_files_prefer)
         return {
             item['id']: json.loads(item['image_ids'])
@@ -48,6 +104,18 @@ class NHentaiMangaDataPool(DataPool):
     @classmethod
     @lru_cache()
     def manga_posts_table(cls, revision: str = 'main', local_files_prefer: bool = True):
+        """
+        Retrieve the manga posts table as a pandas DataFrame.
+
+        This method is cached for efficiency.
+
+        :param revision: The revision of the data to use, defaults to 'main'.
+        :type revision: str
+        :param local_files_prefer: Whether to prefer local files, defaults to True.
+        :type local_files_prefer: bool
+        :return: A pandas DataFrame containing manga post information.
+        :rtype: pandas.DataFrame
+        """
         client = get_hf_client()
         try:
             csv_file = client.hf_hub_download(
@@ -70,6 +138,20 @@ class NHentaiMangaDataPool(DataPool):
 
     @contextmanager
     def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
+        """
+        Create a mock resource for a given manga.
+
+        This method downloads the associated images for a manga and organizes them
+        in a temporary directory.
+
+        :param resource_id: The ID of the manga resource.
+        :type resource_id: int
+        :param resource_info: Additional information about the resource.
+        :type resource_info: Any
+        :yield: A tuple containing the path to the temporary directory with the images and the resource info.
+        :rtype: Tuple[str, Any]
+        :raises ResourceNotFoundError: If the specified manga resource is not found.
+        """
         with self.__data_lock__:
             maps = self.manga_id_map(self.revision, local_files_prefer=True)
         if resource_id not in maps:

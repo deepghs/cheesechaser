@@ -6,10 +6,11 @@ The pipeline allows for concurrent retrieval of resources using a thread pool an
 a convenient interface for iterating over retrieved items.
 
 Key components:
-- PipeItem: Represents a successfully retrieved resource.
-- PipeError: Represents an error that occurred during resource retrieval.
-- PipeSession: Manages the pipeline session, including item iteration and shutdown.
-- Pipe: The main pipeline class for retrieving resources from a data pool.
+
+- ``PipeItem``: Represents a successfully retrieved resource.
+- ``PipeError``: Represents an error that occurred during resource retrieval.
+- ``PipeSession``: Manages the pipeline session, including item iteration and shutdown.
+- ``Pipe``: The main pipeline class for retrieving resources from a data pool.
 
 This module is designed to work with large datasets and provides error handling and
 progress tracking capabilities.

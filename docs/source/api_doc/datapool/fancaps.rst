@@ -10,7 +10,7 @@ FancapsDataPool
 -----------------------------------------------------
 
 .. autoclass:: FancapsDataPool
-        :members: __module__,__init__,__doc__
+    :members: __module__,__init__,__doc__
 
 
 

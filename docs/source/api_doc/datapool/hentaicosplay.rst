@@ -10,7 +10,7 @@ HentaiCosplayDataPool
 -----------------------------------------------------
 
 .. autoclass:: HentaiCosplayDataPool
-        :members: __module__,__init__,__doc__
+    :members: __module__,__init__,__doc__
 
 
 

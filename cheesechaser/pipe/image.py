@@ -2,8 +2,9 @@
 This module provides image processing pipes for retrieving and handling image resources.
 
 It includes two main classes:
-1. SimpleImagePipe: For retrieving single image files.
-2. DataAttachedImagePipe: For retrieving image files along with associated JSON data.
+
+1. ``SimpleImagePipe``: For retrieving single image files.
+2. ``DataAttachedImagePipe``: For retrieving image files along with associated JSON data.
 
 These pipes work with a resource pool to mock and access resources, and handle various
 scenarios such as missing files, multiple files, and attached data.
@@ -12,15 +13,15 @@ The module also defines a DataAttachedImage dataclass to represent images with o
 associated data.
 
 Usage:
-    from .image import SimpleImagePipe, DataAttachedImagePipe
-
-    # Create and use a SimpleImagePipe
-    simple_pipe = SimpleImagePipe(pool)
-    image = simple_pipe.retrieve(resource_id, resource_metainfo)
-
-    # Create and use a DataAttachedImagePipe
-    data_pipe = DataAttachedImagePipe(pool)
-    image_with_data = data_pipe.retrieve(resource_id, resource_metainfo)
+    >>> from cheesechaser.pipe import SimpleImagePipe, DataAttachedImagePipe
+    >>>
+    >>> # Create and use a SimpleImagePipe
+    >>> simple_pipe = SimpleImagePipe(pool)
+    >>> image = simple_pipe.retrieve(resource_id, resource_metainfo)
+    >>>
+    >>> # Create and use a DataAttachedImagePipe
+    >>> data_pipe = DataAttachedImagePipe(pool)
+    >>> image_with_data = data_pipe.retrieve(resource_id, resource_metainfo)
 """
 
 import json

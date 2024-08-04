@@ -29,6 +29,8 @@ Overview
 
     api_doc/config/index
     api_doc/datapool/index
+    api_doc/pipe/index
+    api_doc/query/index
     api_doc/utils/index
 
 .. toctree::

@@ -1,10 +1,8 @@
 from .anime_pictures import AnimePicturesDataPool
 from .bangumibase import BangumiBaseDataPool
-from .base import DataLocation, InvalidResourceDataError, FileUnrecognizableError, HfBasedDataPool, \
-    IncrementIDDataPool, ResourceNotFoundError, DataPool
+from .base import DataLocation, DataPool, HfBasedDataPool, IncrementIDDataPool, InvalidResourceDataError, FileUnrecognizableError, ResourceNotFoundError
 from .civitai import CivitaiDataPool
-from .danbooru import DanbooruDataPool, DanbooruStableDataPool, DanbooruNewestDataPool, DanbooruWebpDataPool, \
-    DanbooruNewestWebpDataPool
+from .danbooru import DanbooruDataPool, DanbooruStableDataPool, DanbooruNewestDataPool, DanbooruWebpDataPool, DanbooruNewestWebpDataPool
 from .fancaps import FancapsDataPool
 from .gelbooru import GelbooruDataPool, GelbooruWebpDataPool
 from .hentaicosplay import HentaiCosplayDataPool

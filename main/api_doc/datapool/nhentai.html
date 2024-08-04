@@ -121,20 +121,37 @@
     
   <section id="module-cheesechaser.datapool.nhentai">
 <span id="cheesechaser-datapool-nhentai"></span><h1>cheesechaser.datapool.nhentai<a class="headerlink" href="#module-cheesechaser.datapool.nhentai" title="Permalink to this heading"></a></h1>
+<p>This module provides data pool classes for managing and accessing NHentai manga and image data.</p>
+<p>The module includes two main classes:</p>
+<ol class="arabic simple">
+<li><p>NHentaiImagesDataPool: A data pool for managing NHentai images.</p></li>
+<li><p>NHentaiMangaDataPool: A data pool for managing NHentai manga data, including image associations.</p></li>
+</ol>
+<p>These classes provide functionality for retrieving manga information, downloading images,
+and managing resources from a Hugging Face dataset repository.</p>
 <section id="nhentaiimagesdatapool">
 <h2>NHentaiImagesDataPool<a class="headerlink" href="#nhentaiimagesdatapool" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.nhentai.NHentaiImagesDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.nhentai.</span></span><span class="sig-name descname"><span class="pre">NHentaiImagesDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/nhentai.html#NHentaiImagesDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.nhentai.NHentaiImagesDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.nhentai.NHentaiImagesDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.nhentai.NHentaiImagesDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>A data pool class for managing NHentai images.</p>
+<p>This class extends the IncrementIDDataPool to provide specific functionality
+for handling NHentai image data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.nhentai.NHentaiImagesDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/nhentai.html#NHentaiImagesDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.nhentai.NHentaiImagesDataPool.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initialize the NHentaiImagesDataPool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -144,34 +161,88 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.nhentai.NHentaiMangaDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.nhentai.</span></span><span class="sig-name descname"><span class="pre">NHentaiMangaDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/nhentai.html#NHentaiMangaDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.nhentai.NHentaiMangaDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.nhentai.NHentaiMangaDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.nhentai.NHentaiMangaDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>A data pool class for managing NHentai manga data.</p>
+<p>This class provides methods for retrieving manga information, downloading associated images,
+and managing manga resources.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.nhentai.NHentaiMangaDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/nhentai.html#NHentaiMangaDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.nhentai.NHentaiMangaDataPool.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initialize the NHentaiMangaDataPool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cheesechaser.datapool.nhentai.NHentaiMangaDataPool.manga_id_map">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">manga_id_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_files_prefer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/nhentai.html#NHentaiMangaDataPool.manga_id_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.nhentai.NHentaiMangaDataPool.manga_id_map" title="Permalink to this definition"></a></dt>
+<dd><p>Get a mapping of manga IDs to their associated image IDs.</p>
+<p>This method is cached for efficiency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p></li>
+<li><p><strong>local_files_prefer</strong> (<em>bool</em>) – Whether to prefer local files, defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary mapping manga IDs to lists of image IDs.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cheesechaser.datapool.nhentai.NHentaiMangaDataPool.manga_posts_table">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">manga_posts_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_files_prefer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/nhentai.html#NHentaiMangaDataPool.manga_posts_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.nhentai.NHentaiMangaDataPool.manga_posts_table" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve the manga posts table as a pandas DataFrame.</p>
+<p>This method is cached for efficiency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p></li>
+<li><p><strong>local_files_prefer</strong> (<em>bool</em>) – Whether to prefer local files, defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A pandas DataFrame containing manga post information.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.nhentai.NHentaiMangaDataPool.mock_resource">
 <span class="sig-name descname"><span class="pre">mock_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AbstractContextManager</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/nhentai.html#NHentaiMangaDataPool.mock_resource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.nhentai.NHentaiMangaDataPool.mock_resource" title="Permalink to this definition"></a></dt>
-<dd><p>Context manager to mock a resource.</p>
-<p>This method should be implemented by subclasses to provide a way to temporarily
-access a resource.</p>
+<dd><p>Create a mock resource for a given manga.</p>
+<p>This method downloads the associated images for a manga and organizes them
+in a temporary directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>resource_id</strong> – The ID of the resource to mock.</p></li>
-<li><p><strong>resource_info</strong> – Additional information about the resource.</p></li>
+<li><p><strong>resource_id</strong> (<em>int</em>) – The ID of the manga resource.</p></li>
+<li><p><strong>resource_info</strong> (<em>Any</em>) – Additional information about the resource.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A tuple containing the path to the mocked resource and its info.</p>
+<dt class="field-even">Yield<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the path to the temporary directory with the images and the resource info.</p>
 </dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>NotImplementedError</strong> – If not implemented by a subclass.</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[str, Any]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="base.html#cheesechaser.datapool.base.ResourceNotFoundError" title="cheesechaser.datapool.base.ResourceNotFoundError"><strong>ResourceNotFoundError</strong></a> – If the specified manga resource is not found.</p>
 </dd>
 </dl>
 </dd></dl>

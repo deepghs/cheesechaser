@@ -117,20 +117,46 @@
     
   <section id="module-cheesechaser.datapool.fancaps">
 <span id="cheesechaser-datapool-fancaps"></span><h1>cheesechaser.datapool.fancaps<a class="headerlink" href="#module-cheesechaser.datapool.fancaps" title="Permalink to this heading"></a></h1>
+<p>This module provides a data pool implementation for the Fancaps dataset.</p>
+<p>It includes a class <cite>FancapsDataPool</cite> which extends the <cite>IncrementIDDataPool</cite> base class.
+The module is designed to facilitate access to the Fancaps dataset, which is hosted on
+the Hugging Face Hub.</p>
+<p>The constant <cite>_FANCAPS_REPO</cite> defines the repository ID for the Fancaps dataset.</p>
 <section id="fancapsdatapool">
 <h2>FancapsDataPool<a class="headerlink" href="#fancapsdatapool" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.fancaps.FancapsDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.fancaps.</span></span><span class="sig-name descname"><span class="pre">FancapsDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/fancaps.html#FancapsDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.fancaps.FancapsDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.fancaps.FancapsDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.fancaps.FancapsDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>A data pool class for accessing and managing the Fancaps dataset.</p>
+<p>This class extends the <cite>IncrementIDDataPool</cite> base class and is specifically
+tailored for the Fancaps dataset. It provides an interface to access the
+dataset stored in the Hugging Face repository.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the dataset to use, defaults to ‘main’.</p>
+</dd>
+</dl>
+<dl>
+<dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fancaps_pool</span> <span class="o">=</span> <span class="n">FancapsDataPool</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Fancaps dataset is stored in the repository defined by <cite>_FANCAPS_REPO</cite>.
+Both the data and index are stored in the same repository.</p>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.fancaps.FancapsDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/fancaps.html#FancapsDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.fancaps.FancapsDataPool.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initialize the FancapsDataPool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the dataset to use, defaults to ‘main’.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

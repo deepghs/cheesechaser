@@ -90,13 +90,44 @@
     
     
   <h1>Source code for cheesechaser.datapool.yande</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides a data pool implementation for Yande image data.</span>
+
+<span class="sd">It extends the IncrementIDDataPool class to specifically handle Yande image data,</span>
+<span class="sd">utilizing a predefined Hugging Face repository for data storage and indexing.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
 
 <span class="n">_YANDE_REPO</span> <span class="o">=</span> <span class="s1">&#39;deepghs/yande_full&#39;</span>
 
 
 <div class="viewcode-block" id="YandeDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/yande.html#cheesechaser.datapool.yande.YandeDataPool">[docs]</a><span class="k">class</span> <span class="nc">YandeDataPool</span><span class="p">(</span><span class="n">IncrementIDDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A data pool class for managing Yande image data.</span>
+
+<span class="sd">    This class extends IncrementIDDataPool to provide a specialized implementation</span>
+<span class="sd">    for handling Yande image data. It uses a predefined Hugging Face repository</span>
+<span class="sd">    for both data storage and indexing.</span>
+
+<span class="sd">    :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
+<span class="sd">    :type revision: str</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        &gt;&gt;&gt; yande_pool = YandeDataPool()</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        This class assumes that both data and index information are stored</span>
+<span class="sd">        in the same repository (_YANDE_REPO).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="YandeDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/yande.html#cheesechaser.datapool.yande.YandeDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the YandeDataPool.</span>
+
+<span class="sd">        :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
+<span class="sd">        :type revision: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">data_repo_id</span><span class="o">=</span><span class="n">_YANDE_REPO</span><span class="p">,</span>

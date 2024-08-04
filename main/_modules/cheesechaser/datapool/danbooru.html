@@ -90,7 +90,26 @@
     
     
   <h1>Source code for cheesechaser.datapool.danbooru</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">fnmatch</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides data pool classes for managing and accessing Danbooru image datasets.</span>
+
+<span class="sd">It includes classes for handling both original and WebP versions of Danbooru images,</span>
+<span class="sd">as well as classes for accessing the newest additions to the dataset. The module</span>
+<span class="sd">utilizes Hugging Face&#39;s file system for data storage and retrieval.</span>
+
+<span class="sd">Classes:</span>
+
+<span class="sd">* `DanbooruDataPool`: Main class for accessing Danbooru image data.</span>
+<span class="sd">* `DanbooruStableDataPool`: Class for accessing a stable version of Danbooru data.</span>
+<span class="sd">* `DanbooruNewestDataPool`: Class for accessing both stable and newest Danbooru data.</span>
+<span class="sd">* `DanbooruWebpDataPool`: Class for accessing WebP versions of Danbooru images.</span>
+<span class="sd">* `DanbooruNewestWebpDataPool`: Class for accessing both stable and newest WebP Danbooru data.</span>
+
+<span class="sd">The module uses various utility functions and classes from the hfutils package</span>
+<span class="sd">for interacting with the Hugging Face file system.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">fnmatch</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">ContextManager</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Any</span>
@@ -106,6 +125,22 @@
 
 
 <span class="k">class</span> <span class="nc">_BaseDanbooruDataPool</span><span class="p">(</span><span class="n">IncrementIDDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for Danbooru data pools.</span>
+
+<span class="sd">    This class extends IncrementIDDataPool and provides common functionality</span>
+<span class="sd">    for Danbooru data access.</span>
+
+<span class="sd">    :param data_repo_id: The ID of the data repository.</span>
+<span class="sd">    :type data_repo_id: str</span>
+<span class="sd">    :param data_revision: The revision of the data repository to use. Defaults to &#39;main&#39;.</span>
+<span class="sd">    :type data_revision: str</span>
+<span class="sd">    :param idx_repo_id: The ID of the index repository. If None, uses the data_repo_id.</span>
+<span class="sd">    :type idx_repo_id: str</span>
+<span class="sd">    :param idx_revision: The revision of the index repository to use. Defaults to &#39;main&#39;.</span>
+<span class="sd">    :type idx_revision: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_repo_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span>
                  <span class="n">idx_repo_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
@@ -118,6 +153,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_files</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_get_update_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve and cache the list of update files.</span>
+
+<span class="sd">        This method fetches the list of update files from the Hugging Face file system</span>
+<span class="sd">        and caches it for future use.</span>
+
+<span class="sd">        :return: A sorted list of update file names.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_files</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">hf_fs</span> <span class="o">=</span> <span class="n">get_hf_fs</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_files</span> <span class="o">=</span> <span class="n">natsorted</span><span class="p">([</span>
@@ -133,6 +177,17 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_files</span>
 
     <span class="k">def</span> <span class="nf">_request_possible_archives</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate a list of possible archive names for a given resource ID.</span>
+
+<span class="sd">        This method creates a list of potential archive file names where the</span>
+<span class="sd">        requested resource might be located.</span>
+
+<span class="sd">        :param resource_id: The ID of the resource to look for.</span>
+<span class="sd">        :type resource_id: int</span>
+<span class="sd">        :return: An iterable of possible archive file names.</span>
+<span class="sd">        :rtype: Iterable[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">modulo</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">resource_id</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">1000</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="sa">f</span><span class="s1">&#39;original/data-0</span><span class="si">{</span><span class="n">modulo</span><span class="si">}</span><span class="s1">.tar&#39;</span><span class="p">,</span>
@@ -143,6 +198,17 @@
 
 
 <div class="viewcode-block" id="DanbooruDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruDataPool">[docs]</a><span class="k">class</span> <span class="nc">DanbooruDataPool</span><span class="p">(</span><span class="n">_BaseDanbooruDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main class for accessing Danbooru image data.</span>
+
+<span class="sd">    This class provides access to the Danbooru dataset using default repository IDs.</span>
+
+<span class="sd">    :param data_revision: The revision of the data repository to use. Defaults to &#39;main&#39;.</span>
+<span class="sd">    :type data_revision: str</span>
+<span class="sd">    :param idx_revision: The revision of the index repository to use. Defaults to &#39;main&#39;.</span>
+<span class="sd">    :type idx_revision: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="DanbooruDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
         <span class="n">_BaseDanbooruDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -154,6 +220,13 @@
 
 
 <div class="viewcode-block" id="DanbooruStableDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruStableDataPool">[docs]</a><span class="k">class</span> <span class="nc">DanbooruStableDataPool</span><span class="p">(</span><span class="n">DanbooruDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for accessing a stable version of Danbooru data.</span>
+
+<span class="sd">    This class uses specific revisions of the data and index repositories</span>
+<span class="sd">    to provide access to a stable version of the Danbooru dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="DanbooruStableDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruStableDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">DanbooruDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -166,6 +239,17 @@
 
 
 <span class="k">class</span> <span class="nc">_DanbooruNewestPartialDataPool</span><span class="p">(</span><span class="n">IncrementIDDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for accessing the newest partial Danbooru data.</span>
+
+<span class="sd">    This class provides access to the most recent additions to the Danbooru dataset.</span>
+
+<span class="sd">    :param data_revision: The revision of the data repository to use. Defaults to &#39;main&#39;.</span>
+<span class="sd">    :type data_revision: str</span>
+<span class="sd">    :param idx_revision: The revision of the index repository to use. Defaults to &#39;main&#39;.</span>
+<span class="sd">    :type idx_revision: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -177,12 +261,33 @@
 
 
 <div class="viewcode-block" id="DanbooruNewestDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestDataPool">[docs]</a><span class="k">class</span> <span class="nc">DanbooruNewestDataPool</span><span class="p">(</span><span class="n">DataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for accessing both stable and newest Danbooru data.</span>
+
+<span class="sd">    This class combines access to both the stable Danbooru dataset and</span>
+<span class="sd">    the newest additions, providing a comprehensive view of the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="DanbooruNewestDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_old_pool</span> <span class="o">=</span> <span class="n">DanbooruStableDataPool</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_newest_pool</span> <span class="o">=</span> <span class="n">_DanbooruNewestPartialDataPool</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DanbooruNewestDataPool.mock_resource"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestDataPool.mock_resource">[docs]</a>    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provide a context manager for accessing a resource.</span>
+
+<span class="sd">        This method attempts to retrieve the resource from both the stable and newest</span>
+<span class="sd">        data pools, returning the first successful match.</span>
+
+<span class="sd">        :param resource_id: The ID of the resource to retrieve.</span>
+<span class="sd">        :type resource_id: Any</span>
+<span class="sd">        :param resource_info: Additional information about the resource.</span>
+<span class="sd">        :type resource_info: Any</span>
+<span class="sd">        :return: A context manager yielding a tuple of (temporary directory, resource info).</span>
+<span class="sd">        :rtype: ContextManager[Tuple[str, Any]]</span>
+<span class="sd">        :raises ResourceNotFoundError: If the resource is not found in either pool.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pools</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_old_pool</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newest_pool</span><span class="p">]</span>
         <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">for</span> <span class="n">pool</span> <span class="ow">in</span> <span class="n">pools</span><span class="p">:</span>
@@ -204,6 +309,18 @@
 
 
 <div class="viewcode-block" id="DanbooruWebpDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruWebpDataPool">[docs]</a><span class="k">class</span> <span class="nc">DanbooruWebpDataPool</span><span class="p">(</span><span class="n">_BaseDanbooruDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for accessing WebP versions of Danbooru images.</span>
+
+<span class="sd">    This class provides access to WebP-formatted Danbooru images, which are</span>
+<span class="sd">    typically smaller in file size while maintaining good quality.</span>
+
+<span class="sd">    :param data_revision: The revision of the data repository to use. Defaults to &#39;main&#39;.</span>
+<span class="sd">    :type data_revision: str</span>
+<span class="sd">    :param idx_revision: The revision of the index repository to use. Defaults to &#39;main&#39;.</span>
+<span class="sd">    :type idx_revision: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="DanbooruWebpDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruWebpDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
         <span class="n">_BaseDanbooruDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -214,6 +331,17 @@
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_request_possible_archives</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate a list of possible archive names for a given resource ID.</span>
+
+<span class="sd">        This method overrides the base class method to provide WebP-specific</span>
+<span class="sd">        archive file names.</span>
+
+<span class="sd">        :param resource_id: The ID of the resource to look for.</span>
+<span class="sd">        :type resource_id: int</span>
+<span class="sd">        :return: An iterable of possible archive file names.</span>
+<span class="sd">        :rtype: Iterable[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">modulo</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">resource_id</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">1000</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="sa">f</span><span class="s1">&#39;images/data-0</span><span class="si">{</span><span class="n">modulo</span><span class="si">}</span><span class="s1">.tar&#39;</span><span class="p">,</span>
@@ -227,6 +355,18 @@
 
 
 <span class="k">class</span> <span class="nc">_DanbooruNewestPartialWebpDataPool</span><span class="p">(</span><span class="n">IncrementIDDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for accessing the newest partial WebP Danbooru data.</span>
+
+<span class="sd">    This class provides access to the most recent additions to the WebP-formatted</span>
+<span class="sd">    Danbooru dataset.</span>
+
+<span class="sd">    :param data_revision: The revision of the data repository to use. Defaults to &#39;main&#39;.</span>
+<span class="sd">    :type data_revision: str</span>
+<span class="sd">    :param idx_revision: The revision of the index repository to use. Defaults to &#39;main&#39;.</span>
+<span class="sd">    :type idx_revision: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -238,12 +378,33 @@
 
 
 <div class="viewcode-block" id="DanbooruNewestWebpDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool">[docs]</a><span class="k">class</span> <span class="nc">DanbooruNewestWebpDataPool</span><span class="p">(</span><span class="n">DataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for accessing both stable and newest WebP Danbooru data.</span>
+
+<span class="sd">    This class combines access to both the stable WebP-formatted Danbooru dataset</span>
+<span class="sd">    and the newest WebP additions, providing a comprehensive view of the WebP data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="DanbooruNewestWebpDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_old_pool</span> <span class="o">=</span> <span class="n">DanbooruWebpDataPool</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_newest_pool</span> <span class="o">=</span> <span class="n">_DanbooruNewestPartialWebpDataPool</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DanbooruNewestWebpDataPool.mock_resource"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.mock_resource">[docs]</a>    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provide a context manager for accessing a WebP resource.</span>
+
+<span class="sd">        This method attempts to retrieve the WebP resource from both the stable and newest</span>
+<span class="sd">        WebP data pools, returning the first successful match.</span>
+
+<span class="sd">        :param resource_id: The ID of the resource to retrieve.</span>
+<span class="sd">        :type resource_id: Any</span>
+<span class="sd">        :param resource_info: Additional information about the resource.</span>
+<span class="sd">        :type resource_info: Any</span>
+<span class="sd">        :return: A context manager yielding a tuple of (temporary directory, resource info).</span>
+<span class="sd">        :rtype: ContextManager[Tuple[str, Any]]</span>
+<span class="sd">        :raises ResourceNotFoundError: If the resource is not found in either WebP pool.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pools</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_old_pool</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newest_pool</span><span class="p">]</span>
         <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">for</span> <span class="n">pool</span> <span class="ow">in</span> <span class="n">pools</span><span class="p">:</span>

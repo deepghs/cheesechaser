@@ -117,20 +117,44 @@
     
   <section id="module-cheesechaser.datapool.yande">
 <span id="cheesechaser-datapool-yande"></span><h1>cheesechaser.datapool.yande<a class="headerlink" href="#module-cheesechaser.datapool.yande" title="Permalink to this heading"></a></h1>
+<p>This module provides a data pool implementation for Yande image data.</p>
+<p>It extends the IncrementIDDataPool class to specifically handle Yande image data,
+utilizing a predefined Hugging Face repository for data storage and indexing.</p>
 <section id="yandedatapool">
 <h2>YandeDataPool<a class="headerlink" href="#yandedatapool" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.yande.YandeDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.yande.</span></span><span class="sig-name descname"><span class="pre">YandeDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/yande.html#YandeDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.yande.YandeDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.yande.YandeDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.yande.YandeDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>A data pool class for managing Yande image data.</p>
+<p>This class extends IncrementIDDataPool to provide a specialized implementation
+for handling Yande image data. It uses a predefined Hugging Face repository
+for both data storage and indexing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p>
+</dd>
+</dl>
+<dl>
+<dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">yande_pool</span> <span class="o">=</span> <span class="n">YandeDataPool</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This class assumes that both data and index information are stored
+in the same repository (_YANDE_REPO).</p>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.yande.YandeDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/yande.html#YandeDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.yande.YandeDataPool.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initialize the YandeDataPool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

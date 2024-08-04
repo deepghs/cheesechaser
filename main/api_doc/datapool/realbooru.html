@@ -117,20 +117,33 @@
     
   <section id="module-cheesechaser.datapool.realbooru">
 <span id="cheesechaser-datapool-realbooru"></span><h1>cheesechaser.datapool.realbooru<a class="headerlink" href="#module-cheesechaser.datapool.realbooru" title="Permalink to this heading"></a></h1>
+<p>This module provides a data pool implementation for Realbooru dataset.</p>
+<p>The RealbooruDataPool class extends the IncrementIDDataPool to specifically handle
+the Realbooru dataset, which is stored in a Hugging Face repository.</p>
 <section id="realboorudatapool">
 <h2>RealbooruDataPool<a class="headerlink" href="#realboorudatapool" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.realbooru.RealbooruDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.realbooru.</span></span><span class="sig-name descname"><span class="pre">RealbooruDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/realbooru.html#RealbooruDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.realbooru.RealbooruDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.realbooru.RealbooruDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.realbooru.RealbooruDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>A data pool class for accessing and managing Realbooru dataset.</p>
+<p>This class inherits from IncrementIDDataPool and is specifically designed to work
+with the Realbooru dataset stored in a Hugging Face repository. It provides an
+interface to access and manage the data using incremental IDs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the Realbooru dataset to use, defaults to ‘main’.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.realbooru.RealbooruDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/realbooru.html#RealbooruDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.realbooru.RealbooruDataPool.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initialize the RealbooruDataPool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the Realbooru dataset to use, defaults to ‘main’.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

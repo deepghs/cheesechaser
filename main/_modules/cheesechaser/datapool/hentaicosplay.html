@@ -90,20 +90,57 @@
     
     
   <h1>Source code for cheesechaser.datapool.hentaicosplay</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides functionality for managing and accessing a Hentai Cosplay data pool.</span>
+
+<span class="sd">The module includes a class `HentaiCosplayDataPool` which extends `IncrementIDDataPool`.</span>
+<span class="sd">It&#39;s designed to handle data stored in a specific structure within a Hugging Face repository.</span>
+<span class="sd">The data is organized in archive files (.tar) with a hierarchical directory structure based on resource IDs.</span>
+
+<span class="sd">Key features:</span>
+
+<span class="sd">- Manages access to data stored in Hugging Face repositories</span>
+<span class="sd">- Implements a natural sorting algorithm for archive directories</span>
+<span class="sd">- Provides methods to locate and retrieve specific resources based on their IDs</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
 
 <span class="kn">from</span> <span class="nn">natsort</span> <span class="kn">import</span> <span class="n">natsorted</span>
 
-<span class="kn">from</span> <span class="nn">cheesechaser.datapool</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
-<span class="kn">from</span> <span class="nn">cheesechaser.datapool.base</span> <span class="kn">import</span> <span class="n">id_modulo_cut</span>
-<span class="kn">from</span> <span class="nn">cheesechaser.utils</span> <span class="kn">import</span> <span class="n">get_hf_fs</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span><span class="p">,</span> <span class="n">id_modulo_cut</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">get_hf_fs</span>
 
 <span class="n">_HC_REPO</span> <span class="o">=</span> <span class="s1">&#39;deepghs/hentai_cosplay_trans&#39;</span>
 
 
 <div class="viewcode-block" id="HentaiCosplayDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/hentaicosplay.html#cheesechaser.datapool.hentaicosplay.HentaiCosplayDataPool">[docs]</a><span class="k">class</span> <span class="nc">HentaiCosplayDataPool</span><span class="p">(</span><span class="n">IncrementIDDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class representing a data pool for Hentai Cosplay resources.</span>
+
+<span class="sd">    This class extends IncrementIDDataPool and provides specific functionality</span>
+<span class="sd">    for managing and accessing Hentai Cosplay data stored in Hugging Face repositories.</span>
+
+<span class="sd">    :param repo_id: The ID of the Hugging Face repository containing the data.</span>
+<span class="sd">    :type repo_id: str</span>
+<span class="sd">    :param revision: The revision of the repository to use.</span>
+<span class="sd">    :type revision: str</span>
+<span class="sd">    :param base_level: The base level for ID modulo operations.</span>
+<span class="sd">    :type base_level: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="HentaiCosplayDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/hentaicosplay.html#cheesechaser.datapool.hentaicosplay.HentaiCosplayDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">_HC_REPO</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">base_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the HentaiCosplayDataPool.</span>
+
+<span class="sd">        :param repo_id: The ID of the Hugging Face repository containing the data.</span>
+<span class="sd">        :type repo_id: str</span>
+<span class="sd">        :param revision: The revision of the repository to use.</span>
+<span class="sd">        :type revision: str</span>
+<span class="sd">        :param base_level: The base level for ID modulo operations.</span>
+<span class="sd">        :type base_level: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">data_repo_id</span><span class="o">=</span><span class="n">repo_id</span><span class="p">,</span> <span class="n">data_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
@@ -113,6 +150,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_archive_dirs</span> <span class="o">=</span> <span class="kc">None</span></div>
 
     <span class="k">def</span> <span class="nf">_get_archive_dirs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve and cache the list of archive directories.</span>
+
+<span class="sd">        This method uses the Hugging Face filesystem to glob all .tar files</span>
+<span class="sd">        in the dataset repository and extracts their directory paths.</span>
+<span class="sd">        The paths are then natural-sorted for consistent ordering.</span>
+
+<span class="sd">        :return: A list of archive directory paths.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_archive_dirs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">hf_fs</span> <span class="o">=</span> <span class="n">get_hf_fs</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_archive_dirs</span> <span class="o">=</span> <span class="n">natsorted</span><span class="p">({</span>
@@ -123,6 +170,17 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_archive_dirs</span>
 
     <span class="k">def</span> <span class="nf">_request_possible_archives</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate possible archive paths for a given resource ID.</span>
+
+<span class="sd">        This method calculates the modulo of the resource ID and uses it to construct</span>
+<span class="sd">        possible archive paths where the resource might be located.</span>
+
+<span class="sd">        :param resource_id: The ID of the resource to locate.</span>
+<span class="sd">        :type resource_id: int</span>
+<span class="sd">        :return: An iterable of possible archive paths.</span>
+<span class="sd">        :rtype: Iterable[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">modulo</span> <span class="o">=</span> <span class="n">resource_id</span> <span class="o">%</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_level</span><span class="p">)</span>
         <span class="n">modulo_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">modulo</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">modulo_str</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_level</span><span class="p">:</span>

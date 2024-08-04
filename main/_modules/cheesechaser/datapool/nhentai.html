@@ -90,7 +90,19 @@
     
     
   <h1>Source code for cheesechaser.datapool.nhentai</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides data pool classes for managing and accessing NHentai manga and image data.</span>
+
+<span class="sd">The module includes two main classes:</span>
+
+<span class="sd">1. NHentaiImagesDataPool: A data pool for managing NHentai images.</span>
+<span class="sd">2. NHentaiMangaDataPool: A data pool for managing NHentai manga data, including image associations.</span>
+
+<span class="sd">These classes provide functionality for retrieving manga information, downloading images,</span>
+<span class="sd">and managing resources from a Hugging Face dataset repository.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
@@ -110,7 +122,23 @@
 
 
 <div class="viewcode-block" id="NHentaiImagesDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/nhentai.html#cheesechaser.datapool.nhentai.NHentaiImagesDataPool">[docs]</a><span class="k">class</span> <span class="nc">NHentaiImagesDataPool</span><span class="p">(</span><span class="n">IncrementIDDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A data pool class for managing NHentai images.</span>
+
+<span class="sd">    This class extends the IncrementIDDataPool to provide specific functionality</span>
+<span class="sd">    for handling NHentai image data.</span>
+
+<span class="sd">    :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
+<span class="sd">    :type revision: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="NHentaiImagesDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/nhentai.html#cheesechaser.datapool.nhentai.NHentaiImagesDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the NHentaiImagesDataPool.</span>
+
+<span class="sd">        :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
+<span class="sd">        :type revision: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">data_repo_id</span><span class="o">=</span><span class="n">_DATA_REPO</span><span class="p">,</span>
@@ -122,24 +150,64 @@
 
 
 <div class="viewcode-block" id="NHentaiMangaDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/nhentai.html#cheesechaser.datapool.nhentai.NHentaiMangaDataPool">[docs]</a><span class="k">class</span> <span class="nc">NHentaiMangaDataPool</span><span class="p">(</span><span class="n">DataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A data pool class for managing NHentai manga data.</span>
+
+<span class="sd">    This class provides methods for retrieving manga information, downloading associated images,</span>
+<span class="sd">    and managing manga resources.</span>
+
+<span class="sd">    :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
+<span class="sd">    :type revision: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">__data_lock__</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
 
 <div class="viewcode-block" id="NHentaiMangaDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/nhentai.html#cheesechaser.datapool.nhentai.NHentaiMangaDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the NHentaiMangaDataPool.</span>
+
+<span class="sd">        :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
+<span class="sd">        :type revision: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">revision</span> <span class="o">=</span> <span class="n">revision</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">images_pool</span> <span class="o">=</span> <span class="n">NHentaiImagesDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="n">revision</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="NHentaiMangaDataPool.manga_id_map"><a class="viewcode-back" href="../../../api_doc/datapool/nhentai.html#cheesechaser.datapool.nhentai.NHentaiMangaDataPool.manga_id_map">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="nd">@lru_cache</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">manga_id_map</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">local_files_prefer</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a mapping of manga IDs to their associated image IDs.</span>
+
+<span class="sd">        This method is cached for efficiency.</span>
+
+<span class="sd">        :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
+<span class="sd">        :type revision: str</span>
+<span class="sd">        :param local_files_prefer: Whether to prefer local files, defaults to True.</span>
+<span class="sd">        :type local_files_prefer: bool</span>
+<span class="sd">        :return: A dictionary mapping manga IDs to lists of image IDs.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">df</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">manga_posts_table</span><span class="p">(</span><span class="n">revision</span><span class="p">,</span> <span class="n">local_files_prefer</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="n">item</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;image_ids&#39;</span><span class="p">])</span>
             <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)</span>
-        <span class="p">}</span>
+        <span class="p">}</span></div>
 
-    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="NHentaiMangaDataPool.manga_posts_table"><a class="viewcode-back" href="../../../api_doc/datapool/nhentai.html#cheesechaser.datapool.nhentai.NHentaiMangaDataPool.manga_posts_table">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="nd">@lru_cache</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">manga_posts_table</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">local_files_prefer</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the manga posts table as a pandas DataFrame.</span>
+
+<span class="sd">        This method is cached for efficiency.</span>
+
+<span class="sd">        :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
+<span class="sd">        :type revision: str</span>
+<span class="sd">        :param local_files_prefer: Whether to prefer local files, defaults to True.</span>
+<span class="sd">        :type local_files_prefer: bool</span>
+<span class="sd">        :return: A pandas DataFrame containing manga post information.</span>
+<span class="sd">        :rtype: pandas.DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">client</span> <span class="o">=</span> <span class="n">get_hf_client</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">csv_file</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">hf_hub_download</span><span class="p">(</span>
@@ -158,10 +226,24 @@
                 <span class="n">local_files_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="NHentaiMangaDataPool.mock_resource"><a class="viewcode-back" href="../../../api_doc/datapool/nhentai.html#cheesechaser.datapool.nhentai.NHentaiMangaDataPool.mock_resource">[docs]</a>    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a mock resource for a given manga.</span>
+
+<span class="sd">        This method downloads the associated images for a manga and organizes them</span>
+<span class="sd">        in a temporary directory.</span>
+
+<span class="sd">        :param resource_id: The ID of the manga resource.</span>
+<span class="sd">        :type resource_id: int</span>
+<span class="sd">        :param resource_info: Additional information about the resource.</span>
+<span class="sd">        :type resource_info: Any</span>
+<span class="sd">        :yield: A tuple containing the path to the temporary directory with the images and the resource info.</span>
+<span class="sd">        :rtype: Tuple[str, Any]</span>
+<span class="sd">        :raises ResourceNotFoundError: If the specified manga resource is not found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data_lock__</span><span class="p">:</span>
             <span class="n">maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manga_id_map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">revision</span><span class="p">,</span> <span class="n">local_files_prefer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">resource_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">maps</span><span class="p">:</span>

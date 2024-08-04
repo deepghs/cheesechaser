@@ -121,20 +121,37 @@
     
   <section id="module-cheesechaser.datapool.gelbooru">
 <span id="cheesechaser-datapool-gelbooru"></span><h1>cheesechaser.datapool.gelbooru<a class="headerlink" href="#module-cheesechaser.datapool.gelbooru" title="Permalink to this heading"></a></h1>
+<p>This module provides data pool classes for accessing Gelbooru image data.</p>
+<p>It contains two classes:</p>
+<ol class="arabic simple">
+<li><p>GelbooruDataPool: For accessing the full Gelbooru dataset.</p></li>
+<li><p>GelbooruWebpDataPool: For accessing the WebP-formatted Gelbooru dataset with 4M pixel images.</p></li>
+</ol>
+<p>Both classes inherit from IncrementIDDataPool and provide easy access to the respective datasets
+stored in Hugging Face repositories.</p>
 <section id="gelboorudatapool">
 <h2>GelbooruDataPool<a class="headerlink" href="#gelboorudatapool" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.gelbooru.GelbooruDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.gelbooru.</span></span><span class="sig-name descname"><span class="pre">GelbooruDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/gelbooru.html#GelbooruDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.gelbooru.GelbooruDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.gelbooru.GelbooruDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.gelbooru.GelbooruDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>A data pool class for accessing the full Gelbooru dataset.</p>
+<p>This class inherits from IncrementIDDataPool and is configured to access
+the full Gelbooru dataset stored in the ‘deepghs/gelbooru_full’ repository.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the dataset to use, defaults to ‘main’.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.gelbooru.GelbooruDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/gelbooru.html#GelbooruDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.gelbooru.GelbooruDataPool.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initialize the GelbooruDataPool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the dataset to use, defaults to ‘main’.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -144,15 +161,24 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.gelbooru.GelbooruWebpDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.gelbooru.</span></span><span class="sig-name descname"><span class="pre">GelbooruWebpDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/gelbooru.html#GelbooruWebpDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.gelbooru.GelbooruWebpDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.gelbooru.GelbooruWebpDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.gelbooru.GelbooruWebpDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>A data pool class for accessing the WebP-formatted Gelbooru dataset with 4M pixel images.</p>
+<p>This class inherits from IncrementIDDataPool and is configured to access
+the WebP-formatted Gelbooru dataset stored in the ‘deepghs/gelbooru-webp-4Mpixel’ repository.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the dataset to use, defaults to ‘main’.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.gelbooru.GelbooruWebpDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/gelbooru.html#GelbooruWebpDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.gelbooru.GelbooruWebpDataPool.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initialize the GelbooruWebpDataPool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the dataset to use, defaults to ‘main’.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

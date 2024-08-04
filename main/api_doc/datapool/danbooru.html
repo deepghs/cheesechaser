@@ -133,16 +133,35 @@
     
   <section id="module-cheesechaser.datapool.danbooru">
 <span id="cheesechaser-datapool-danbooru"></span><h1>cheesechaser.datapool.danbooru<a class="headerlink" href="#module-cheesechaser.datapool.danbooru" title="Permalink to this heading"></a></h1>
+<p>This module provides data pool classes for managing and accessing Danbooru image datasets.</p>
+<p>It includes classes for handling both original and WebP versions of Danbooru images,
+as well as classes for accessing the newest additions to the dataset. The module
+utilizes Hugging Face’s file system for data storage and retrieval.</p>
+<p>Classes:</p>
+<ul class="simple">
+<li><p><cite>DanbooruDataPool</cite>: Main class for accessing Danbooru image data.</p></li>
+<li><p><cite>DanbooruStableDataPool</cite>: Class for accessing a stable version of Danbooru data.</p></li>
+<li><p><cite>DanbooruNewestDataPool</cite>: Class for accessing both stable and newest Danbooru data.</p></li>
+<li><p><cite>DanbooruWebpDataPool</cite>: Class for accessing WebP versions of Danbooru images.</p></li>
+<li><p><cite>DanbooruNewestWebpDataPool</cite>: Class for accessing both stable and newest WebP Danbooru data.</p></li>
+</ul>
+<p>The module uses various utility functions and classes from the hfutils package
+for interacting with the Hugging Face file system.</p>
 <section id="danboorudatapool">
 <h2>DanbooruDataPool<a class="headerlink" href="#danboorudatapool" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.danbooru.</span></span><span class="sig-name descname"><span class="pre">DanbooruDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>Main class for accessing Danbooru image data.</p>
+<p>This class provides access to the Danbooru dataset using default repository IDs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_revision</strong> (<em>str</em>) – The revision of the data repository to use. Defaults to ‘main’.</p></li>
+<li><p><strong>idx_revision</strong> (<em>str</em>) – The revision of the index repository to use. Defaults to ‘main’.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruDataPool.__init__" title="Permalink to this definition"></a></dt>
@@ -156,11 +175,9 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruStableDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.danbooru.</span></span><span class="sig-name descname"><span class="pre">DanbooruStableDataPool</span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruStableDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruStableDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruStableDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruStableDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>Class for accessing a stable version of Danbooru data.</p>
+<p>This class uses specific revisions of the data and index repositories
+to provide access to a stable version of the Danbooru dataset.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruStableDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruStableDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruStableDataPool.__init__" title="Permalink to this definition"></a></dt>
@@ -174,11 +191,9 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruNewestDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.danbooru.</span></span><span class="sig-name descname"><span class="pre">DanbooruNewestDataPool</span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruNewestDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruNewestDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>Class for accessing both stable and newest Danbooru data.</p>
+<p>This class combines access to both the stable Danbooru dataset and
+the newest additions, providing a comprehensive view of the data.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruNewestDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruNewestDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestDataPool.__init__" title="Permalink to this definition"></a></dt>
@@ -187,21 +202,24 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruNewestDataPool.mock_resource">
 <span class="sig-name descname"><span class="pre">mock_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AbstractContextManager</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruNewestDataPool.mock_resource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestDataPool.mock_resource" title="Permalink to this definition"></a></dt>
-<dd><p>Context manager to mock a resource.</p>
-<p>This method should be implemented by subclasses to provide a way to temporarily
-access a resource.</p>
+<dd><p>Provide a context manager for accessing a resource.</p>
+<p>This method attempts to retrieve the resource from both the stable and newest
+data pools, returning the first successful match.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>resource_id</strong> – The ID of the resource to mock.</p></li>
-<li><p><strong>resource_info</strong> – Additional information about the resource.</p></li>
+<li><p><strong>resource_id</strong> (<em>Any</em>) – The ID of the resource to retrieve.</p></li>
+<li><p><strong>resource_info</strong> (<em>Any</em>) – Additional information about the resource.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A tuple containing the path to the mocked resource and its info.</p>
+<dd class="field-even"><p>A context manager yielding a tuple of (temporary directory, resource info).</p>
 </dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>NotImplementedError</strong> – If not implemented by a subclass.</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ContextManager[Tuple[str, Any]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="base.html#cheesechaser.datapool.base.ResourceNotFoundError" title="cheesechaser.datapool.base.ResourceNotFoundError"><strong>ResourceNotFoundError</strong></a> – If the resource is not found in either pool.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -214,11 +232,17 @@ access a resource.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruWebpDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.danbooru.</span></span><span class="sig-name descname"><span class="pre">DanbooruWebpDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruWebpDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruWebpDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruWebpDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruWebpDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>Class for accessing WebP versions of Danbooru images.</p>
+<p>This class provides access to WebP-formatted Danbooru images, which are
+typically smaller in file size while maintaining good quality.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_revision</strong> (<em>str</em>) – The revision of the data repository to use. Defaults to ‘main’.</p></li>
+<li><p><strong>idx_revision</strong> (<em>str</em>) – The revision of the index repository to use. Defaults to ‘main’.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruWebpDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruWebpDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruWebpDataPool.__init__" title="Permalink to this definition"></a></dt>
@@ -232,11 +256,9 @@ access a resource.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.danbooru.</span></span><span class="sig-name descname"><span class="pre">DanbooruNewestWebpDataPool</span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruNewestWebpDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>Class for accessing both stable and newest WebP Danbooru data.</p>
+<p>This class combines access to both the stable WebP-formatted Danbooru dataset
+and the newest WebP additions, providing a comprehensive view of the WebP data.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruNewestWebpDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.__init__" title="Permalink to this definition"></a></dt>
@@ -245,21 +267,24 @@ access a resource.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.mock_resource">
 <span class="sig-name descname"><span class="pre">mock_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AbstractContextManager</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruNewestWebpDataPool.mock_resource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.mock_resource" title="Permalink to this definition"></a></dt>
-<dd><p>Context manager to mock a resource.</p>
-<p>This method should be implemented by subclasses to provide a way to temporarily
-access a resource.</p>
+<dd><p>Provide a context manager for accessing a WebP resource.</p>
+<p>This method attempts to retrieve the WebP resource from both the stable and newest
+WebP data pools, returning the first successful match.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>resource_id</strong> – The ID of the resource to mock.</p></li>
-<li><p><strong>resource_info</strong> – Additional information about the resource.</p></li>
+<li><p><strong>resource_id</strong> (<em>Any</em>) – The ID of the resource to retrieve.</p></li>
+<li><p><strong>resource_info</strong> (<em>Any</em>) – Additional information about the resource.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A tuple containing the path to the mocked resource and its info.</p>
+<dd class="field-even"><p>A context manager yielding a tuple of (temporary directory, resource info).</p>
 </dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>NotImplementedError</strong> – If not implemented by a subclass.</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ContextManager[Tuple[str, Any]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="base.html#cheesechaser.datapool.base.ResourceNotFoundError" title="cheesechaser.datapool.base.ResourceNotFoundError"><strong>ResourceNotFoundError</strong></a> – If the resource is not found in either WebP pool.</p>
 </dd>
 </dl>
 </dd></dl>

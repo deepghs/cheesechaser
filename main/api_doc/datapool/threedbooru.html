@@ -117,20 +117,44 @@
     
   <section id="module-cheesechaser.datapool.threedbooru">
 <span id="cheesechaser-datapool-threedbooru"></span><h1>cheesechaser.datapool.threedbooru<a class="headerlink" href="#module-cheesechaser.datapool.threedbooru" title="Permalink to this heading"></a></h1>
+<p>This module provides a data pool implementation for the 3D Booru dataset.</p>
+<p>It includes a class <cite>ThreedbooruDataPool</cite> which extends the <cite>IncrementIDDataPool</cite>
+to specifically handle the 3D Booru dataset. This module allows users to easily
+access and manage data from the 3D Booru repository hosted on Hugging Face.</p>
 <section id="threedboorudatapool">
 <h2>ThreedbooruDataPool<a class="headerlink" href="#threedboorudatapool" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.threedbooru.ThreedbooruDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.threedbooru.</span></span><span class="sig-name descname"><span class="pre">ThreedbooruDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/threedbooru.html#ThreedbooruDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.threedbooru.ThreedbooruDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.threedbooru.ThreedbooruDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.threedbooru.ThreedbooruDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>A data pool class for managing and accessing the 3D Booru dataset.</p>
+<p>This class extends the <cite>IncrementIDDataPool</cite> to provide specific functionality
+for the 3D Booru dataset. It uses a predefined repository ID for both data
+and index information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the 3D Booru dataset to use, defaults to ‘main’.</p>
+</dd>
+</dl>
+<dl>
+<dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">ThreedbooruDataPool</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The 3D Booru dataset is hosted in the ‘deepghs/3dbooru_full’ repository on Hugging Face.</p>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.threedbooru.ThreedbooruDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/threedbooru.html#ThreedbooruDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.threedbooru.ThreedbooruDataPool.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initialize the ThreedbooruDataPool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the 3D Booru dataset to use, defaults to ‘main’.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

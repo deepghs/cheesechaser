@@ -90,13 +90,47 @@
     
     
   <h1>Source code for cheesechaser.datapool.fancaps</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides a data pool implementation for the Fancaps dataset.</span>
+
+<span class="sd">It includes a class `FancapsDataPool` which extends the `IncrementIDDataPool` base class.</span>
+<span class="sd">The module is designed to facilitate access to the Fancaps dataset, which is hosted on</span>
+<span class="sd">the Hugging Face Hub.</span>
+
+<span class="sd">The constant `_FANCAPS_REPO` defines the repository ID for the Fancaps dataset.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
 
 <span class="n">_FANCAPS_REPO</span> <span class="o">=</span> <span class="s1">&#39;deepghs/fancaps_full&#39;</span>
 
 
 <div class="viewcode-block" id="FancapsDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/fancaps.html#cheesechaser.datapool.fancaps.FancapsDataPool">[docs]</a><span class="k">class</span> <span class="nc">FancapsDataPool</span><span class="p">(</span><span class="n">IncrementIDDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A data pool class for accessing and managing the Fancaps dataset.</span>
+
+<span class="sd">    This class extends the `IncrementIDDataPool` base class and is specifically</span>
+<span class="sd">    tailored for the Fancaps dataset. It provides an interface to access the</span>
+<span class="sd">    dataset stored in the Hugging Face repository.</span>
+
+<span class="sd">    :param revision: The specific revision of the dataset to use, defaults to &#39;main&#39;.</span>
+<span class="sd">    :type revision: str</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        &gt;&gt;&gt; fancaps_pool = FancapsDataPool()</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        The Fancaps dataset is stored in the repository defined by `_FANCAPS_REPO`.</span>
+<span class="sd">        Both the data and index are stored in the same repository.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="FancapsDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/fancaps.html#cheesechaser.datapool.fancaps.FancapsDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the FancapsDataPool.</span>
+
+<span class="sd">        :param revision: The specific revision of the dataset to use, defaults to &#39;main&#39;.</span>
+<span class="sd">        :type revision: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">data_repo_id</span><span class="o">=</span><span class="n">_FANCAPS_REPO</span><span class="p">,</span>

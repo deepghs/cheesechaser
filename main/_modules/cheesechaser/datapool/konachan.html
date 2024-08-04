@@ -90,13 +90,41 @@
     
     
   <h1>Source code for cheesechaser.datapool.konachan</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides a data pool implementation for Konachan images.</span>
+
+<span class="sd">It defines the KonachanDataPool class, which is a specialized version of the</span>
+<span class="sd">IncrementIDDataPool for handling Konachan image data. The module uses a</span>
+<span class="sd">predefined repository for storing and accessing Konachan image data.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
 
 <span class="n">_KONACHAN_REPO</span> <span class="o">=</span> <span class="s1">&#39;deepghs/konachan_full&#39;</span>
 
 
 <div class="viewcode-block" id="KonachanDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/konachan.html#cheesechaser.datapool.konachan.KonachanDataPool">[docs]</a><span class="k">class</span> <span class="nc">KonachanDataPool</span><span class="p">(</span><span class="n">IncrementIDDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A data pool class for managing Konachan image data.</span>
+
+<span class="sd">    This class extends the IncrementIDDataPool to provide specific functionality</span>
+<span class="sd">    for handling Konachan image data. It uses a predefined repository to store</span>
+<span class="sd">    and access the image data and indices.</span>
+
+<span class="sd">    :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
+<span class="sd">    :type revision: str</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        &gt;&gt;&gt; konachan_pool = KonachanDataPool()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="KonachanDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/konachan.html#cheesechaser.datapool.konachan.KonachanDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the KonachanDataPool.</span>
+
+<span class="sd">        :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
+<span class="sd">        :type revision: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">data_repo_id</span><span class="o">=</span><span class="n">_KONACHAN_REPO</span><span class="p">,</span>

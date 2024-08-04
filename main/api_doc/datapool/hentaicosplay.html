@@ -117,20 +117,47 @@
     
   <section id="module-cheesechaser.datapool.hentaicosplay">
 <span id="cheesechaser-datapool-hentaicosplay"></span><h1>cheesechaser.datapool.hentaicosplay<a class="headerlink" href="#module-cheesechaser.datapool.hentaicosplay" title="Permalink to this heading"></a></h1>
+<p>This module provides functionality for managing and accessing a Hentai Cosplay data pool.</p>
+<p>The module includes a class <cite>HentaiCosplayDataPool</cite> which extends <cite>IncrementIDDataPool</cite>.
+It’s designed to handle data stored in a specific structure within a Hugging Face repository.
+The data is organized in archive files (.tar) with a hierarchical directory structure based on resource IDs.</p>
+<p>Key features:</p>
+<ul class="simple">
+<li><p>Manages access to data stored in Hugging Face repositories</p></li>
+<li><p>Implements a natural sorting algorithm for archive directories</p></li>
+<li><p>Provides methods to locate and retrieve specific resources based on their IDs</p></li>
+</ul>
 <section id="hentaicosplaydatapool">
 <h2>HentaiCosplayDataPool<a class="headerlink" href="#hentaicosplaydatapool" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cheesechaser.datapool.hentaicosplay.HentaiCosplayDataPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.hentaicosplay.</span></span><span class="sig-name descname"><span class="pre">HentaiCosplayDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'deepghs/hentai_cosplay_trans'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/hentaicosplay.html#HentaiCosplayDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.hentaicosplay.HentaiCosplayDataPool" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="cheesechaser.datapool.hentaicosplay.HentaiCosplayDataPool.__doc__">
-<span class="sig-name descname"><span class="pre">__doc__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.hentaicosplay.HentaiCosplayDataPool.__doc__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>A class representing a data pool for Hentai Cosplay resources.</p>
+<p>This class extends IncrementIDDataPool and provides specific functionality
+for managing and accessing Hentai Cosplay data stored in Hugging Face repositories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repo_id</strong> (<em>str</em>) – The ID of the Hugging Face repository containing the data.</p></li>
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the repository to use.</p></li>
+<li><p><strong>base_level</strong> (<em>int</em>) – The base level for ID modulo operations.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.hentaicosplay.HentaiCosplayDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'deepghs/hentai_cosplay_trans'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/hentaicosplay.html#HentaiCosplayDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.hentaicosplay.HentaiCosplayDataPool.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initialize the HentaiCosplayDataPool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repo_id</strong> (<em>str</em>) – The ID of the Hugging Face repository containing the data.</p></li>
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the repository to use.</p></li>
+<li><p><strong>base_level</strong> (<em>int</em>) – The base level for ID modulo operations.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

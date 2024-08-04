@@ -49,19 +49,6 @@ if not os.environ.get("NO_CONTENTS_BUILD"):
         )
     )
 
-    if os.path.exists(os.path.join(_PROJ_PATH, 'requirements-build.txt')):
-        pip_build_cmd = (where.first('pip'), 'install', '-r', os.path.join(_PROJ_PATH, 'requirements-build.txt'))
-        print("Install pip requirements {cmd}...".format(cmd=repr(pip_build_cmd)))
-        pip_build = Popen(pip_build_cmd, stdout=sys.stdout, stderr=sys.stderr, env=_env, cwd=_PROJ_PATH)
-        if pip_build.wait() != 0:
-            raise ChildProcessError("Pip install failed with %d." % (pip_build.returncode,))
-
-        make_build_cmd = (where.first('make'), 'clean', 'build')
-        print("Try building extensions {cmd}...".format(cmd=repr(make_build_cmd)))
-        make_build = Popen(make_build_cmd, stdout=sys.stdout, stderr=sys.stderr, env=_env, cwd=_PROJ_PATH)
-        if make_build.wait() != 0:
-            raise ChildProcessError("Extension build failed with %d." % (make_build.returncode,))
-
     pip_cmd = (where.first('pip'), 'install', '-r', os.path.join(_PROJ_PATH, 'requirements.txt'))
     print("Install pip requirements {cmd}...".format(cmd=repr(pip_cmd)))
     pip = Popen(pip_cmd, stdout=sys.stdout, stderr=sys.stderr, env=_env, cwd=_DOC_PATH)

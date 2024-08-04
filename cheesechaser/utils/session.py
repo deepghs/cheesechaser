@@ -1,3 +1,16 @@
+"""
+This module provides utilities for making HTTP requests with enhanced functionality.
+
+It includes classes and functions for:
+
+- Creating custom HTTP adapters with default timeouts
+- Generating random user agents
+- Creating and configuring requests sessions with retries and timeouts
+- Making HTTP requests with automatic retries and error handling
+
+The module supports both the `requests` and `httpx` libraries for making HTTP requests.
+"""
+
 import time
 import warnings
 from functools import lru_cache
@@ -22,12 +35,10 @@ class TimeoutHTTPAdapter(HTTPAdapter):
     - Create an instance of `TimeoutHTTPAdapter` and pass it to a `requests.Session` object's `mount` method.
 
     Example:
-    ```python
-    session = requests.Session()
-    adapter = TimeoutHTTPAdapter(timeout=10)
-    session.mount('http://', adapter)
-    session.mount('https://', adapter)
-    ```
+        >>> session = requests.Session()
+        >>> adapter = TimeoutHTTPAdapter(timeout=10)
+        >>> session.mount('http://', adapter)
+        >>> session.mount('https://', adapter)
 
     :param timeout: The default timeout value in seconds. (default: 10)
     :type timeout: int
@@ -61,6 +72,25 @@ def get_requests_session(max_retries: int = 5, timeout: int = DEFAULT_TIMEOUT,
                          headers: Optional[Dict[str, str]] = None,
                          session: Optional[httpx.Client] = None, use_httpx: bool = False) \
         -> Union[httpx.Client, requests.Session]:
+    """
+    Creates and configures a requests or httpx session with retries, timeouts, and custom headers.
+
+    This function can create a new session or modify an existing one. It supports both the `requests`
+    and `httpx` libraries.
+
+    :param max_retries: Maximum number of retries for failed requests. (default: 5)
+    :type max_retries: int
+    :param timeout: Timeout value in seconds for requests. (default: DEFAULT_TIMEOUT)
+    :type timeout: int
+    :param headers: Additional headers to add to the session. (default: None)
+    :type headers: Optional[Dict[str, str]]
+    :param session: An existing session to modify. If None, a new session is created. (default: None)
+    :type session: Optional[httpx.Client]
+    :param use_httpx: Whether to use httpx instead of requests. (default: False)
+    :type use_httpx: bool
+    :return: A configured requests.Session or httpx.Client object.
+    :rtype: Union[httpx.Client, requests.Session]
+    """
     if not session:
         if use_httpx:
             session = httpx.Client(http2=True, timeout=timeout, follow_redirects=True)
@@ -77,7 +107,7 @@ def get_requests_session(max_retries: int = 5, timeout: int = DEFAULT_TIMEOUT,
         session.mount('https://', adapter)
     session.headers.update({
         "User-Agent": get_random_ua(),
-        **dict(headers or {}),
+        **(headers or {}),
     })
 
     return session
@@ -88,12 +118,42 @@ RETRY_STATUS_FORCELIST = [413, 429, 500, 501, 502, 503, 504, 505, 506, 507, 509,
 
 
 def _should_retry(response: httpx.Response) -> bool:
+    """
+    Determines if a request should be retried based on its method and status code.
+
+    :param response: The response object to check.
+    :type response: httpx.Response
+    :return: True if the request should be retried, False otherwise.
+    :rtype: bool
+    """
     return response.request.method in RETRY_ALLOWED_METHODS and \
         response.status_code in RETRY_STATUS_FORCELIST
 
 
 def srequest(session: httpx.Client, method, url, *, max_retries: int = 5,
              backoff_factor: float = 1.0, raise_for_status: bool = True, **kwargs) -> httpx.Response:
+    """
+    Sends an HTTP request with automatic retries and error handling.
+
+    This function uses exponential backoff for retries and can raise exceptions for HTTP errors.
+
+    :param session: The httpx.Client session to use for the request.
+    :type session: httpx.Client
+    :param method: The HTTP method to use (e.g., 'GET', 'POST').
+    :type method: str
+    :param url: The URL to send the request to.
+    :type url: str
+    :param max_retries: Maximum number of retries for failed requests. (default: 5)
+    :type max_retries: int
+    :param backoff_factor: Factor to calculate the exponential backoff time between retries. (default: 1.0)
+    :type backoff_factor: float
+    :param raise_for_status: Whether to raise an exception for HTTP errors. (default: True)
+    :type raise_for_status: bool
+    :param kwargs: Additional keyword arguments to pass to the request method.
+    :return: The response object from the successful request.
+    :rtype: httpx.Response
+    :raises: Various exceptions related to HTTP errors and request failures.
+    """
     resp = None
     for i in range(max_retries):
         sleep_time = backoff_factor * (2 ** i)
@@ -126,6 +186,14 @@ def srequest(session: httpx.Client, method, url, *, max_retries: int = 5,
 
 @lru_cache()
 def _ua_pool():
+    """
+    Creates and caches a UserAgent object for generating random user agents.
+
+    This function is cached to avoid recreating the UserAgent object on every call.
+
+    :return: A UserAgent object configured with specific software names and operating systems.
+    :rtype: UserAgent
+    """
     software_names = [SoftwareName.CHROME.value, SoftwareName.FIREFOX.value, SoftwareName.EDGE.value]
     operating_systems = [OperatingSystem.WINDOWS.value, OperatingSystem.MACOS.value]
 
@@ -134,4 +202,12 @@ def _ua_pool():
 
 
 def get_random_ua():
+    """
+    Generates a random user agent string.
+
+    This function uses the cached UserAgent object to generate a random user agent.
+
+    :return: A random user agent string.
+    :rtype: str
+    """
     return _ua_pool().get_random_user_agent()

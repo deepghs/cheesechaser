@@ -10,7 +10,7 @@ GelbooruDataPool
 -----------------------------------------------------
 
 .. autoclass:: GelbooruDataPool
-    :members: __module__,__init__,__doc__
+    :members: __doc__,__init__,__module__
 
 
 
@@ -18,7 +18,7 @@ GelbooruWebpDataPool
 -----------------------------------------------------
 
 .. autoclass:: GelbooruWebpDataPool
-    :members: __module__,__init__,__doc__
+    :members: __doc__,__init__,__module__
 
 
 

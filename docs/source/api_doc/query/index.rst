@@ -12,5 +12,6 @@ cheesechaser.query
     base
     danbooru
     gelbooru
+    nozomi
 
 

@@ -1,4 +1,4 @@
-hfutils>=0.2.2
+hfutils>=0.3.6
 hbutils>=0.9.0
 huggingface_hub>=0.22
 tqdm

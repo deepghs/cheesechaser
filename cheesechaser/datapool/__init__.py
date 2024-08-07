@@ -10,6 +10,7 @@ from .gelbooru import GelbooruDataPool, GelbooruWebpDataPool
 from .hentaicosplay import HentaiCosplayDataPool
 from .konachan import KonachanDataPool
 from .nhentai import NHentaiImagesDataPool, NHentaiMangaDataPool
+from .nozomi import NozomiDataPool
 from .realbooru import RealbooruDataPool
 from .threedbooru import ThreedbooruDataPool
 from .yande import YandeDataPool

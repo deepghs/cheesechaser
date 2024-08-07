@@ -116,9 +116,10 @@ def iter_nozomi_ids(tags: List[str], negative_tags: Optional[List[str]] = None,
 
 
 class NozomiIdQuery(BaseWebQuery):
-    def __init__(self, tags: List[str], order_by: OrderByTyping = 'date'):
+    def __init__(self, tags: List[str], negative_tags: Optional[List[str]] = None, order_by: OrderByTyping = 'date'):
         BaseWebQuery.__init__(self, filters=[])
         self.tags = tags
+        self.negative_tags = list(negative_tags or [])
         self.order_by = order_by
 
     def _get_session(self) -> Union[httpx.Client, requests.Session]:
@@ -127,6 +128,7 @@ class NozomiIdQuery(BaseWebQuery):
     def _iter_items(self) -> Iterator[Any]:
         yield from iter_nozomi_ids(
             tags=self.tags,
+            negative_tags=self.negative_tags,
             order_by=self.order_by,
         )
 

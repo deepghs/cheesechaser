@@ -10,7 +10,7 @@ GelbooruIdQuery
 -----------------------------------------------------
 
 .. autoclass:: GelbooruIdQuery
-    :members: __module__,__init__,__repr__,__doc__
+    :members: __doc__,__init__,__module__,__repr__
 
 
 

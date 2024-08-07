@@ -12,15 +12,15 @@ from typing import Optional, Iterator, Any, Union, List, Callable
 import httpx
 import requests
 
-from .base import _BaseWebQuery
+from .base import BaseWebQuery
 from ..utils import get_requests_session, srequest
 
 
-class GelbooruIdQuery(_BaseWebQuery):
+class GelbooruIdQuery(BaseWebQuery):
     """
     A class for querying Gelbooru image board and retrieving post information based on tags.
 
-    This class extends _BaseWebQuery and implements methods for interacting with the Gelbooru API,
+    This class extends BaseWebQuery and implements methods for interacting with the Gelbooru API,
     including session initialization, making API requests, and iterating through search results.
 
     :param tags: A list of tags to search for on Gelbooru.
@@ -37,7 +37,7 @@ class GelbooruIdQuery(_BaseWebQuery):
 
     def __init__(self, tags: List[str], filters: Optional[List[Callable[[dict], bool]]] = None,
                  site_url: str = 'https://gelbooru.com'):
-        _BaseWebQuery.__init__(self, filters=filters)
+        BaseWebQuery.__init__(self, filters=filters)
         self.tags = tags
         self.site_url = site_url
         self._length = None

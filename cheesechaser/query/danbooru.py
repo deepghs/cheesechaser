@@ -1,7 +1,7 @@
 """
 This module provides functionality for querying Danbooru image board using its API.
 
-It includes a class `DanbooruIdQuery` which extends `_BaseWebQuery` to perform
+It includes a class `DanbooruIdQuery` which extends `BaseWebQuery` to perform
 tag-based searches on Danbooru, handling authentication, pagination, and result filtering.
 """
 
@@ -12,15 +12,15 @@ from urllib.parse import urljoin
 import httpx
 import requests
 
-from .base import _BaseWebQuery
+from .base import BaseWebQuery
 from ..utils import get_requests_session, srequest
 
 
-class DanbooruIdQuery(_BaseWebQuery):
+class DanbooruIdQuery(BaseWebQuery):
     """
     A class for querying Danbooru image board using tags.
 
-    This class extends _BaseWebQuery to provide specific functionality for
+    This class extends BaseWebQuery to provide specific functionality for
     interacting with the Danbooru API. It allows searching for posts using tags,
     handles authentication, and provides methods for pagination and result filtering.
 
@@ -39,7 +39,7 @@ class DanbooruIdQuery(_BaseWebQuery):
     def __init__(self, tags: List[str], filters: Optional[List[Callable[[dict], bool]]] = None,
                  username: Optional[str] = None, api_key: Optional[str] = None,
                  site_url: str = 'https://danbooru.donmai.us'):
-        _BaseWebQuery.__init__(self, filters=filters)
+        BaseWebQuery.__init__(self, filters=filters)
         if username and api_key:
             self.auth = (username, api_key)
         else:

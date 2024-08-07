@@ -106,15 +106,15 @@
 <span class="kn">import</span> <span class="nn">httpx</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">_BaseWebQuery</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseWebQuery</span>
 <span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">get_requests_session</span><span class="p">,</span> <span class="n">srequest</span>
 
 
-<div class="viewcode-block" id="GelbooruIdQuery"><a class="viewcode-back" href="../../../api_doc/query/gelbooru.html#cheesechaser.query.gelbooru.GelbooruIdQuery">[docs]</a><span class="k">class</span> <span class="nc">GelbooruIdQuery</span><span class="p">(</span><span class="n">_BaseWebQuery</span><span class="p">):</span>
+<div class="viewcode-block" id="GelbooruIdQuery"><a class="viewcode-back" href="../../../api_doc/query/gelbooru.html#cheesechaser.query.gelbooru.GelbooruIdQuery">[docs]</a><span class="k">class</span> <span class="nc">GelbooruIdQuery</span><span class="p">(</span><span class="n">BaseWebQuery</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class for querying Gelbooru image board and retrieving post information based on tags.</span>
 
-<span class="sd">    This class extends _BaseWebQuery and implements methods for interacting with the Gelbooru API,</span>
+<span class="sd">    This class extends BaseWebQuery and implements methods for interacting with the Gelbooru API,</span>
 <span class="sd">    including session initialization, making API requests, and iterating through search results.</span>
 
 <span class="sd">    :param tags: A list of tags to search for on Gelbooru.</span>
@@ -131,7 +131,7 @@
 
 <div class="viewcode-block" id="GelbooruIdQuery.__init__"><a class="viewcode-back" href="../../../api_doc/query/gelbooru.html#cheesechaser.query.gelbooru.GelbooruIdQuery.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">filters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">dict</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">site_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://gelbooru.com&#39;</span><span class="p">):</span>
-        <span class="n">_BaseWebQuery</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">)</span>
+        <span class="n">BaseWebQuery</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="n">tags</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">site_url</span> <span class="o">=</span> <span class="n">site_url</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="kc">None</span></div>
@@ -148,6 +148,7 @@
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">session</span> <span class="o">=</span> <span class="n">get_requests_session</span><span class="p">(</span><span class="n">use_httpx</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
+            <span class="bp">self</span><span class="o">.</span><span class="n">_try_acquire_api_access</span><span class="p">()</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Try initializing session for danbooru API, &#39;</span>
                          <span class="sa">f</span><span class="s1">&#39;user agent: </span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">]</span><span class="si">!r}</span><span class="s1">.&#39;</span><span class="p">)</span>
             <span class="n">resp</span> <span class="o">=</span> <span class="n">srequest</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">site_url</span><span class="si">}</span><span class="s1">/index.php&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
@@ -162,7 +163,7 @@
             <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">//</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">session</span>
 
-    <span class="k">def</span> <span class="nf">_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">page_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make a request to the Gelbooru API for a specific page of results.</span>
 
@@ -171,6 +172,7 @@
 <span class="sd">        :return: A tuple containing the response attributes and the list of posts.</span>
 <span class="sd">        :rtype: Tuple[dict, List[dict]]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_try_acquire_api_access</span><span class="p">()</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Query gelbooru API for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="si">!r}</span><span class="s1">, page: </span><span class="si">{</span><span class="n">page</span><span class="si">!r}</span><span class="s1">.&#39;</span><span class="p">)</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="n">srequest</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">site_url</span><span class="si">}</span><span class="s1">/index.php&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
             <span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="s1">&#39;dapi&#39;</span><span class="p">,</span>
@@ -178,7 +180,7 @@
             <span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="s1">&#39;index&#39;</span><span class="p">,</span>
             <span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">),</span>
             <span class="s1">&#39;json&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;limit&#39;</span><span class="p">:</span> <span class="s1">&#39;100&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;limit&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">page_size</span><span class="p">),</span>
             <span class="s1">&#39;pid&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">page</span><span class="p">),</span>
         <span class="p">})</span>
         <span class="n">resp</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
@@ -199,12 +201,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">page</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">_</span><span class="p">,</span> <span class="n">posts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">posts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">posts</span><span class="p">:</span>
                 <span class="k">break</span>
 
             <span class="k">yield from</span> <span class="n">posts</span>
             <span class="n">page</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">page</span> <span class="o">&gt;</span> <span class="mi">20000</span> <span class="o">//</span> <span class="mi">100</span><span class="p">:</span>
+                <span class="k">break</span>
 
     <span class="k">def</span> <span class="nf">_get_length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -265,7 +269,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/limiter/index.html">dev/limiter</a></dd>
                         <dd><a href="gelbooru.html">main</a></dd>
                 </dl>
         </div>

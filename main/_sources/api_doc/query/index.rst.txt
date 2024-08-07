@@ -9,6 +9,7 @@ cheesechaser.query
 .. toctree::
     :maxdepth: 3
 
+    base
     danbooru
     gelbooru
 

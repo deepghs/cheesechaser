@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cheesechaser.query.base &mdash; cheesechaser 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=c9d0a6ec" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=f6245a2f"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            cheesechaser
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/quick_start/index.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../information/environment.result.html">Run Environment Information</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/config/index.html">cheesechaser.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/datapool/index.html">cheesechaser.datapool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/pipe/index.html">cheesechaser.pipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/query/index.html">cheesechaser.query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/utils/index.html">cheesechaser.utils</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cheesechaser</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cheesechaser.query.base</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+    
+    
+  <h1>Source code for cheesechaser.query.base</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides a base class for web querying operations.</span>
+
+<span class="sd">It includes functionality for filtering items, managing sessions, and iterating over query results.</span>
+<span class="sd">The module is designed to be extended for specific web querying tasks.</span>
+
+<span class="sd">Key features:</span>
+
+<span class="sd">    - Flexible session management (supports both httpx.Client and requests.Session)</span>
+<span class="sd">    - Customizable item filtering</span>
+<span class="sd">    - Rate limiting for API requests</span>
+<span class="sd">    - Progress bar display during iteration</span>
+
+<span class="sd">Classes:</span>
+
+<span class="sd">    - BaseWebQuery: A base class for creating web query objects with filtering capabilities.</span>
+
+<span class="sd">Usage:</span>
+
+<span class="sd">    This module is not intended to be used directly, but rather to be subclassed for specific</span>
+<span class="sd">    web querying implementations. Subclasses should implement the following methods:</span>
+
+<span class="sd">    - _get_session()</span>
+<span class="sd">    - _iter_items()</span>
+<span class="sd">    - _get_length()</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="kn">import</span> <span class="nn">httpx</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">pyrate_limiter</span> <span class="kn">import</span> <span class="n">Duration</span><span class="p">,</span> <span class="n">Rate</span><span class="p">,</span> <span class="n">Limiter</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="n">_LENGTH_NOT_SET</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+<span class="n">_ItemFilterTyping</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="BaseWebQuery"><a class="viewcode-back" href="../../../api_doc/query/base.html#cheesechaser.query.base.BaseWebQuery">[docs]</a><span class="k">class</span> <span class="nc">BaseWebQuery</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A base class for web querying operations.</span>
+
+<span class="sd">    This class provides a foundation for creating web query objects with filtering capabilities.</span>
+<span class="sd">    It manages sessions (either httpx.Client or requests.Session) and provides methods for</span>
+<span class="sd">    iterating over query results with optional filtering.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        __api_rate_limit__ (int): The number of API requests allowed per interval.</span>
+<span class="sd">        __api_rate_interval__ (float): The time interval (in seconds) for rate limiting.</span>
+
+<span class="sd">    :param filters: A list of callable filter functions to apply to query results.</span>
+<span class="sd">    :type filters: Optional[List[_ItemFilterTyping]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__api_rate_limit__</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">__api_rate_interval__</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="BaseWebQuery.__init__"><a class="viewcode-back" href="../../../api_doc/query/base.html#cheesechaser.query.base.BaseWebQuery.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">_ItemFilterTyping</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the BaseWebQuery object.</span>
+
+<span class="sd">        :param filters: A list of callable filter functions to apply to query results.</span>
+<span class="sd">        :type filters: Optional[List[_ItemFilterTyping]]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">httpx</span><span class="o">.</span><span class="n">Client</span><span class="p">,</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">filters</span> <span class="ow">or</span> <span class="p">[])</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_session</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">httpx</span><span class="o">.</span><span class="n">Client</span><span class="p">,</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the session object for making HTTP requests.</span>
+
+<span class="sd">        This method should be implemented by subclasses to return either an httpx.Client</span>
+<span class="sd">        or a requests.Session object.</span>
+
+<span class="sd">        :return: A session object for making HTTP requests.</span>
+<span class="sd">        :rtype: Union[httpx.Client, requests.Session]</span>
+<span class="sd">        :raises NotImplementedError: If not implemented in a subclass.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>  <span class="c1"># pragma: no cover</span>
+
+    <span class="k">def</span> <span class="nf">_iter_items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterate over query result items.</span>
+
+<span class="sd">        This method should be implemented by subclasses to yield individual items</span>
+<span class="sd">        from the query results.</span>
+
+<span class="sd">        :return: An iterator of query result items.</span>
+<span class="sd">        :rtype: Iterator[Any]</span>
+<span class="sd">        :raises NotImplementedError: If not implemented in a subclass.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>  <span class="c1"># pragma: no cover</span>
+
+    <span class="k">def</span> <span class="nf">_get_length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the total number of items in the query results.</span>
+
+<span class="sd">        This method should be implemented by subclasses to return the total count</span>
+<span class="sd">        of items, if available.</span>
+
+<span class="sd">        :return: The total number of items, or None if not available.</span>
+<span class="sd">        :rtype: Optional[int]</span>
+<span class="sd">        :raises NotImplementedError: If not implemented in a subclass.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>  <span class="c1"># pragma: no cover</span>
+
+    <span class="k">def</span> <span class="nf">_get_id_from_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract the ID from a query result item.</span>
+
+<span class="sd">        This method assumes that the item has an &#39;id&#39; key. Subclasses may override</span>
+<span class="sd">        this method if the ID is stored differently.</span>
+
+<span class="sd">        :param item: A query result item.</span>
+<span class="sd">        :type item: Any</span>
+<span class="sd">        :return: The ID of the item.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_fn_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply all filter functions to an item.</span>
+
+<span class="sd">        This method runs the item through all filter functions and returns True</span>
+<span class="sd">        only if the item passes all filters.</span>
+
+<span class="sd">        :param item: A query result item to check against all filters.</span>
+<span class="sd">        :type item: Any</span>
+<span class="sd">        :return: True if the item passes all filters, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">fn</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">session</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">httpx</span><span class="o">.</span><span class="n">Client</span><span class="p">,</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the session object, creating it if it doesn&#39;t exist.</span>
+
+<span class="sd">        This property ensures that a session object is always available for making</span>
+<span class="sd">        HTTP requests.</span>
+
+<span class="sd">        :return: The session object for making HTTP requests.</span>
+<span class="sd">        :rtype: Union[httpx.Client, requests.Session]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_session</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span>
+
+<div class="viewcode-block" id="BaseWebQuery.__iter__"><a class="viewcode-back" href="../../../api_doc/query/base.html#cheesechaser.query.base.BaseWebQuery.__iter__">[docs]</a>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterate over filtered query result IDs.</span>
+
+<span class="sd">        This method yields unique IDs of items that pass all filters.</span>
+<span class="sd">        It uses tqdm to display a progress bar during iteration.</span>
+
+<span class="sd">        :return: An iterator of unique item IDs that pass all filters.</span>
+<span class="sd">        :rtype: Iterator[int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_exist_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iter_items</span><span class="p">(),</span> <span class="n">total</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_length</span><span class="p">()):</span>
+            <span class="n">id_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_id_from_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">id_</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_exist_ids</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fn_check</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">id_</span>
+                <span class="n">_exist_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_rate_limiter</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Limiter</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get or create a rate limiter for API requests.</span>
+
+<span class="sd">        This method ensures that API requests are rate-limited according to the</span>
+<span class="sd">        class&#39;s __api_rate_limit__ and __api_rate_interval__ attributes.</span>
+
+<span class="sd">        :return: A Limiter object for rate limiting API requests.</span>
+<span class="sd">        :rtype: Limiter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">&#39;_rate_limit&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;SHOW_RATE_LIMIT_LOG&#39;</span><span class="p">):</span>
+                <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;pyrate_limiter&quot;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="n">rate</span> <span class="o">=</span> <span class="n">Rate</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">__api_rate_limit__</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">Duration</span><span class="o">.</span><span class="n">SECOND</span> <span class="o">*</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__api_rate_interval__</span><span class="p">)))</span>
+            <span class="n">limiter</span> <span class="o">=</span> <span class="n">Limiter</span><span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">32</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">&#39;_rate_limit&#39;</span><span class="p">,</span> <span class="n">limiter</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">&#39;_rate_limit&#39;</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_try_acquire_api_access</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempt to acquire permission for an API request.</span>
+
+<span class="sd">        This method uses the rate limiter to control API access. It should be called</span>
+<span class="sd">        before making any API requests to ensure compliance with rate limits.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_rate_limiter</span><span class="p">()</span><span class="o">.</span><span class="n">try_acquire</span><span class="p">(</span><span class="s1">&#39;api&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, narugo1992.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: main
+    <span class="fa fa-caret-down"></span>
+  </span>
+        <div class="rst-other-versions">
+                <dl>
+                    <dt>Tags</dt>
+                        <dd><a href="../../../../v0.0.1/index.html">v0.0.1</a></dd>
+                </dl>
+                <dl>
+                    <dt>Branches</dt>
+                        <dd><a href="base.html">main</a></dd>
+                </dl>
+        </div>
+    </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

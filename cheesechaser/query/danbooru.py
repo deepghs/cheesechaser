@@ -33,12 +33,12 @@ class DanbooruIdQuery(_BaseWebQuery):
     :param api_key: Optional API key for Danbooru API authentication.
     :type api_key: Optional[str]
     :param site_url: The base URL of the Danbooru site, defaults to 'https://danbooru.donmai.us'.
-    :type site_url: Optional[str]
+    :type site_url: str
     """
 
     def __init__(self, tags: List[str], filters: Optional[List[Callable[[dict], bool]]] = None,
                  username: Optional[str] = None, api_key: Optional[str] = None,
-                 site_url: Optional[str] = 'https://danbooru.donmai.us'):
+                 site_url: str = 'https://danbooru.donmai.us'):
         _BaseWebQuery.__init__(self, filters=filters)
         if username and api_key:
             self.auth = (username, api_key)
@@ -63,6 +63,7 @@ class DanbooruIdQuery(_BaseWebQuery):
                 'Content-Type': 'application/json; charset=utf-8',
             })
 
+            self._try_acquire_api_access()
             logging.info(f'Try initializing session for danbooru API, '
                          f'user agent: {session.headers["User-Agent"]!r}.')
             resp = srequest(session, 'GET', f'{self.site_url}/posts.json', params={
@@ -79,6 +80,7 @@ class DanbooruIdQuery(_BaseWebQuery):
         :return: The total number of posts matching the query tags, or None if unavailable.
         :rtype: Optional[int]
         """
+        self._try_acquire_api_access()
         resp = srequest(self.session, 'GET', urljoin(self.site_url, '/counts/posts.json'), params={
             'tags': ' '.join(self.tags),
         }, auth=self.auth)
@@ -94,11 +96,13 @@ class DanbooruIdQuery(_BaseWebQuery):
         :yield: Dictionary containing information about each matching post.
         """
         page = 1
+        page_size: int = 200
         while True:
+            self._try_acquire_api_access()
             logging.info(f'Query danbooru API for {self.tags!r}, page: {page!r}.')
             resp = srequest(self.session, 'GET', f'{self.site_url}/posts.json', params={
                 "format": "json",
-                "limit": "200",
+                "limit": str(page_size),
                 "page": str(page),
                 "tags": ' '.join(self.tags),
             }, auth=self.auth)
@@ -108,6 +112,8 @@ class DanbooruIdQuery(_BaseWebQuery):
 
             yield from resp.json()
             page += 1
+            if page > 200000 // page_size:
+                break
 
     def __repr__(self):
         """

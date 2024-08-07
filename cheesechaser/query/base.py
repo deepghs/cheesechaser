@@ -4,11 +4,14 @@ This module provides a base class for web querying operations.
 It includes functionality for filtering items, managing sessions, and iterating over query results.
 The module is designed to be extended for specific web querying tasks.
 """
-
+import logging
+import math
+import os
 from typing import Union, Iterator, Optional, Callable, List, Any
 
 import httpx
 import requests
+from pyrate_limiter import Duration, Rate, Limiter
 from tqdm import tqdm
 
 _LENGTH_NOT_SET = object()
@@ -26,6 +29,9 @@ class _BaseWebQuery:
     :param filters: A list of callable filter functions to apply to query results.
     :type filters: Optional[List[_ItemFilterTyping]]
     """
+
+    __api_rate_limit__: int = 1
+    __api_rate_interval__: float = 1
 
     def __init__(self, filters: Optional[List[_ItemFilterTyping]] = None):
         """
@@ -129,3 +135,20 @@ class _BaseWebQuery:
             if id_ not in _exist_ids and self._fn_check(item):
                 yield id_
                 _exist_ids.add(id_)
+
+    @classmethod
+    def _rate_limiter(cls) -> Limiter:
+        if not hasattr(cls, '_rate_limit'):
+            if not os.environ.get('SHOW_RATE_LIMIT_LOG'):
+                logger = logging.getLogger("pyrate_limiter")
+                logger.disabled = True
+
+            rate = Rate(cls.__api_rate_limit__, int(math.ceil(Duration.SECOND * cls.__api_rate_interval__)))
+            limiter = Limiter(rate, max_delay=1 << 32)
+            setattr(cls, '_rate_limit', limiter)
+
+        return getattr(cls, '_rate_limit')
+
+    @classmethod
+    def _try_acquire_api_access(cls):
+        cls._rate_limiter().try_acquire('api')

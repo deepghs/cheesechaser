@@ -54,6 +54,7 @@ class GelbooruIdQuery(_BaseWebQuery):
         while True:
             session = get_requests_session(use_httpx=False)
 
+            self._try_acquire_api_access()
             logging.info(f'Try initializing session for danbooru API, '
                          f'user agent: {session.headers["User-Agent"]!r}.')
             resp = srequest(session, 'GET', f'{self.site_url}/index.php', params={
@@ -68,7 +69,7 @@ class GelbooruIdQuery(_BaseWebQuery):
             if resp.status_code // 100 == 2:
                 return session
 
-    def _request(self, page: int):
+    def _request(self, page: int, page_size: int = 100):
         """
         Make a request to the Gelbooru API for a specific page of results.
 
@@ -77,6 +78,7 @@ class GelbooruIdQuery(_BaseWebQuery):
         :return: A tuple containing the response attributes and the list of posts.
         :rtype: Tuple[dict, List[dict]]
         """
+        self._try_acquire_api_access()
         logging.info(f'Query gelbooru API for {self.tags!r}, page: {page!r}.')
         resp = srequest(self.session, 'GET', f'{self.site_url}/index.php', params={
             'page': 'dapi',
@@ -84,7 +86,7 @@ class GelbooruIdQuery(_BaseWebQuery):
             'q': 'index',
             'tags': ' '.join(self.tags),
             'json': '1',
-            'limit': '100',
+            'limit': str(page_size),
             'pid': str(page),
         })
         resp.raise_for_status()
@@ -105,12 +107,14 @@ class GelbooruIdQuery(_BaseWebQuery):
         """
         page = 0
         while True:
-            _, posts = self._request(page)
+            _, posts = self._request(page, page_size=100)
             if not posts:
                 break
 
             yield from posts
             page += 1
+            if page > 20000 // 100:
+                break
 
     def _get_length(self) -> Optional[int]:
         """

@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="cheesechaser.query.gelbooru" href="gelbooru.html" />
-    <link rel="prev" title="cheesechaser.query" href="index.html" /> 
+    <link rel="prev" title="cheesechaser.query.base" href="base.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -65,6 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../datapool/index.html">cheesechaser.datapool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pipe/index.html">cheesechaser.pipe</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">cheesechaser.query</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="base.html">cheesechaser.query.base</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">cheesechaser.query.danbooru</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#danbooruidquery">DanbooruIdQuery</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#cheesechaser.query.danbooru.DanbooruIdQuery"><code class="docutils literal notranslate"><span class="pre">DanbooruIdQuery</span></code></a></li>
@@ -108,7 +109,7 @@
   <section id="module-cheesechaser.query.danbooru">
 <span id="cheesechaser-query-danbooru"></span><h1>cheesechaser.query.danbooru<a class="headerlink" href="#module-cheesechaser.query.danbooru" title="Permalink to this heading"></a></h1>
 <p>This module provides functionality for querying Danbooru image board using its API.</p>
-<p>It includes a class <cite>DanbooruIdQuery</cite> which extends <cite>_BaseWebQuery</cite> to perform
+<p>It includes a class <cite>DanbooruIdQuery</cite> which extends <cite>BaseWebQuery</cite> to perform
 tag-based searches on Danbooru, handling authentication, pagination, and result filtering.</p>
 <section id="danbooruidquery">
 <h2>DanbooruIdQuery<a class="headerlink" href="#danbooruidquery" title="Permalink to this heading"></a></h2>
@@ -116,7 +117,7 @@ tag-based searches on Danbooru, handling authentication, pagination, and result 
 <dt class="sig sig-object py" id="cheesechaser.query.danbooru.DanbooruIdQuery">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.query.danbooru.</span></span><span class="sig-name descname"><span class="pre">DanbooruIdQuery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://danbooru.donmai.us'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/query/danbooru.html#DanbooruIdQuery"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.query.danbooru.DanbooruIdQuery" title="Permalink to this definition"></a></dt>
 <dd><p>A class for querying Danbooru image board using tags.</p>
-<p>This class extends _BaseWebQuery to provide specific functionality for
+<p>This class extends BaseWebQuery to provide specific functionality for
 interacting with the Danbooru API. It allows searching for posts using tags,
 handles authentication, and provides methods for pagination and result filtering.</p>
 <dl class="field-list simple">
@@ -133,7 +134,7 @@ handles authentication, and provides methods for pagination and result filtering
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.query.danbooru.DanbooruIdQuery.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://danbooru.donmai.us'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/query/danbooru.html#DanbooruIdQuery.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.query.danbooru.DanbooruIdQuery.__init__" title="Permalink to this definition"></a></dt>
-<dd><p>Initialize the _BaseWebQuery object.</p>
+<dd><p>Initialize the BaseWebQuery object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>filters</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>_ItemFilterTyping</em><em>]</em><em>]</em>) – A list of callable filter functions to apply to query results.</p>
@@ -165,7 +166,7 @@ handles authentication, and provides methods for pagination and result filtering
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="cheesechaser.query" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="base.html" class="btn btn-neutral float-left" title="cheesechaser.query.base" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="gelbooru.html" class="btn btn-neutral float-right" title="cheesechaser.query.gelbooru" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

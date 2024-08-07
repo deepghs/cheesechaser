@@ -10,7 +10,7 @@ BangumiBaseDataPool
 -----------------------------------------------------
 
 .. autoclass:: BangumiBaseDataPool
-    :members: __module__,__doc__,__init__
+    :members: __doc__,__init__,__module__
 
 
 

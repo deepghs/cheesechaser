@@ -10,7 +10,7 @@ DanbooruDataPool
 -----------------------------------------------------
 
 .. autoclass:: DanbooruDataPool
-    :members: __module__,__init__,__doc__
+    :members: __doc__,__init__,__module__
 
 
 
@@ -18,7 +18,7 @@ DanbooruStableDataPool
 -----------------------------------------------------
 
 .. autoclass:: DanbooruStableDataPool
-    :members: __module__,__init__,__doc__
+    :members: __doc__,__init__,__module__
 
 
 
@@ -26,7 +26,7 @@ DanbooruNewestDataPool
 -----------------------------------------------------
 
 .. autoclass:: DanbooruNewestDataPool
-    :members: __module__,__init__,mock_resource,__doc__
+    :members: __doc__,__init__,__module__,mock_resource
 
 
 
@@ -34,7 +34,7 @@ DanbooruWebpDataPool
 -----------------------------------------------------
 
 .. autoclass:: DanbooruWebpDataPool
-    :members: __module__,__init__,__doc__
+    :members: __doc__,__init__,__module__
 
 
 
@@ -42,7 +42,7 @@ DanbooruNewestWebpDataPool
 -----------------------------------------------------
 
 .. autoclass:: DanbooruNewestWebpDataPool
-    :members: __module__,__init__,mock_resource,__doc__
+    :members: __doc__,__init__,__module__,mock_resource
 
 
 

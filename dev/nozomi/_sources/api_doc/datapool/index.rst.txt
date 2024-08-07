@@ -1,5 +1,5 @@
 cheesechaser.datapool
-==============================
+========================================================
 
 .. currentmodule:: cheesechaser.datapool
 
@@ -19,8 +19,10 @@ cheesechaser.datapool
     hentaicosplay
     konachan
     nhentai
+    nozomi
     realbooru
     threedbooru
     yande
     zerochan
+
 

@@ -10,7 +10,7 @@ YandeDataPool
 -----------------------------------------------------
 
 .. autoclass:: YandeDataPool
-    :members: __module__,__init__,__doc__
+    :members: __doc__,__init__,__module__
 
 
 

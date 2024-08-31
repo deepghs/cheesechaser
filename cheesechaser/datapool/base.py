@@ -47,6 +47,7 @@ class DataLocation:
     :param filename: The name of the file within the tar archive.
     :type filename: str
     """
+    resource_id: int
     tar_file: str
     filename: str
 
@@ -289,11 +290,14 @@ class HfBasedDataPool(DataPool):
 
             if resource_id in info:
                 return [
-                    DataLocation(tar_file=archive_file, filename=file)
+                    DataLocation(resource_id=resource_id, tar_file=archive_file, filename=file)
                     for file in info[resource_id]
                 ]
         else:
             raise ResourceNotFoundError(f'Resource {resource_id!r} not found.')
+
+    def _get_dst_filename(self, location: DataLocation):
+        return os.path.basename(location.filename)
 
     @contextmanager
     def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
@@ -309,7 +313,7 @@ class HfBasedDataPool(DataPool):
         """
         with TemporaryDirectory() as td:
             for location in self._request_resource_by_id(resource_id):
-                dst_filename = os.path.join(td, os.path.basename(location.filename))
+                dst_filename = os.path.join(td, self._get_dst_filename(location))
                 hf_tar_file_download(
                     repo_id=self.data_repo_id,
                     repo_type='dataset',

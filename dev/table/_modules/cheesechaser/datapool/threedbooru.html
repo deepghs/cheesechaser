@@ -99,6 +99,7 @@
 <span class="sd">to specifically handle the 3D Booru dataset. This module allows users to easily</span>
 <span class="sd">access and manage data from the 3D Booru repository hosted on Hugging Face.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
@@ -116,9 +117,12 @@
 
 <span class="sd">    :param revision: The specific revision of the 3D Booru dataset to use, defaults to &#39;main&#39;.</span>
 <span class="sd">    :type revision: str</span>
+<span class="sd">    :param hf_token: Optional Hugging Face authentication token for accessing private repositories.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 
 <span class="sd">    Usage:</span>
 <span class="sd">        &gt;&gt;&gt; pool = ThreedbooruDataPool()</span>
+<span class="sd">        &gt;&gt;&gt; pool_with_token = ThreedbooruDataPool(hf_token=&#39;your_token_here&#39;)</span>
 
 <span class="sd">    .. note::</span>
 <span class="sd">        The 3D Booru dataset is hosted in the &#39;deepghs/3dbooru_full&#39; repository on Hugging Face.</span>
@@ -128,8 +132,13 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the ThreedbooruDataPool.</span>
 
+<span class="sd">        This constructor sets up the data pool with the specified revision of the 3D Booru dataset.</span>
+<span class="sd">        It uses the same repository for both data and index information.</span>
+
 <span class="sd">        :param revision: The specific revision of the 3D Booru dataset to use, defaults to &#39;main&#39;.</span>
 <span class="sd">        :type revision: str</span>
+<span class="sd">        :param hf_token: Optional Hugging Face authentication token for accessing private repositories.</span>
+<span class="sd">        :type hf_token: Optional[str]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>

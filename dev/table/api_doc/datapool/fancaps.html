@@ -81,6 +81,7 @@
 <li class="toctree-l2"><a class="reference internal" href="nhentai.html">cheesechaser.datapool.nhentai</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nozomi.html">cheesechaser.datapool.nozomi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="realbooru.html">cheesechaser.datapool.realbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="table.html">cheesechaser.datapool.table</a></li>
 <li class="toctree-l2"><a class="reference internal" href="threedbooru.html">cheesechaser.datapool.threedbooru</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yande.html">cheesechaser.datapool.yande</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zerochan.html">cheesechaser.datapool.zerochan</a></li>
@@ -136,11 +137,15 @@ tailored for the Fancaps dataset. It provides an interface to access the
 dataset stored in the Hugging Face repository.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the dataset to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The specific revision of the dataset to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token for accessing private repositories.</p></li>
+</ul>
 </dd>
 </dl>
 <dl>
 <dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fancaps_pool</span> <span class="o">=</span> <span class="n">FancapsDataPool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fancaps_pool_with_token</span> <span class="o">=</span> <span class="n">FancapsDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="s1">&#39;your_hf_token_here&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -156,7 +161,10 @@ Both the data and index are stored in the same repository.</p>
 <dd><p>Initialize the FancapsDataPool.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the dataset to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The specific revision of the dataset to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token for accessing private repositories.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

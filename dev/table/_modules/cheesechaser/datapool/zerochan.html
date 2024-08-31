@@ -103,6 +103,7 @@
 <span class="sd">These classes inherit from IncrementIDDataPool and provide easy access to</span>
 <span class="sd">Zerochan images stored in Hugging Face repositories.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
@@ -119,9 +120,8 @@
 
 <span class="sd">    :param revision: The revision of the Hugging Face repository to use, defaults to &#39;main&#39;.</span>
 <span class="sd">    :type revision: str</span>
-
-<span class="sd">    Usage:</span>
-<span class="sd">        &gt;&gt;&gt; pool = ZerochanDataPool()</span>
+<span class="sd">    :param hf_token: Optional Hugging Face authentication token for accessing private repositories.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ZerochanDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/zerochan.html#cheesechaser.datapool.zerochan.ZerochanDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -130,6 +130,8 @@
 
 <span class="sd">        :param revision: The revision of the Hugging Face repository to use, defaults to &#39;main&#39;.</span>
 <span class="sd">        :type revision: str</span>
+<span class="sd">        :param hf_token: Optional Hugging Face authentication token for accessing private repositories.</span>
+<span class="sd">        :type hf_token: Optional[str]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -155,9 +157,8 @@
 
 <span class="sd">    :param revision: The revision of the Hugging Face repository to use, defaults to &#39;main&#39;.</span>
 <span class="sd">    :type revision: str</span>
-
-<span class="sd">    Usage:</span>
-<span class="sd">        &gt;&gt;&gt; pool = ZerochanWebpDataPool()</span>
+<span class="sd">    :param hf_token: Optional Hugging Face authentication token for accessing private repositories.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ZerochanWebpDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/zerochan.html#cheesechaser.datapool.zerochan.ZerochanWebpDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -166,6 +167,8 @@
 
 <span class="sd">        :param revision: The revision of the Hugging Face repository to use, defaults to &#39;main&#39;.</span>
 <span class="sd">        :type revision: str</span>
+<span class="sd">        :param hf_token: Optional Hugging Face authentication token for accessing private repositories.</span>
+<span class="sd">        :type hf_token: Optional[str]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>

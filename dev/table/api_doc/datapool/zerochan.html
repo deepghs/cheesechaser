@@ -75,6 +75,7 @@
 <li class="toctree-l2"><a class="reference internal" href="nhentai.html">cheesechaser.datapool.nhentai</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nozomi.html">cheesechaser.datapool.nozomi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="realbooru.html">cheesechaser.datapool.realbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="table.html">cheesechaser.datapool.table</a></li>
 <li class="toctree-l2"><a class="reference internal" href="threedbooru.html">cheesechaser.datapool.threedbooru</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yande.html">cheesechaser.datapool.yande</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">cheesechaser.datapool.zerochan</a><ul>
@@ -143,13 +144,10 @@ Zerochan images stored in Hugging Face repositories.</p>
 ID system for efficient data retrieval.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the Hugging Face repository to use, defaults to ‘main’.</p>
-</dd>
-</dl>
-<dl>
-<dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">ZerochanWebpDataPool</span><span class="p">()</span>
-</pre></div>
-</div>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the Hugging Face repository to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token for accessing private repositories.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
@@ -158,7 +156,10 @@ ID system for efficient data retrieval.</p>
 <dd><p>Initialize the ZerochanWebpDataPool.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the Hugging Face repository to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the Hugging Face repository to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token for accessing private repositories.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -176,13 +177,10 @@ ID system for efficient data retrieval.</p>
 Hugging Face repository. It uses an incremental ID system for efficient data retrieval.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the Hugging Face repository to use, defaults to ‘main’.</p>
-</dd>
-</dl>
-<dl>
-<dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">ZerochanDataPool</span><span class="p">()</span>
-</pre></div>
-</div>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the Hugging Face repository to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token for accessing private repositories.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
@@ -191,7 +189,10 @@ Hugging Face repository. It uses an incremental ID system for efficient data ret
 <dd><p>Initialize the ZerochanDataPool.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the Hugging Face repository to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the Hugging Face repository to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token for accessing private repositories.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

@@ -81,6 +81,7 @@
 <li class="toctree-l2"><a class="reference internal" href="nhentai.html">cheesechaser.datapool.nhentai</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nozomi.html">cheesechaser.datapool.nozomi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="realbooru.html">cheesechaser.datapool.realbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="table.html">cheesechaser.datapool.table</a></li>
 <li class="toctree-l2"><a class="reference internal" href="threedbooru.html">cheesechaser.datapool.threedbooru</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yande.html">cheesechaser.datapool.yande</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zerochan.html">cheesechaser.datapool.zerochan</a></li>
@@ -144,7 +145,15 @@ for managing and accessing Hentai Cosplay data stored in Hugging Face repositori
 <li><p><strong>repo_id</strong> (<em>str</em>) – The ID of the Hugging Face repository containing the data.</p></li>
 <li><p><strong>revision</strong> (<em>str</em>) – The revision of the repository to use.</p></li>
 <li><p><strong>base_level</strong> (<em>int</em>) – The base level for ID modulo operations.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token.</p></li>
 </ul>
+</dd>
+</dl>
+<dl>
+<dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">HentaiCosplayDataPool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resource</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>  <span class="c1"># Retrieves resource with ID 12345</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 <dl class="py method">
@@ -157,6 +166,7 @@ for managing and accessing Hentai Cosplay data stored in Hugging Face repositori
 <li><p><strong>repo_id</strong> (<em>str</em>) – The ID of the Hugging Face repository containing the data.</p></li>
 <li><p><strong>revision</strong> (<em>str</em>) – The revision of the repository to use.</p></li>
 <li><p><strong>base_level</strong> (<em>int</em>) – The base level for ID modulo operations.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token.</p></li>
 </ul>
 </dd>
 </dl>

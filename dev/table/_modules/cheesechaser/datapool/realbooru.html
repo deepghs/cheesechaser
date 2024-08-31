@@ -98,6 +98,7 @@
 <span class="sd">The RealbooruDataPool class extends the IncrementIDDataPool to specifically handle</span>
 <span class="sd">the Realbooru dataset, which is stored in a Hugging Face repository.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
@@ -113,16 +114,29 @@
 <span class="sd">    with the Realbooru dataset stored in a Hugging Face repository. It provides an</span>
 <span class="sd">    interface to access and manage the data using incremental IDs.</span>
 
+<span class="sd">    The Realbooru dataset is a large collection of images and associated metadata,</span>
+<span class="sd">    commonly used for machine learning tasks in computer vision and image processing.</span>
+
 <span class="sd">    :param revision: The specific revision of the Realbooru dataset to use, defaults to &#39;main&#39;.</span>
 <span class="sd">    :type revision: str</span>
+<span class="sd">    :param hf_token: Optional Hugging Face authentication token for accessing private repositories.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="RealbooruDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/realbooru.html#cheesechaser.datapool.realbooru.RealbooruDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the RealbooruDataPool.</span>
 
+<span class="sd">        This constructor sets up the data pool by specifying the Hugging Face repository</span>
+<span class="sd">        and revision for both the data and index. It uses the _REALBOORU_REPO constant</span>
+<span class="sd">        as the repository ID for both data and index.</span>
+
 <span class="sd">        :param revision: The specific revision of the Realbooru dataset to use, defaults to &#39;main&#39;.</span>
+<span class="sd">                         This allows for version control of the dataset.</span>
 <span class="sd">        :type revision: str</span>
+<span class="sd">        :param hf_token: Optional Hugging Face authentication token for accessing private repositories.</span>
+<span class="sd">                         If provided, it enables access to private datasets.</span>
+<span class="sd">        :type hf_token: Optional[str]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>

@@ -81,6 +81,7 @@
 <li class="toctree-l2"><a class="reference internal" href="nhentai.html">cheesechaser.datapool.nhentai</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nozomi.html">cheesechaser.datapool.nozomi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="realbooru.html">cheesechaser.datapool.realbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="table.html">cheesechaser.datapool.table</a></li>
 <li class="toctree-l2"><a class="reference internal" href="threedbooru.html">cheesechaser.datapool.threedbooru</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yande.html">cheesechaser.datapool.yande</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zerochan.html">cheesechaser.datapool.zerochan</a></li>
@@ -135,22 +136,43 @@ for handling Konachan image data. It uses a predefined repository to store
 and access the image data and indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face token for authentication, defaults to None.</p></li>
+</ul>
 </dd>
 </dl>
 <dl>
 <dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">konachan_pool</span> <span class="o">=</span> <span class="n">KonachanDataPool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">konachan_pool_with_token</span> <span class="o">=</span> <span class="n">KonachanDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="s1">&#39;your_token_here&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">konachan_pool_specific_revision</span> <span class="o">=</span> <span class="n">KonachanDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="s1">&#39;v1.0&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd>
+<dt>Note:</dt><dd><p>The KonachanDataPool uses a predefined repository (_KONACHAN_REPO) for both
+data and index storage. This ensures consistency in data access and management
+for Konachan images.</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.konachan.KonachanDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/konachan.html#KonachanDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.konachan.KonachanDataPool.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the KonachanDataPool.</p>
+<p>This constructor sets up the KonachanDataPool with the specified revision
+and optional Hugging Face token. It initializes the underlying IncrementIDDataPool
+with the predefined Konachan repository for both data and index management.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face token for authentication, defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">KonachanDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="s1">&#39;v2.0&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="o">=</span><span class="s1">&#39;my_secret_token&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </dd></dl>

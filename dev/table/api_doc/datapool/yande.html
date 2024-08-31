@@ -75,6 +75,7 @@
 <li class="toctree-l2"><a class="reference internal" href="nhentai.html">cheesechaser.datapool.nhentai</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nozomi.html">cheesechaser.datapool.nozomi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="realbooru.html">cheesechaser.datapool.realbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="table.html">cheesechaser.datapool.table</a></li>
 <li class="toctree-l2"><a class="reference internal" href="threedbooru.html">cheesechaser.datapool.threedbooru</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">cheesechaser.datapool.yande</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#yandedatapool">YandeDataPool</a><ul>
@@ -134,11 +135,21 @@ for handling Yande image data. It uses a predefined Hugging Face repository
 for both data storage and indexing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>data_repo_id</strong> – The Hugging Face repository ID for data storage.</p></li>
+<li><p><strong>idx_repo_id</strong> – The Hugging Face repository ID for indexing.</p></li>
+</ul>
 </dd>
 </dl>
 <dl>
 <dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">yande_pool</span> <span class="o">=</span> <span class="n">YandeDataPool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yande_pool_with_token</span> <span class="o">=</span> <span class="n">YandeDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="s1">&#39;your_token_here&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -154,9 +165,15 @@ in the same repository (_YANDE_REPO).</p>
 <dd><p>Initialize the YandeDataPool.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token for accessing private repositories.</p></li>
+</ul>
 </dd>
 </dl>
+<p>This constructor initializes the YandeDataPool by calling the parent class constructor
+with specific parameters for the Yande data repository. It sets up both the data and
+index repositories to use the same Hugging Face repository and revision.</p>
 </dd></dl>
 
 </dd></dl>

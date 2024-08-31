@@ -20,7 +20,7 @@ for interacting with the Hugging Face file system.
 import fnmatch
 import os
 from contextlib import contextmanager
-from typing import Iterable, ContextManager, Tuple, Any
+from typing import Iterable, ContextManager, Tuple, Any, Optional
 
 from hfutils.operate.base import get_hf_fs
 from hfutils.utils import parse_hf_fs_path, hf_fs_path
@@ -50,13 +50,14 @@ class _BaseDanbooruDataPool(IncrementIDDataPool):
     """
 
     def __init__(self, data_repo_id: str, data_revision: str = 'main',
-                 idx_repo_id: str = None, idx_revision: str = 'main'):
+                 idx_repo_id: str = None, idx_revision: str = 'main', hf_token: Optional[str] = None):
         IncrementIDDataPool.__init__(
             self,
             data_repo_id=data_repo_id,
             data_revision=data_revision,
             idx_repo_id=idx_repo_id,
             idx_revision=idx_revision,
+            hf_token=hf_token,
         )
         self._update_files = None
 
@@ -117,13 +118,14 @@ class DanbooruDataPool(_BaseDanbooruDataPool):
     :type idx_revision: str
     """
 
-    def __init__(self, data_revision: str = 'main', idx_revision: str = 'main'):
+    def __init__(self, data_revision: str = 'main', idx_revision: str = 'main', hf_token: Optional[str] = None):
         _BaseDanbooruDataPool.__init__(
             self,
             data_repo_id=_DEFAULT_DATA_REPO_ID,
             data_revision=data_revision,
             idx_repo_id=_DEFAULT_IDX_REPO_ID,
             idx_revision=idx_revision,
+            hf_token=hf_token,
         )
 
 
@@ -135,11 +137,12 @@ class DanbooruStableDataPool(DanbooruDataPool):
     to provide access to a stable version of the Danbooru dataset.
     """
 
-    def __init__(self):
+    def __init__(self, hf_token: Optional[str] = None):
         DanbooruDataPool.__init__(
             self,
             data_revision='81652caef9403712b4112a3fcb5d9b4997424ac3',
             idx_revision='20240319',
+            hf_token=hf_token,
         )
 
 
@@ -158,13 +161,14 @@ class _DanbooruNewestPartialDataPool(IncrementIDDataPool):
     :type idx_revision: str
     """
 
-    def __init__(self, data_revision: str = 'main', idx_revision: str = 'main'):
+    def __init__(self, data_revision: str = 'main', idx_revision: str = 'main', hf_token: Optional[str] = None):
         IncrementIDDataPool.__init__(
             self,
             data_repo_id=_N_REPO_ID,
             data_revision=data_revision,
             idx_repo_id=_N_REPO_ID,
             idx_revision=idx_revision,
+            hf_token=hf_token,
         )
 
 
@@ -176,9 +180,9 @@ class DanbooruNewestDataPool(DataPool):
     the newest additions, providing a comprehensive view of the data.
     """
 
-    def __init__(self):
-        self._old_pool = DanbooruStableDataPool()
-        self._newest_pool = _DanbooruNewestPartialDataPool()
+    def __init__(self, hf_token: Optional[str] = None):
+        self._old_pool = DanbooruStableDataPool(hf_token=hf_token)
+        self._newest_pool = _DanbooruNewestPartialDataPool(hf_token=hf_token)
 
     @contextmanager
     def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
@@ -229,13 +233,14 @@ class DanbooruWebpDataPool(_BaseDanbooruDataPool):
     :type idx_revision: str
     """
 
-    def __init__(self, data_revision: str = 'main', idx_revision: str = 'main'):
+    def __init__(self, data_revision: str = 'main', idx_revision: str = 'main', hf_token: Optional[str] = None):
         _BaseDanbooruDataPool.__init__(
             self,
             data_repo_id=_DEFAULT_WEBP_DATA_REPO_ID,
             data_revision=data_revision,
             idx_repo_id=_DEFAULT_WEBP_IDX_REPO_ID,
             idx_revision=idx_revision,
+            hf_token=hf_token,
         )
 
     def _request_possible_archives(self, resource_id) -> Iterable[str]:
@@ -275,13 +280,14 @@ class _DanbooruNewestPartialWebpDataPool(IncrementIDDataPool):
     :type idx_revision: str
     """
 
-    def __init__(self, data_revision: str = 'main', idx_revision: str = 'main'):
+    def __init__(self, data_revision: str = 'main', idx_revision: str = 'main', hf_token: Optional[str] = None):
         IncrementIDDataPool.__init__(
             self,
             data_repo_id=_N_WEBP_RPEO_ID,
             data_revision=data_revision,
             idx_repo_id=_N_WEBP_RPEO_ID,
             idx_revision=idx_revision,
+            hf_token=hf_token,
         )
 
 
@@ -293,9 +299,9 @@ class DanbooruNewestWebpDataPool(DataPool):
     and the newest WebP additions, providing a comprehensive view of the WebP data.
     """
 
-    def __init__(self):
-        self._old_pool = DanbooruWebpDataPool()
-        self._newest_pool = _DanbooruNewestPartialWebpDataPool()
+    def __init__(self, hf_token: Optional[str] = None):
+        self._old_pool = DanbooruWebpDataPool(hf_token=hf_token)
+        self._newest_pool = _DanbooruNewestPartialWebpDataPool(hf_token=hf_token)
 
     @contextmanager
     def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:

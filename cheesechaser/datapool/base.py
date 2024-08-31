@@ -29,7 +29,7 @@ import shutil
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import List, Iterable, ContextManager, Tuple, Any
+from typing import List, Iterable, ContextManager, Tuple, Any, Optional
 
 from hbutils.system import TemporaryDirectory
 from hfutils.index import hf_tar_list_files, hf_tar_file_download
@@ -193,13 +193,14 @@ class HfBasedDataPool(DataPool):
     """
 
     def __init__(self, data_repo_id: str, data_revision: str = 'main',
-                 idx_repo_id: str = None, idx_revision: str = 'main'):
+                 idx_repo_id: str = None, idx_revision: str = 'main', hf_token: Optional[str] = None):
         self.data_repo_id = data_repo_id
         self.data_revision = data_revision
 
         self.idx_repo_id = idx_repo_id or data_repo_id
         self.idx_revision = idx_revision
 
+        self._hf_token = hf_token
         self._tar_infos = {}
 
     def _file_to_resource_id(self, tar_file: str, body: str):
@@ -242,6 +243,7 @@ class HfBasedDataPool(DataPool):
                 idx_repo_id=self.idx_repo_id,
                 idx_repo_type='dataset',
                 idx_revision=self.idx_revision,
+                hf_token=self._hf_token,
             )
 
             for file in all_files:
@@ -319,6 +321,7 @@ class HfBasedDataPool(DataPool):
                     idx_repo_id=self.idx_repo_id,
                     idx_repo_type='dataset',
                     idx_revision=self.idx_revision,
+                    hf_token=self._hf_token,
                 )
             yield td, resource_info
 
@@ -368,8 +371,15 @@ class IncrementIDDataPool(HfBasedDataPool):
 
     def __init__(self, data_repo_id: str, data_revision: str = 'main',
                  idx_repo_id: str = None, idx_revision: str = 'main',
-                 base_level: int = 3, base_dir: str = 'images'):
-        HfBasedDataPool.__init__(self, data_repo_id, data_revision, idx_repo_id, idx_revision)
+                 base_level: int = 3, base_dir: str = 'images', hf_token: Optional[str] = None):
+        HfBasedDataPool.__init__(
+            self,
+            data_repo_id=data_repo_id,
+            data_revision=data_revision,
+            idx_repo_id=idx_repo_id,
+            idx_revision=idx_revision,
+            hf_token=hf_token,
+        )
         self.base_level = base_level
         self.base_dir = base_dir
 

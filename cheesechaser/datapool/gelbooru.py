@@ -7,8 +7,16 @@ It contains two classes:
 2. GelbooruWebpDataPool: For accessing the WebP-formatted Gelbooru dataset with 4M pixel images.
 
 Both classes inherit from IncrementIDDataPool and provide easy access to the respective datasets
-stored in Hugging Face repositories.
+stored in Hugging Face repositories. These classes simplify the process of retrieving and working
+with Gelbooru image data, allowing users to easily integrate this data into their projects or
+research.
+
+.. note::
+    The datasets `deepghs/gelbooru_full <https://huggingface.co/datasets/deepghs/gelbooru_full>`_ and
+    `deepghs/gelbooru-webp-4Mpixel <https://huggingface.co/datasets/deepghs/gelbooru-webp-4Mpixel>`_
+    is gated, you have to get the access of it before using this module.
 """
+
 from typing import Optional
 
 from .base import IncrementIDDataPool
@@ -22,9 +30,18 @@ class GelbooruDataPool(IncrementIDDataPool):
 
     This class inherits from IncrementIDDataPool and is configured to access
     the full Gelbooru dataset stored in the 'deepghs/gelbooru_full' repository.
+    It provides methods to retrieve image data based on image IDs.
 
     :param revision: The revision of the dataset to use, defaults to 'main'.
     :type revision: str
+
+    Usage:
+        >>> pool = GelbooruDataPool()
+        >>> image_data = pool.get(image_id)
+
+    Note:
+        This class uses a base level of 4 for file organization, which means
+        the images are stored in a directory structure with 4 levels of subdirectories.
     """
 
     def __init__(self, revision: str = 'main'):
@@ -53,9 +70,21 @@ class GelbooruWebpDataPool(IncrementIDDataPool):
 
     This class inherits from IncrementIDDataPool and is configured to access
     the WebP-formatted Gelbooru dataset stored in the 'deepghs/gelbooru-webp-4Mpixel' repository.
+    It provides methods to retrieve WebP-formatted image data based on image IDs.
 
     :param revision: The revision of the dataset to use, defaults to 'main'.
     :type revision: str
+    :param hf_token: Hugging Face authentication token, defaults to None.
+    :type hf_token: Optional[str]
+
+    Usage:
+        >>> pool = GelbooruWebpDataPool(hf_token='your_huggingface_token')
+        >>> image_data = pool.get(image_id)
+
+    Note:
+        This class uses a base level of 3 for file organization, which means
+        the images are stored in a directory structure with 3 levels of subdirectories.
+        Authentication may be required to access this dataset.
     """
 
     def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
@@ -64,6 +93,8 @@ class GelbooruWebpDataPool(IncrementIDDataPool):
 
         :param revision: The revision of the dataset to use, defaults to 'main'.
         :type revision: str
+        :param hf_token: Hugging Face authentication token, defaults to None.
+        :type hf_token: Optional[str]
         """
         IncrementIDDataPool.__init__(
             self,

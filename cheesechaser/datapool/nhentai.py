@@ -8,6 +8,10 @@ The module includes two main classes:
 
 These classes provide functionality for retrieving manga information, downloading images,
 and managing resources from a Hugging Face dataset repository.
+
+.. note::
+    The dataset `deepghs/nhentai_full <https://huggingface.co/datasets/deepghs/nhentai_full>`_
+    is gated, you have to get the access of it before using this module.
 """
 
 import json
@@ -34,10 +38,17 @@ class NHentaiImagesDataPool(IncrementIDDataPool):
     A data pool class for managing NHentai images.
 
     This class extends the IncrementIDDataPool to provide specific functionality
-    for handling NHentai image data.
+    for handling NHentai image data. It allows for efficient retrieval and management
+    of image resources from a Hugging Face dataset repository.
 
     :param revision: The revision of the data to use, defaults to 'main'.
     :type revision: str
+    :param hf_token: Hugging Face API token for authentication, defaults to None.
+    :type hf_token: Optional[str]
+
+    Usage:
+        images_pool = NHentaiImagesDataPool(revision='latest')
+        # Use images_pool to access and manage NHentai images
     """
 
     def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
@@ -46,6 +57,8 @@ class NHentaiImagesDataPool(IncrementIDDataPool):
 
         :param revision: The revision of the data to use, defaults to 'main'.
         :type revision: str
+        :param hf_token: Hugging Face API token for authentication, defaults to None.
+        :type hf_token: Optional[str]
         """
         IncrementIDDataPool.__init__(
             self,
@@ -63,10 +76,16 @@ class NHentaiMangaDataPool(DataPool):
     A data pool class for managing NHentai manga data.
 
     This class provides methods for retrieving manga information, downloading associated images,
-    and managing manga resources.
+    and managing manga resources. It utilizes the NHentaiImagesDataPool for handling image data.
 
     :param revision: The revision of the data to use, defaults to 'main'.
     :type revision: str
+    :param hf_token: Hugging Face API token for authentication, defaults to None.
+    :type hf_token: Optional[str]
+
+    Usage:
+        manga_pool = NHentaiMangaDataPool(revision='latest')
+        # Use manga_pool to access manga information and associated images
     """
 
     __data_lock__ = Lock()
@@ -77,6 +96,8 @@ class NHentaiMangaDataPool(DataPool):
 
         :param revision: The revision of the data to use, defaults to 'main'.
         :type revision: str
+        :param hf_token: Hugging Face API token for authentication, defaults to None.
+        :type hf_token: Optional[str]
         """
         self.revision = revision
         self.images_pool = NHentaiImagesDataPool(revision=revision, hf_token=hf_token)
@@ -89,12 +110,14 @@ class NHentaiMangaDataPool(DataPool):
         """
         Get a mapping of manga IDs to their associated image IDs.
 
-        This method is cached for efficiency.
+        This method is cached for efficiency and provides a quick lookup for manga-to-image associations.
 
         :param revision: The revision of the data to use, defaults to 'main'.
         :type revision: str
         :param local_files_prefer: Whether to prefer local files, defaults to True.
         :type local_files_prefer: bool
+        :param hf_token: Hugging Face API token for authentication, defaults to None.
+        :type hf_token: Optional[str]
         :return: A dictionary mapping manga IDs to lists of image IDs.
         :rtype: dict
         """
@@ -111,12 +134,14 @@ class NHentaiMangaDataPool(DataPool):
         """
         Retrieve the manga posts table as a pandas DataFrame.
 
-        This method is cached for efficiency.
+        This method is cached for efficiency and provides access to the complete manga post information.
 
         :param revision: The revision of the data to use, defaults to 'main'.
         :type revision: str
         :param local_files_prefer: Whether to prefer local files, defaults to True.
         :type local_files_prefer: bool
+        :param hf_token: Hugging Face API token for authentication, defaults to None.
+        :type hf_token: Optional[str]
         :return: A pandas DataFrame containing manga post information.
         :rtype: pandas.DataFrame
         """
@@ -146,7 +171,7 @@ class NHentaiMangaDataPool(DataPool):
         Create a mock resource for a given manga.
 
         This method downloads the associated images for a manga and organizes them
-        in a temporary directory.
+        in a temporary directory. It's useful for processing or analyzing manga content.
 
         :param resource_id: The ID of the manga resource.
         :type resource_id: int

@@ -6,6 +6,10 @@ The module is designed to facilitate access to the Fancaps dataset, which is hos
 the Hugging Face Hub.
 
 The constant `_FANCAPS_REPO` defines the repository ID for the Fancaps dataset.
+
+.. note::
+    The dataset `deepghs/fancaps_full <https://huggingface.co/datasets/deepghs/fancaps_full>`_
+    is gated, you have to get the access of it before using this module.
 """
 from typing import Optional
 
@@ -24,9 +28,12 @@ class FancapsDataPool(IncrementIDDataPool):
 
     :param revision: The specific revision of the dataset to use, defaults to 'main'.
     :type revision: str
+    :param hf_token: Optional Hugging Face authentication token for accessing private repositories.
+    :type hf_token: Optional[str]
 
     Usage:
         >>> fancaps_pool = FancapsDataPool()
+        >>> fancaps_pool_with_token = FancapsDataPool(hf_token='your_hf_token_here')
 
     .. note::
         The Fancaps dataset is stored in the repository defined by `_FANCAPS_REPO`.
@@ -39,6 +46,8 @@ class FancapsDataPool(IncrementIDDataPool):
 
         :param revision: The specific revision of the dataset to use, defaults to 'main'.
         :type revision: str
+        :param hf_token: Optional Hugging Face authentication token for accessing private repositories.
+        :type hf_token: Optional[str]
         """
         IncrementIDDataPool.__init__(
             self,

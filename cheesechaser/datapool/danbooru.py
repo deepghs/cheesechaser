@@ -15,6 +15,9 @@ Classes:
 
 The module uses various utility functions and classes from the hfutils package
 for interacting with the Hugging Face file system.
+
+.. note::
+    Danbooru series datasets are all freely-opened.
 """
 
 import fnmatch
@@ -47,6 +50,8 @@ class _BaseDanbooruDataPool(IncrementIDDataPool):
     :type idx_repo_id: str
     :param idx_revision: The revision of the index repository to use. Defaults to 'main'.
     :type idx_revision: str
+    :param hf_token: Optional Hugging Face token for authentication.
+    :type hf_token: Optional[str]
     """
 
     def __init__(self, data_repo_id: str, data_revision: str = 'main',
@@ -116,6 +121,8 @@ class DanbooruDataPool(_BaseDanbooruDataPool):
     :type data_revision: str
     :param idx_revision: The revision of the index repository to use. Defaults to 'main'.
     :type idx_revision: str
+    :param hf_token: Optional Hugging Face token for authentication.
+    :type hf_token: Optional[str]
     """
 
     def __init__(self, data_revision: str = 'main', idx_revision: str = 'main', hf_token: Optional[str] = None):
@@ -135,6 +142,9 @@ class DanbooruStableDataPool(DanbooruDataPool):
 
     This class uses specific revisions of the data and index repositories
     to provide access to a stable version of the Danbooru dataset.
+
+    :param hf_token: Optional Hugging Face token for authentication.
+    :type hf_token: Optional[str]
     """
 
     def __init__(self, hf_token: Optional[str] = None):
@@ -159,6 +169,8 @@ class _DanbooruNewestPartialDataPool(IncrementIDDataPool):
     :type data_revision: str
     :param idx_revision: The revision of the index repository to use. Defaults to 'main'.
     :type idx_revision: str
+    :param hf_token: Optional Hugging Face token for authentication.
+    :type hf_token: Optional[str]
     """
 
     def __init__(self, data_revision: str = 'main', idx_revision: str = 'main', hf_token: Optional[str] = None):
@@ -178,6 +190,9 @@ class DanbooruNewestDataPool(DataPool):
 
     This class combines access to both the stable Danbooru dataset and
     the newest additions, providing a comprehensive view of the data.
+
+    :param hf_token: Optional Hugging Face token for authentication.
+    :type hf_token: Optional[str]
     """
 
     def __init__(self, hf_token: Optional[str] = None):
@@ -231,6 +246,8 @@ class DanbooruWebpDataPool(_BaseDanbooruDataPool):
     :type data_revision: str
     :param idx_revision: The revision of the index repository to use. Defaults to 'main'.
     :type idx_revision: str
+    :param hf_token: Optional Hugging Face token for authentication.
+    :type hf_token: Optional[str]
     """
 
     def __init__(self, data_revision: str = 'main', idx_revision: str = 'main', hf_token: Optional[str] = None):
@@ -278,6 +295,8 @@ class _DanbooruNewestPartialWebpDataPool(IncrementIDDataPool):
     :type data_revision: str
     :param idx_revision: The revision of the index repository to use. Defaults to 'main'.
     :type idx_revision: str
+    :param hf_token: Optional Hugging Face token for authentication.
+    :type hf_token: Optional[str]
     """
 
     def __init__(self, data_revision: str = 'main', idx_revision: str = 'main', hf_token: Optional[str] = None):
@@ -297,6 +316,9 @@ class DanbooruNewestWebpDataPool(DataPool):
 
     This class combines access to both the stable WebP-formatted Danbooru dataset
     and the newest WebP additions, providing a comprehensive view of the WebP data.
+
+    :param hf_token: Optional Hugging Face token for authentication.
+    :type hf_token: Optional[str]
     """
 
     def __init__(self, hf_token: Optional[str] = None):

@@ -4,7 +4,12 @@ This module provides a data pool implementation for anime pictures.
 It defines a class `AnimePicturesDataPool` which inherits from `IncrementIDDataPool`.
 This class is designed to manage and access a repository of anime pictures,
 utilizing an incremental ID system for efficient data retrieval.
+
+.. note::
+    The dataset `deepghs/anime_pictures_full <https://huggingface.co/datasets/deepghs/anime_pictures_full>`_
+    is gated, you have to get the access of it before using this module.
 """
+
 from typing import Optional
 
 from .base import IncrementIDDataPool
@@ -22,10 +27,13 @@ class AnimePicturesDataPool(IncrementIDDataPool):
 
     :param revision: The revision of the data to use, defaults to 'main'.
     :type revision: str
+    :param hf_token: Optional Hugging Face token for authentication, defaults to None.
+    :type hf_token: Optional[str]
 
     Usage:
         >>> pool = AnimePicturesDataPool()
         >>> pool = AnimePicturesDataPool(revision='v1.0')
+        >>> pool = AnimePicturesDataPool(revision='main', hf_token='your_hf_token')
 
     .. note::
         The class uses the same repository for both data and index storage.
@@ -35,8 +43,13 @@ class AnimePicturesDataPool(IncrementIDDataPool):
         """
         Initialize the AnimePicturesDataPool.
 
+        This method sets up the data pool by calling the parent class constructor
+        with specific parameters for the anime pictures repository.
+
         :param revision: The revision of the data to use, defaults to 'main'.
         :type revision: str
+        :param hf_token: Optional Hugging Face token for authentication, defaults to None.
+        :type hf_token: Optional[str]
         """
         IncrementIDDataPool.__init__(
             self,

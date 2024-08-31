@@ -42,11 +42,14 @@ class DataLocation:
     """
     Represents the location of a file within a tar archive.
 
+    :param resource_id: The unique identifier for the resource.
+    :type resource_id: int
     :param tar_file: The name of the tar file containing the data.
     :type tar_file: str
     :param filename: The name of the file within the tar archive.
     :type filename: str
     """
+    resource_id: int
     tar_file: str
     filename: str
 
@@ -56,7 +59,8 @@ def _n_path(path):
     Normalize a file path.
 
     This function takes a file path and normalizes it by joining it with the root directory
-    and then normalizing the resulting path.
+    and then normalizing the resulting path. It's useful for ensuring consistent path formats
+    across different operating systems.
 
     :param path: The file path to normalize.
     :type path: str
@@ -73,6 +77,9 @@ def _n_path(path):
 class InvalidResourceDataError(Exception):
     """
     Base exception for invalid resource data.
+
+    This exception is raised when there's an issue with the resource data that prevents
+    it from being processed or used correctly.
     """
     pass
 
@@ -80,6 +87,9 @@ class InvalidResourceDataError(Exception):
 class ResourceNotFoundError(InvalidResourceDataError):
     """
     Exception raised when a requested resource is not found.
+
+    This exception is typically raised when attempting to access or download a resource
+    that does not exist in the data pool.
     """
     pass
 
@@ -87,6 +97,9 @@ class ResourceNotFoundError(InvalidResourceDataError):
 class FileUnrecognizableError(Exception):
     """
     Exception raised when a file cannot be recognized or processed.
+
+    This exception is used when the system encounters a file that it cannot parse or
+    interpret according to the expected format or structure.
     """
     pass
 
@@ -96,7 +109,10 @@ class DataPool:
     Abstract base class for data pool operations.
 
     This class defines the interface for data pool operations and provides a method
-    for batch downloading resources to a directory.
+    for batch downloading resources to a directory. Subclasses should implement the
+    `mock_resource` method to provide specific functionality for different types of data pools.
+
+    The DataPool class is designed to be extended for various data sources and storage mechanisms.
     """
 
     @contextmanager
@@ -105,7 +121,8 @@ class DataPool:
         Context manager to mock a resource.
 
         This method should be implemented by subclasses to provide a way to temporarily
-        access a resource.
+        access a resource. It's typically used to download or generate a temporary copy
+        of the resource for processing.
 
         :param resource_id: The ID of the resource to mock.
         :param resource_info: Additional information about the resource.
@@ -120,6 +137,7 @@ class DataPool:
         Download multiple resources to a directory.
 
         This method downloads a batch of resources to a specified directory, optionally saving metadata for each resource.
+        It uses a thread pool to parallelize downloads for improved performance.
 
         :param resource_ids: List of resource IDs or tuples of (resource_id, resource_info) to download.
         :type resource_ids: Iterable[Union[str, Tuple[str, Any]]]
@@ -133,6 +151,10 @@ class DataPool:
         :type metainfo_fmt: str
 
         :raises OSError: If there's an issue creating the destination directory or copying files.
+
+        :example:
+        >>> data_pool = SomeDataPoolImplementation()
+        >>> data_pool.batch_download_to_directory(['resource1', 'resource2'], '/path/to/destination')
         """
         pg_res = tqdm(resource_ids, desc='Batch Downloading')
         pg_downloaded = tqdm(desc='Files Downloaded')
@@ -181,6 +203,7 @@ class HfBasedDataPool(DataPool):
     Implementation of DataPool for Hugging Face datasets.
 
     This class provides methods to interact with and download resources from Hugging Face datasets.
+    It handles the complexities of working with Hugging Face's repository structure and file organization.
 
     :param data_repo_id: The ID of the Hugging Face dataset repository.
     :type data_repo_id: str
@@ -190,6 +213,14 @@ class HfBasedDataPool(DataPool):
     :type idx_repo_id: str
     :param idx_revision: The revision of the index to use.
     :type idx_revision: str
+    :param hf_token: Optional Hugging Face authentication token.
+    :type hf_token: Optional[str]
+
+    :example:
+    >>> data_pool = HfBasedDataPool('username/dataset', data_revision='main')
+    >>> with data_pool.mock_resource('resource1', None) as (path, info):
+    ...     # Work with the resource at 'path'
+    ...     pass
     """
 
     def __init__(self, data_repo_id: str, data_revision: str = 'main',
@@ -223,6 +254,7 @@ class HfBasedDataPool(DataPool):
         Create or retrieve information about a tar file.
 
         This method lists the files in a tar archive and maps them to resource IDs.
+        It caches the information to avoid repeated API calls.
 
         :param tar_file: The name of the tar file.
         :type tar_file: str
@@ -230,6 +262,9 @@ class HfBasedDataPool(DataPool):
         :type force: bool
         :return: A dictionary mapping resource IDs to lists of file paths.
         :rtype: dict
+
+        :raises EntryNotFoundError: If the specified tar file is not found in the repository.
+        :raises RepositoryNotFoundError: If the specified repository is not found.
         """
         key = _n_path(tar_file)
         if force or key not in self._tar_infos:
@@ -279,6 +314,11 @@ class HfBasedDataPool(DataPool):
         :param resource_id: The ID of the resource to request.
         :return: A list of DataLocation objects representing the resource's locations.
         :raises ResourceNotFoundError: If the resource is not found in any archive.
+
+        :example:
+        >>> data_pool = HfBasedDataPool('username/dataset')
+        >>> locations = data_pool._request_resource_by_id('resource1')
+        >>> print(locations[0].tar_file, locations[0].filename)
         """
         for archive_file in self._request_possible_archives(resource_id):
             try:
@@ -289,11 +329,24 @@ class HfBasedDataPool(DataPool):
 
             if resource_id in info:
                 return [
-                    DataLocation(tar_file=archive_file, filename=file)
+                    DataLocation(resource_id=resource_id, tar_file=archive_file, filename=file)
                     for file in info[resource_id]
                 ]
         else:
             raise ResourceNotFoundError(f'Resource {resource_id!r} not found.')
+
+    def _get_dst_filename(self, location: DataLocation):
+        """
+        Get the destination filename for a given DataLocation.
+
+        This method determines the filename to use when saving a resource locally.
+
+        :param location: The DataLocation object containing information about the resource.
+        :type location: DataLocation
+        :return: The filename to use for the local copy of the resource.
+        :rtype: str
+        """
+        return os.path.basename(location.filename)
 
     @contextmanager
     def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
@@ -306,10 +359,17 @@ class HfBasedDataPool(DataPool):
         :param resource_info: Additional information about the resource.
         :return: A tuple containing the path to the temporary directory and the resource info.
         :raises ResourceNotFoundError: If the resource cannot be found or downloaded.
+
+        :example:
+        >>> data_pool = HfBasedDataPool('username/dataset')
+        >>> with data_pool.mock_resource('resource1', {'metadata': 'value'}) as (path, info):
+        ...     # Work with the resource at 'path'
+        ...     print(f"Resource path: {path}")
+        ...     print(f"Resource info: {info}")
         """
         with TemporaryDirectory() as td:
             for location in self._request_resource_by_id(resource_id):
-                dst_filename = os.path.join(td, os.path.basename(location.filename))
+                dst_filename = os.path.join(td, self._get_dst_filename(location))
                 hf_tar_file_download(
                     repo_id=self.data_repo_id,
                     repo_type='dataset',
@@ -330,7 +390,8 @@ def id_modulo_cut(id_text: str):
     """
     Cut an ID string into segments of 3 characters each, starting from the end.
 
-    This function is used to create a hierarchical structure for IDs.
+    This function is used to create a hierarchical structure for IDs, which can be useful
+    for organizing files in a directory structure based on their IDs.
 
     :param id_text: The ID string to cut.
     :type id_text: str

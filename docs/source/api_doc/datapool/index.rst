@@ -21,6 +21,7 @@ cheesechaser.datapool
     nhentai
     nozomi
     realbooru
+    table
     threedbooru
     yande
     zerochan

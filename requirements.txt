@@ -9,3 +9,4 @@ httpx[http2]
 random_user_agent
 pandas
 pyrate_limiter
+pyarrow

@@ -101,6 +101,7 @@
 
 <span class="sd">The constant `_FANCAPS_REPO` defines the repository ID for the Fancaps dataset.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
 
@@ -126,7 +127,7 @@
 <span class="sd">        Both the data and index are stored in the same repository.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="FancapsDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/fancaps.html#cheesechaser.datapool.fancaps.FancapsDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="FancapsDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/fancaps.html#cheesechaser.datapool.fancaps.FancapsDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the FancapsDataPool.</span>
 
@@ -139,6 +140,7 @@
             <span class="n">data_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
             <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_FANCAPS_REPO</span><span class="p">,</span>
             <span class="n">idx_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
         <span class="p">)</span></div></div>
 </pre></div>
 

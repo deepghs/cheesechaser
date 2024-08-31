@@ -99,6 +99,7 @@
 <span class="sd">to specifically handle the 3D Booru dataset. This module allows users to easily</span>
 <span class="sd">access and manage data from the 3D Booru repository hosted on Hugging Face.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
 
@@ -123,7 +124,7 @@
 <span class="sd">        The 3D Booru dataset is hosted in the &#39;deepghs/3dbooru_full&#39; repository on Hugging Face.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ThreedbooruDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/threedbooru.html#cheesechaser.datapool.threedbooru.ThreedbooruDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="ThreedbooruDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/threedbooru.html#cheesechaser.datapool.threedbooru.ThreedbooruDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the ThreedbooruDataPool.</span>
 
@@ -136,6 +137,7 @@
             <span class="n">data_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
             <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_3DBOORU_REPO</span><span class="p">,</span>
             <span class="n">idx_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
         <span class="p">)</span></div></div>
 </pre></div>
 

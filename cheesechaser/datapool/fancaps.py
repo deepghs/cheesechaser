@@ -24,9 +24,12 @@ class FancapsDataPool(IncrementIDDataPool):
 
     :param revision: The specific revision of the dataset to use, defaults to 'main'.
     :type revision: str
+    :param hf_token: Optional Hugging Face authentication token for accessing private repositories.
+    :type hf_token: Optional[str]
 
     Usage:
         >>> fancaps_pool = FancapsDataPool()
+        >>> fancaps_pool_with_token = FancapsDataPool(hf_token='your_hf_token_here')
 
     .. note::
         The Fancaps dataset is stored in the repository defined by `_FANCAPS_REPO`.
@@ -39,6 +42,8 @@ class FancapsDataPool(IncrementIDDataPool):
 
         :param revision: The specific revision of the dataset to use, defaults to 'main'.
         :type revision: str
+        :param hf_token: Optional Hugging Face authentication token for accessing private repositories.
+        :type hf_token: Optional[str]
         """
         IncrementIDDataPool.__init__(
             self,

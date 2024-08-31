@@ -4,6 +4,7 @@ This module provides a data pool implementation for Realbooru dataset.
 The RealbooruDataPool class extends the IncrementIDDataPool to specifically handle
 the Realbooru dataset, which is stored in a Hugging Face repository.
 """
+
 from typing import Optional
 
 from .base import IncrementIDDataPool
@@ -19,16 +20,29 @@ class RealbooruDataPool(IncrementIDDataPool):
     with the Realbooru dataset stored in a Hugging Face repository. It provides an
     interface to access and manage the data using incremental IDs.
 
+    The Realbooru dataset is a large collection of images and associated metadata,
+    commonly used for machine learning tasks in computer vision and image processing.
+
     :param revision: The specific revision of the Realbooru dataset to use, defaults to 'main'.
     :type revision: str
+    :param hf_token: Optional Hugging Face authentication token for accessing private repositories.
+    :type hf_token: Optional[str]
     """
 
     def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the RealbooruDataPool.
 
+        This constructor sets up the data pool by specifying the Hugging Face repository
+        and revision for both the data and index. It uses the _REALBOORU_REPO constant
+        as the repository ID for both data and index.
+
         :param revision: The specific revision of the Realbooru dataset to use, defaults to 'main'.
+                         This allows for version control of the dataset.
         :type revision: str
+        :param hf_token: Optional Hugging Face authentication token for accessing private repositories.
+                         If provided, it enables access to private datasets.
+        :type hf_token: Optional[str]
         """
         IncrementIDDataPool.__init__(
             self,

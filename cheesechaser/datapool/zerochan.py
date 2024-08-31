@@ -9,6 +9,7 @@ It includes two main classes:
 These classes inherit from IncrementIDDataPool and provide easy access to
 Zerochan images stored in Hugging Face repositories.
 """
+
 from typing import Optional
 
 from .base import IncrementIDDataPool
@@ -25,9 +26,8 @@ class ZerochanDataPool(IncrementIDDataPool):
 
     :param revision: The revision of the Hugging Face repository to use, defaults to 'main'.
     :type revision: str
-
-    Usage:
-        >>> pool = ZerochanDataPool()
+    :param hf_token: Optional Hugging Face authentication token for accessing private repositories.
+    :type hf_token: Optional[str]
     """
 
     def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
@@ -36,6 +36,8 @@ class ZerochanDataPool(IncrementIDDataPool):
 
         :param revision: The revision of the Hugging Face repository to use, defaults to 'main'.
         :type revision: str
+        :param hf_token: Optional Hugging Face authentication token for accessing private repositories.
+        :type hf_token: Optional[str]
         """
         IncrementIDDataPool.__init__(
             self,
@@ -61,9 +63,8 @@ class ZerochanWebpDataPool(IncrementIDDataPool):
 
     :param revision: The revision of the Hugging Face repository to use, defaults to 'main'.
     :type revision: str
-
-    Usage:
-        >>> pool = ZerochanWebpDataPool()
+    :param hf_token: Optional Hugging Face authentication token for accessing private repositories.
+    :type hf_token: Optional[str]
     """
 
     def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
@@ -72,6 +73,8 @@ class ZerochanWebpDataPool(IncrementIDDataPool):
 
         :param revision: The revision of the Hugging Face repository to use, defaults to 'main'.
         :type revision: str
+        :param hf_token: Optional Hugging Face authentication token for accessing private repositories.
+        :type hf_token: Optional[str]
         """
         IncrementIDDataPool.__init__(
             self,

@@ -15,10 +15,10 @@ Key features:
 import os
 from typing import Iterable, Optional
 
+from hfutils.operate import get_hf_fs
 from natsort import natsorted
 
 from .base import IncrementIDDataPool, id_modulo_cut
-from hfutils.operate import get_hf_fs
 
 _HC_REPO = 'deepghs/hentai_cosplay_trans'
 
@@ -36,6 +36,12 @@ class HentaiCosplayDataPool(IncrementIDDataPool):
     :type revision: str
     :param base_level: The base level for ID modulo operations.
     :type base_level: int
+    :param hf_token: Optional Hugging Face authentication token.
+    :type hf_token: Optional[str]
+
+    Usage:
+        >>> pool = HentaiCosplayDataPool()
+        >>> resource = pool.get(12345)  # Retrieves resource with ID 12345
     """
 
     def __init__(self, repo_id: str = _HC_REPO, revision: str = 'main', base_level: int = 3,
@@ -49,6 +55,8 @@ class HentaiCosplayDataPool(IncrementIDDataPool):
         :type revision: str
         :param base_level: The base level for ID modulo operations.
         :type base_level: int
+        :param hf_token: Optional Hugging Face authentication token.
+        :type hf_token: Optional[str]
         """
         IncrementIDDataPool.__init__(
             self,
@@ -69,6 +77,9 @@ class HentaiCosplayDataPool(IncrementIDDataPool):
 
         :return: A list of archive directory paths.
         :rtype: list
+
+        Note:
+            This method caches the result for subsequent calls.
         """
         if self._archive_dirs is None:
             hf_fs = get_hf_fs(hf_token=self._hf_token)
@@ -90,6 +101,10 @@ class HentaiCosplayDataPool(IncrementIDDataPool):
         :type resource_id: int
         :return: An iterable of possible archive paths.
         :rtype: Iterable[str]
+
+        Note:
+            The method uses the base_level attribute to determine the modulo calculation
+            and directory structure.
         """
         modulo = resource_id % (10 ** self.base_level)
         modulo_str = str(modulo)

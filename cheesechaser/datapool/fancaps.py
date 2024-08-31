@@ -7,6 +7,7 @@ the Hugging Face Hub.
 
 The constant `_FANCAPS_REPO` defines the repository ID for the Fancaps dataset.
 """
+from typing import Optional
 
 from .base import IncrementIDDataPool
 
@@ -32,7 +33,7 @@ class FancapsDataPool(IncrementIDDataPool):
         Both the data and index are stored in the same repository.
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the FancapsDataPool.
 
@@ -45,4 +46,5 @@ class FancapsDataPool(IncrementIDDataPool):
             data_revision=revision,
             idx_repo_id=_FANCAPS_REPO,
             idx_revision=revision,
+            hf_token=hf_token,
         )

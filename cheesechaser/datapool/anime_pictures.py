@@ -5,6 +5,7 @@ It defines a class `AnimePicturesDataPool` which inherits from `IncrementIDDataP
 This class is designed to manage and access a repository of anime pictures,
 utilizing an incremental ID system for efficient data retrieval.
 """
+from typing import Optional
 
 from .base import IncrementIDDataPool
 
@@ -30,7 +31,7 @@ class AnimePicturesDataPool(IncrementIDDataPool):
         The class uses the same repository for both data and index storage.
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the AnimePicturesDataPool.
 
@@ -43,4 +44,5 @@ class AnimePicturesDataPool(IncrementIDDataPool):
             data_revision=revision,
             idx_repo_id=_ANIME_PICTURES_REPO,
             idx_revision=revision,
+            hf_token=hf_token,
         )

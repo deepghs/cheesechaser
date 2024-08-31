@@ -9,6 +9,7 @@ It includes two main classes:
 These classes inherit from IncrementIDDataPool and provide easy access to
 Zerochan images stored in Hugging Face repositories.
 """
+from typing import Optional
 
 from .base import IncrementIDDataPool
 
@@ -29,7 +30,7 @@ class ZerochanDataPool(IncrementIDDataPool):
         >>> pool = ZerochanDataPool()
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the ZerochanDataPool.
 
@@ -43,6 +44,7 @@ class ZerochanDataPool(IncrementIDDataPool):
             idx_repo_id=_ZEROCHAN_REPO,
             idx_revision=revision,
             base_level=3,
+            hf_token=hf_token,
         )
 
 
@@ -64,7 +66,7 @@ class ZerochanWebpDataPool(IncrementIDDataPool):
         >>> pool = ZerochanWebpDataPool()
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the ZerochanWebpDataPool.
 
@@ -78,4 +80,5 @@ class ZerochanWebpDataPool(IncrementIDDataPool):
             idx_repo_id=_ZEROCHAN_WEBP_REPO,
             idx_revision=revision,
             base_level=3,
+            hf_token=hf_token,
         )

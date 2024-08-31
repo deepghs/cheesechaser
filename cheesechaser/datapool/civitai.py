@@ -5,6 +5,8 @@ The CivitaiDataPool class extends the IncrementIDDataPool to specifically handle
 It uses a predefined repository to store and retrieve data.
 """
 
+from typing import Optional
+
 from .base import IncrementIDDataPool
 
 _CIVITAI_REPO = 'deepghs/civitai_full'
@@ -25,7 +27,7 @@ class CivitaiDataPool(IncrementIDDataPool):
         >>> civitai_pool = CivitaiDataPool()
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the CivitaiDataPool with the specified revision.
 
@@ -39,4 +41,5 @@ class CivitaiDataPool(IncrementIDDataPool):
             idx_repo_id=_CIVITAI_REPO,
             idx_revision=revision,
             base_level=4,
+            hf_token=hf_token,
         )

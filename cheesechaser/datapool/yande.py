@@ -4,6 +4,7 @@ This module provides a data pool implementation for Yande image data.
 It extends the IncrementIDDataPool class to specifically handle Yande image data,
 utilizing a predefined Hugging Face repository for data storage and indexing.
 """
+from typing import Optional
 
 from .base import IncrementIDDataPool
 
@@ -29,7 +30,7 @@ class YandeDataPool(IncrementIDDataPool):
         in the same repository (_YANDE_REPO).
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the YandeDataPool.
 
@@ -42,4 +43,5 @@ class YandeDataPool(IncrementIDDataPool):
             data_revision=revision,
             idx_repo_id=_YANDE_REPO,
             idx_revision=revision,
+            hf_token=hf_token,
         )

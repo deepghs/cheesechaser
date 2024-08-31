@@ -17,7 +17,7 @@ import shutil
 from contextlib import contextmanager
 from functools import lru_cache
 from threading import Lock
-from typing import ContextManager, Tuple, Any
+from typing import ContextManager, Tuple, Any, Optional
 
 import pandas as pd
 from hbutils.system import TemporaryDirectory
@@ -40,7 +40,7 @@ class NHentaiImagesDataPool(IncrementIDDataPool):
     :type revision: str
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the NHentaiImagesDataPool.
 
@@ -54,6 +54,7 @@ class NHentaiImagesDataPool(IncrementIDDataPool):
             idx_repo_id=_DATA_REPO,
             idx_revision=revision,
             base_level=4,
+            hf_token=hf_token,
         )
 
 
@@ -70,7 +71,7 @@ class NHentaiMangaDataPool(DataPool):
 
     __data_lock__ = Lock()
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the NHentaiMangaDataPool.
 
@@ -78,7 +79,7 @@ class NHentaiMangaDataPool(DataPool):
         :type revision: str
         """
         self.revision = revision
-        self.images_pool = NHentaiImagesDataPool(revision=revision)
+        self.images_pool = NHentaiImagesDataPool(revision=revision, hf_token=hf_token)
 
     @classmethod
     @lru_cache()

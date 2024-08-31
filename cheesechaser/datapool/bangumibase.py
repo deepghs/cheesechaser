@@ -5,6 +5,7 @@ The BangumiBase dataset is a comprehensive collection of anime and manga informa
 This module extends the IncrementIDDataPool to specifically handle the BangumiBase dataset,
 providing an easy-to-use interface for accessing and managing this data.
 """
+from typing import Optional
 
 from .base import IncrementIDDataPool
 
@@ -22,14 +23,9 @@ class BangumiBaseDataPool(IncrementIDDataPool):
     :param revision: The specific revision of the BangumiBase dataset to use.
                      Defaults to 'main'.
     :type revision: str
-
-    Usage:
-        >>> pool = BangumiBaseDataPool()
-        >>> data = pool.get(1)  # Retrieve data for ID 1
-        >>> all_ids = pool.all_ids()  # Get all available IDs in the dataset
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the BangumiBaseDataPool.
 
@@ -43,4 +39,5 @@ class BangumiBaseDataPool(IncrementIDDataPool):
             data_revision=revision,
             idx_repo_id=_BANGUMIBASE_REPO,
             idx_revision=revision,
+            hf_token=hf_token,
         )

@@ -5,6 +5,7 @@ It includes a class `ThreedbooruDataPool` which extends the `IncrementIDDataPool
 to specifically handle the 3D Booru dataset. This module allows users to easily
 access and manage data from the 3D Booru repository hosted on Hugging Face.
 """
+from typing import Optional
 
 from .base import IncrementIDDataPool
 
@@ -29,7 +30,7 @@ class ThreedbooruDataPool(IncrementIDDataPool):
         The 3D Booru dataset is hosted in the 'deepghs/3dbooru_full' repository on Hugging Face.
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the ThreedbooruDataPool.
 
@@ -42,4 +43,5 @@ class ThreedbooruDataPool(IncrementIDDataPool):
             data_revision=revision,
             idx_repo_id=_3DBOORU_REPO,
             idx_revision=revision,
+            hf_token=hf_token,
         )

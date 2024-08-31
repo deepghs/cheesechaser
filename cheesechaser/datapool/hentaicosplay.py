@@ -13,12 +13,12 @@ Key features:
 """
 
 import os
-from typing import Iterable
+from typing import Iterable, Optional
 
 from natsort import natsorted
 
 from .base import IncrementIDDataPool, id_modulo_cut
-from ..utils import get_hf_fs
+from hfutils.operate import get_hf_fs
 
 _HC_REPO = 'deepghs/hentai_cosplay_trans'
 
@@ -38,7 +38,8 @@ class HentaiCosplayDataPool(IncrementIDDataPool):
     :type base_level: int
     """
 
-    def __init__(self, repo_id: str = _HC_REPO, revision: str = 'main', base_level: int = 3):
+    def __init__(self, repo_id: str = _HC_REPO, revision: str = 'main', base_level: int = 3,
+                 hf_token: Optional[str] = None):
         """
         Initialize the HentaiCosplayDataPool.
 
@@ -54,6 +55,7 @@ class HentaiCosplayDataPool(IncrementIDDataPool):
             data_repo_id=repo_id, data_revision=revision,
             idx_repo_id=repo_id, idx_revision=revision,
             base_level=base_level,
+            hf_token=hf_token,
         )
         self._archive_dirs = None
 
@@ -69,7 +71,7 @@ class HentaiCosplayDataPool(IncrementIDDataPool):
         :rtype: list
         """
         if self._archive_dirs is None:
-            hf_fs = get_hf_fs()
+            hf_fs = get_hf_fs(hf_token=self._hf_token)
             self._archive_dirs = natsorted({
                 os.path.dirname(os.path.relpath(file, f'datasets/{self.data_repo_id}'))
                 for file in hf_fs.glob(f'datasets/{self.data_repo_id}/**/*.tar')

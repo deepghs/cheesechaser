@@ -5,6 +5,7 @@ It defines the KonachanDataPool class, which is a specialized version of the
 IncrementIDDataPool for handling Konachan image data. The module uses a
 predefined repository for storing and accessing Konachan image data.
 """
+from typing import Optional
 
 from .base import IncrementIDDataPool
 
@@ -26,7 +27,7 @@ class KonachanDataPool(IncrementIDDataPool):
         >>> konachan_pool = KonachanDataPool()
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the KonachanDataPool.
 
@@ -39,4 +40,5 @@ class KonachanDataPool(IncrementIDDataPool):
             data_revision=revision,
             idx_repo_id=_KONACHAN_REPO,
             idx_revision=revision,
+            hf_token=hf_token,
         )

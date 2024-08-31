@@ -17,14 +17,14 @@ import shutil
 from contextlib import contextmanager
 from functools import lru_cache
 from threading import Lock
-from typing import ContextManager, Tuple, Any
+from typing import ContextManager, Tuple, Any, Optional
 
 import pandas as pd
 from hbutils.system import TemporaryDirectory
+from hfutils.operate import get_hf_client
 from huggingface_hub.utils import LocalEntryNotFoundError
 
 from .base import IncrementIDDataPool, DataPool, ResourceNotFoundError
-from ..utils import get_hf_client
 
 _DATA_REPO = 'deepghs/nhentai_full'
 
@@ -40,7 +40,7 @@ class NHentaiImagesDataPool(IncrementIDDataPool):
     :type revision: str
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the NHentaiImagesDataPool.
 
@@ -54,6 +54,7 @@ class NHentaiImagesDataPool(IncrementIDDataPool):
             idx_repo_id=_DATA_REPO,
             idx_revision=revision,
             base_level=4,
+            hf_token=hf_token,
         )
 
 
@@ -70,7 +71,7 @@ class NHentaiMangaDataPool(DataPool):
 
     __data_lock__ = Lock()
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the NHentaiMangaDataPool.
 
@@ -78,11 +79,13 @@ class NHentaiMangaDataPool(DataPool):
         :type revision: str
         """
         self.revision = revision
-        self.images_pool = NHentaiImagesDataPool(revision=revision)
+        self.images_pool = NHentaiImagesDataPool(revision=revision, hf_token=hf_token)
+        self._hf_token = hf_token
 
     @classmethod
     @lru_cache()
-    def manga_id_map(cls, revision: str = 'main', local_files_prefer: bool = True):
+    def manga_id_map(cls, revision: str = 'main', local_files_prefer: bool = True,
+                     hf_token: Optional[str] = None):
         """
         Get a mapping of manga IDs to their associated image IDs.
 
@@ -95,7 +98,7 @@ class NHentaiMangaDataPool(DataPool):
         :return: A dictionary mapping manga IDs to lists of image IDs.
         :rtype: dict
         """
-        df = cls.manga_posts_table(revision, local_files_prefer)
+        df = cls.manga_posts_table(revision, local_files_prefer, hf_token=hf_token)
         return {
             item['id']: json.loads(item['image_ids'])
             for item in df.to_dict('records')
@@ -103,7 +106,8 @@ class NHentaiMangaDataPool(DataPool):
 
     @classmethod
     @lru_cache()
-    def manga_posts_table(cls, revision: str = 'main', local_files_prefer: bool = True):
+    def manga_posts_table(cls, revision: str = 'main', local_files_prefer: bool = True,
+                          hf_token: Optional[str] = None):
         """
         Retrieve the manga posts table as a pandas DataFrame.
 
@@ -116,7 +120,7 @@ class NHentaiMangaDataPool(DataPool):
         :return: A pandas DataFrame containing manga post information.
         :rtype: pandas.DataFrame
         """
-        client = get_hf_client()
+        client = get_hf_client(hf_token=hf_token)
         try:
             csv_file = client.hf_hub_download(
                 repo_id=_DATA_REPO,
@@ -153,7 +157,7 @@ class NHentaiMangaDataPool(DataPool):
         :raises ResourceNotFoundError: If the specified manga resource is not found.
         """
         with self.__data_lock__:
-            maps = self.manga_id_map(self.revision, local_files_prefer=True)
+            maps = self.manga_id_map(self.revision, local_files_prefer=True, hf_token=self._hf_token)
         if resource_id not in maps:
             raise ResourceNotFoundError(f'Manga {resource_id!r} not found.')
 

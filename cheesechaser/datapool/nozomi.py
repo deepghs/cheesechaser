@@ -6,6 +6,7 @@ Nozomi datasets stored in a Hugging Face repository. The module defines a consta
 for the repository name and a class that initializes the data pool with the
 appropriate repository and revision information.
 """
+from typing import Optional
 
 from .base import IncrementIDDataPool
 
@@ -28,7 +29,7 @@ class NozomiDataPool(IncrementIDDataPool):
         >>> nozomi_pool_dev = NozomiDataPool(revision='dev')  # Uses the 'dev' revision
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the NozomiDataPool with the specified revision.
 
@@ -41,4 +42,5 @@ class NozomiDataPool(IncrementIDDataPool):
             data_revision=revision,
             idx_repo_id=_NOZOMI_REPO,
             idx_revision=revision,
+            hf_token=hf_token,
         )

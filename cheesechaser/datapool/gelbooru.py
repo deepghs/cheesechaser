@@ -9,6 +9,7 @@ It contains two classes:
 Both classes inherit from IncrementIDDataPool and provide easy access to the respective datasets
 stored in Hugging Face repositories.
 """
+from typing import Optional
 
 from .base import IncrementIDDataPool
 
@@ -57,7 +58,7 @@ class GelbooruWebpDataPool(IncrementIDDataPool):
     :type revision: str
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the GelbooruWebpDataPool.
 
@@ -71,4 +72,5 @@ class GelbooruWebpDataPool(IncrementIDDataPool):
             idx_repo_id=_GELBOORU_WEBP_REPO,
             idx_revision=revision,
             base_level=3,
+            hf_token=hf_token,
         )

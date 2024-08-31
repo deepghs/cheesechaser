@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cheesechaser.datapool.realbooru &mdash; cheesechaser 0.0.3 documentation</title>
+  <title>cheesechaser.datapool.realbooru &mdash; cheesechaser 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
@@ -17,14 +17,14 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=65a4545c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=2389946f"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="cheesechaser.datapool.threedbooru" href="threedbooru.html" />
+    <link rel="next" title="cheesechaser.datapool.table" href="table.html" />
     <link rel="prev" title="cheesechaser.datapool.nozomi" href="nozomi.html" /> 
 </head>
 
@@ -40,7 +40,7 @@
             cheesechaser
           </a>
               <div class="version">
-                0.0.3
+                0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -81,6 +81,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="table.html">cheesechaser.datapool.table</a></li>
 <li class="toctree-l2"><a class="reference internal" href="threedbooru.html">cheesechaser.datapool.threedbooru</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yande.html">cheesechaser.datapool.yande</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zerochan.html">cheesechaser.datapool.zerochan</a></li>
@@ -123,6 +124,11 @@
 <p>This module provides a data pool implementation for Realbooru dataset.</p>
 <p>The RealbooruDataPool class extends the IncrementIDDataPool to specifically handle
 the Realbooru dataset, which is stored in a Hugging Face repository.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The dataset <a class="reference external" href="https://huggingface.co/datasets/deepghs/realbooru_full">deepghs/realbooru_full</a>
+is gated, you have to get the access of it before using this module.</p>
+</div>
 <section id="realboorudatapool">
 <h2>RealbooruDataPool<a class="headerlink" href="#realboorudatapool" title="Permalink to this heading"></a></h2>
 <dl class="py class">
@@ -132,18 +138,31 @@ the Realbooru dataset, which is stored in a Hugging Face repository.</p>
 <p>This class inherits from IncrementIDDataPool and is specifically designed to work
 with the Realbooru dataset stored in a Hugging Face repository. It provides an
 interface to access and manage the data using incremental IDs.</p>
+<p>The Realbooru dataset is a large collection of images and associated metadata,
+commonly used for machine learning tasks in computer vision and image processing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the Realbooru dataset to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The specific revision of the Realbooru dataset to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token for accessing private repositories.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.realbooru.RealbooruDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/realbooru.html#RealbooruDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.realbooru.RealbooruDataPool.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the RealbooruDataPool.</p>
+<p>This constructor sets up the data pool by specifying the Hugging Face repository
+and revision for both the data and index. It uses the _REALBOORU_REPO constant
+as the repository ID for both data and index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the Realbooru dataset to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The specific revision of the Realbooru dataset to use, defaults to ‘main’.
+This allows for version control of the dataset.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token for accessing private repositories.
+If provided, it enables access to private datasets.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -159,7 +178,7 @@ interface to access and manage the data using incremental IDs.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="nozomi.html" class="btn btn-neutral float-left" title="cheesechaser.datapool.nozomi" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="threedbooru.html" class="btn btn-neutral float-right" title="cheesechaser.datapool.threedbooru" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="table.html" class="btn btn-neutral float-right" title="cheesechaser.datapool.table" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -194,7 +213,6 @@ interface to access and manage the data using incremental IDs.</p>
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../dev/table/api_doc/datapool/realbooru.html">dev/table</a></dd>
                         <dd><a href="realbooru.html">main</a></dd>
                 </dl>
         </div>

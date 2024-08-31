@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cheesechaser.datapool.threedbooru &mdash; cheesechaser 0.0.3 documentation</title>
+  <title>cheesechaser.datapool.threedbooru &mdash; cheesechaser 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
@@ -17,7 +17,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=65a4545c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=2389946f"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="cheesechaser.datapool.yande" href="yande.html" />
-    <link rel="prev" title="cheesechaser.datapool.realbooru" href="realbooru.html" /> 
+    <link rel="prev" title="cheesechaser.datapool.table" href="table.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,7 +40,7 @@
             cheesechaser
           </a>
               <div class="version">
-                0.0.3
+                0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -75,6 +75,7 @@
 <li class="toctree-l2"><a class="reference internal" href="nhentai.html">cheesechaser.datapool.nhentai</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nozomi.html">cheesechaser.datapool.nozomi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="realbooru.html">cheesechaser.datapool.realbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="table.html">cheesechaser.datapool.table</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">cheesechaser.datapool.threedbooru</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#threedboorudatapool">ThreedbooruDataPool</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#cheesechaser.datapool.threedbooru.ThreedbooruDataPool"><code class="docutils literal notranslate"><span class="pre">ThreedbooruDataPool</span></code></a></li>
@@ -124,6 +125,11 @@
 <p>It includes a class <cite>ThreedbooruDataPool</cite> which extends the <cite>IncrementIDDataPool</cite>
 to specifically handle the 3D Booru dataset. This module allows users to easily
 access and manage data from the 3D Booru repository hosted on Hugging Face.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The dataset <a class="reference external" href="https://huggingface.co/datasets/deepghs/3dbooru_full">deepghs/3dbooru_full</a>
+is gated, you have to get the access of it before using this module.</p>
+</div>
 <section id="threedboorudatapool">
 <h2>ThreedbooruDataPool<a class="headerlink" href="#threedboorudatapool" title="Permalink to this heading"></a></h2>
 <dl class="py class">
@@ -135,11 +141,15 @@ for the 3D Booru dataset. It uses a predefined repository ID for both data
 and index information.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the 3D Booru dataset to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The specific revision of the 3D Booru dataset to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token for accessing private repositories.</p></li>
+</ul>
 </dd>
 </dl>
 <dl>
 <dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">ThreedbooruDataPool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool_with_token</span> <span class="o">=</span> <span class="n">ThreedbooruDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="s1">&#39;your_token_here&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -152,9 +162,14 @@ and index information.</p>
 <dt class="sig sig-object py" id="cheesechaser.datapool.threedbooru.ThreedbooruDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/threedbooru.html#ThreedbooruDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.threedbooru.ThreedbooruDataPool.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the ThreedbooruDataPool.</p>
+<p>This constructor sets up the data pool with the specified revision of the 3D Booru dataset.
+It uses the same repository for both data and index information.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the 3D Booru dataset to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The specific revision of the 3D Booru dataset to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token for accessing private repositories.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -169,7 +184,7 @@ and index information.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="realbooru.html" class="btn btn-neutral float-left" title="cheesechaser.datapool.realbooru" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="table.html" class="btn btn-neutral float-left" title="cheesechaser.datapool.table" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="yande.html" class="btn btn-neutral float-right" title="cheesechaser.datapool.yande" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -205,7 +220,6 @@ and index information.</p>
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../dev/table/api_doc/datapool/threedbooru.html">dev/table</a></dd>
                         <dd><a href="threedbooru.html">main</a></dd>
                 </dl>
         </div>

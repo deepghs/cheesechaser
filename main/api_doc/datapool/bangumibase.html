@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cheesechaser.datapool.bangumibase &mdash; cheesechaser 0.0.3 documentation</title>
+  <title>cheesechaser.datapool.bangumibase &mdash; cheesechaser 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
@@ -17,7 +17,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=65a4545c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=2389946f"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -40,7 +40,7 @@
             cheesechaser
           </a>
               <div class="version">
-                0.0.3
+                0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -81,6 +81,7 @@
 <li class="toctree-l2"><a class="reference internal" href="nhentai.html">cheesechaser.datapool.nhentai</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nozomi.html">cheesechaser.datapool.nozomi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="realbooru.html">cheesechaser.datapool.realbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="table.html">cheesechaser.datapool.table</a></li>
 <li class="toctree-l2"><a class="reference internal" href="threedbooru.html">cheesechaser.datapool.threedbooru</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yande.html">cheesechaser.datapool.yande</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zerochan.html">cheesechaser.datapool.zerochan</a></li>
@@ -124,6 +125,11 @@
 <p>The BangumiBase dataset is a comprehensive collection of anime and manga information.
 This module extends the IncrementIDDataPool to specifically handle the BangumiBase dataset,
 providing an easy-to-use interface for accessing and managing this data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The dataset <a class="reference external" href="https://huggingface.co/datasets/deepghs/bangumibase_full">deepghs/bangumibase_full</a>
+is gated, you have to get the access of it before using this module.</p>
+</div>
 <section id="bangumibasedatapool">
 <h2>BangumiBaseDataPool<a class="headerlink" href="#bangumibasedatapool" title="Permalink to this heading"></a></h2>
 <dl class="py class">
@@ -133,20 +139,43 @@ providing an easy-to-use interface for accessing and managing this data.</p>
 <p>This class extends the IncrementIDDataPool to provide specific functionality
 for the BangumiBase dataset. It simplifies the process of initializing the
 data pool with the correct repository and revision information.</p>
+<p>The BangumiBaseDataPool allows users to easily interact with the BangumiBase
+dataset, providing methods for retrieving, updating, and managing anime and
+manga information.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the BangumiBase dataset to use.
-Defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The specific revision of the BangumiBase dataset to use.
+Defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – An optional Hugging Face token for accessing private repositories.
+Defaults to None.</p></li>
+</ul>
 </dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
 </dl>
+<p>To create a BangumiBaseDataPool instance:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">BangumiBaseDataPool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Or with a specific revision</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">BangumiBaseDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="s1">&#39;v1.2.3&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Or with a Hugging Face token</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">BangumiBaseDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="s1">&#39;your_hf_token_here&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.bangumibase.BangumiBaseDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/bangumibase.html#BangumiBaseDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.bangumibase.BangumiBaseDataPool.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the BangumiBaseDataPool.</p>
+<p>This constructor sets up the data pool with the BangumiBase dataset repository
+and the specified revision. It uses the same repository for both data and index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the BangumiBase dataset to use.
-Defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The specific revision of the BangumiBase dataset to use.
+Defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – An optional Hugging Face token for accessing private repositories.
+Defaults to None.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -197,7 +226,6 @@ Defaults to ‘main’.</p>
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../dev/table/api_doc/datapool/bangumibase.html">dev/table</a></dd>
                         <dd><a href="bangumibase.html">main</a></dd>
                 </dl>
         </div>

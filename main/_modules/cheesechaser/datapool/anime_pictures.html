@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cheesechaser.datapool.anime_pictures &mdash; cheesechaser 0.0.3 documentation</title>
+  <title>cheesechaser.datapool.anime_pictures &mdash; cheesechaser 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
@@ -16,7 +16,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=65a4545c"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=2389946f"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -37,7 +37,7 @@
             cheesechaser
           </a>
               <div class="version">
-                0.0.3
+                0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -98,7 +98,12 @@
 <span class="sd">It defines a class `AnimePicturesDataPool` which inherits from `IncrementIDDataPool`.</span>
 <span class="sd">This class is designed to manage and access a repository of anime pictures,</span>
 <span class="sd">utilizing an incremental ID system for efficient data retrieval.</span>
+
+<span class="sd">.. note::</span>
+<span class="sd">    The dataset `deepghs/anime_pictures_full &lt;https://huggingface.co/datasets/deepghs/anime_pictures_full&gt;`_</span>
+<span class="sd">    is gated, you have to get the access of it before using this module.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
@@ -116,10 +121,13 @@
 
 <span class="sd">    :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
 <span class="sd">    :type revision: str</span>
+<span class="sd">    :param hf_token: Optional Hugging Face token for authentication, defaults to None.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 
 <span class="sd">    Usage:</span>
 <span class="sd">        &gt;&gt;&gt; pool = AnimePicturesDataPool()</span>
 <span class="sd">        &gt;&gt;&gt; pool = AnimePicturesDataPool(revision=&#39;v1.0&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; pool = AnimePicturesDataPool(revision=&#39;main&#39;, hf_token=&#39;your_hf_token&#39;)</span>
 
 <span class="sd">    .. note::</span>
 <span class="sd">        The class uses the same repository for both data and index storage.</span>
@@ -129,8 +137,13 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the AnimePicturesDataPool.</span>
 
+<span class="sd">        This method sets up the data pool by calling the parent class constructor</span>
+<span class="sd">        with specific parameters for the anime pictures repository.</span>
+
 <span class="sd">        :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
 <span class="sd">        :type revision: str</span>
+<span class="sd">        :param hf_token: Optional Hugging Face token for authentication, defaults to None.</span>
+<span class="sd">        :type hf_token: Optional[str]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -179,7 +192,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/table/index.html">dev/table</a></dd>
                         <dd><a href="anime_pictures.html">main</a></dd>
                 </dl>
         </div>

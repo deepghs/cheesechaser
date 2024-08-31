@@ -3,6 +3,12 @@ This module provides a data pool implementation for Civitai, a platform for AI-g
 
 The CivitaiDataPool class extends the IncrementIDDataPool to specifically handle data from Civitai.
 It uses a predefined repository to store and retrieve data.
+
+Classes:
+    CivitaiDataPool: A data pool class for managing Civitai data.
+
+Constants:
+    _CIVITAI_REPO: The repository used for storing Civitai data.
 """
 
 from typing import Optional
@@ -22,17 +28,31 @@ class CivitaiDataPool(IncrementIDDataPool):
 
     :param revision: The specific revision of the data to use, defaults to 'main'.
     :type revision: str
+    :param hf_token: An optional Hugging Face token for authentication, defaults to None.
+    :type hf_token: Optional[str]
 
     Usage:
         >>> civitai_pool = CivitaiDataPool()
+        >>> civitai_pool_with_token = CivitaiDataPool(hf_token='your_token_here')
+        >>> specific_revision_pool = CivitaiDataPool(revision='v1.0')
+
+    Note:
+        The CivitaiDataPool uses a predefined repository (_CIVITAI_REPO) for both data and index storage.
+        This ensures consistency and ease of use when working with Civitai data.
     """
 
     def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
-        Initialize the CivitaiDataPool with the specified revision.
+        Initialize the CivitaiDataPool with the specified revision and optional Hugging Face token.
 
         :param revision: The specific revision of the data to use, defaults to 'main'.
         :type revision: str
+        :param hf_token: An optional Hugging Face token for authentication, defaults to None.
+        :type hf_token: Optional[str]
+
+        This method sets up the CivitaiDataPool by initializing the parent IncrementIDDataPool
+        with specific parameters tailored for Civitai data. It uses the same repository for
+        both data and index storage, ensuring data consistency.
         """
         IncrementIDDataPool.__init__(
             self,

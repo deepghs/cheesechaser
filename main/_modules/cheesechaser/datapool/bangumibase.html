@@ -99,6 +99,7 @@
 <span class="sd">This module extends the IncrementIDDataPool to specifically handle the BangumiBase dataset,</span>
 <span class="sd">providing an easy-to-use interface for accessing and managing this data.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
 
@@ -116,14 +117,9 @@
 <span class="sd">    :param revision: The specific revision of the BangumiBase dataset to use.</span>
 <span class="sd">                     Defaults to &#39;main&#39;.</span>
 <span class="sd">    :type revision: str</span>
-
-<span class="sd">    Usage:</span>
-<span class="sd">        &gt;&gt;&gt; pool = BangumiBaseDataPool()</span>
-<span class="sd">        &gt;&gt;&gt; data = pool.get(1)  # Retrieve data for ID 1</span>
-<span class="sd">        &gt;&gt;&gt; all_ids = pool.all_ids()  # Get all available IDs in the dataset</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BangumiBaseDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/bangumibase.html#cheesechaser.datapool.bangumibase.BangumiBaseDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="BangumiBaseDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/bangumibase.html#cheesechaser.datapool.bangumibase.BangumiBaseDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the BangumiBaseDataPool.</span>
 
@@ -137,6 +133,7 @@
             <span class="n">data_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
             <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_BANGUMIBASE_REPO</span><span class="p">,</span>
             <span class="n">idx_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
         <span class="p">)</span></div></div>
 </pre></div>
 
@@ -177,7 +174,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/hf/index.html">dev/hf</a></dd>
                         <dd><a href="bangumibase.html">main</a></dd>
                 </dl>
         </div>

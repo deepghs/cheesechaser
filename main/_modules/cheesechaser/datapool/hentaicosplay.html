@@ -107,12 +107,12 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">natsort</span> <span class="kn">import</span> <span class="n">natsorted</span>
 
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span><span class="p">,</span> <span class="n">id_modulo_cut</span>
-<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">get_hf_fs</span>
+<span class="kn">from</span> <span class="nn">hfutils.operate</span> <span class="kn">import</span> <span class="n">get_hf_fs</span>
 
 <span class="n">_HC_REPO</span> <span class="o">=</span> <span class="s1">&#39;deepghs/hentai_cosplay_trans&#39;</span>
 
@@ -132,7 +132,8 @@
 <span class="sd">    :type base_level: int</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="HentaiCosplayDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/hentaicosplay.html#cheesechaser.datapool.hentaicosplay.HentaiCosplayDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">_HC_REPO</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">base_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
+<div class="viewcode-block" id="HentaiCosplayDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/hentaicosplay.html#cheesechaser.datapool.hentaicosplay.HentaiCosplayDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">_HC_REPO</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">base_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+                 <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the HentaiCosplayDataPool.</span>
 
@@ -148,6 +149,7 @@
             <span class="n">data_repo_id</span><span class="o">=</span><span class="n">repo_id</span><span class="p">,</span> <span class="n">data_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
             <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">repo_id</span><span class="p">,</span> <span class="n">idx_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
             <span class="n">base_level</span><span class="o">=</span><span class="n">base_level</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_archive_dirs</span> <span class="o">=</span> <span class="kc">None</span></div>
 
@@ -163,7 +165,7 @@
 <span class="sd">        :rtype: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_archive_dirs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">hf_fs</span> <span class="o">=</span> <span class="n">get_hf_fs</span><span class="p">()</span>
+            <span class="n">hf_fs</span> <span class="o">=</span> <span class="n">get_hf_fs</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_hf_token</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_archive_dirs</span> <span class="o">=</span> <span class="n">natsorted</span><span class="p">({</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;datasets/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data_repo_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
                 <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">hf_fs</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;datasets/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data_repo_id</span><span class="si">}</span><span class="s1">/**/*.tar&#39;</span><span class="p">)</span>
@@ -233,7 +235,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/hf/index.html">dev/hf</a></dd>
                         <dd><a href="hentaicosplay.html">main</a></dd>
                 </dl>
         </div>

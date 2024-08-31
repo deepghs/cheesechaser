@@ -99,6 +99,8 @@
 <span class="sd">It uses a predefined repository to store and retrieve data.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
 
 <span class="n">_CIVITAI_REPO</span> <span class="o">=</span> <span class="s1">&#39;deepghs/civitai_full&#39;</span>
@@ -119,7 +121,7 @@
 <span class="sd">        &gt;&gt;&gt; civitai_pool = CivitaiDataPool()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="CivitaiDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/civitai.html#cheesechaser.datapool.civitai.CivitaiDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="CivitaiDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/civitai.html#cheesechaser.datapool.civitai.CivitaiDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the CivitaiDataPool with the specified revision.</span>
 
@@ -133,6 +135,7 @@
             <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_CIVITAI_REPO</span><span class="p">,</span>
             <span class="n">idx_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
             <span class="n">base_level</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
         <span class="p">)</span></div></div>
 </pre></div>
 
@@ -173,7 +176,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/hf/index.html">dev/hf</a></dd>
                         <dd><a href="civitai.html">main</a></dd>
                 </dl>
         </div>

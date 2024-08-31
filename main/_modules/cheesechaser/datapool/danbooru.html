@@ -114,9 +114,9 @@
 <span class="kn">import</span> <span class="nn">fnmatch</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">ContextManager</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">ContextManager</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">from</span> <span class="nn">hfutils.operate.base</span> <span class="kn">import</span> <span class="n">get_hf_fs</span>
+<span class="kn">from</span> <span class="nn">hfutils.operate</span> <span class="kn">import</span> <span class="n">get_hf_fs</span>
 <span class="kn">from</span> <span class="nn">hfutils.utils</span> <span class="kn">import</span> <span class="n">parse_hf_fs_path</span><span class="p">,</span> <span class="n">hf_fs_path</span>
 <span class="kn">from</span> <span class="nn">natsort</span> <span class="kn">import</span> <span class="n">natsorted</span>
 
@@ -144,13 +144,14 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_repo_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span>
-                 <span class="n">idx_repo_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+                 <span class="n">idx_repo_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">data_repo_id</span><span class="o">=</span><span class="n">data_repo_id</span><span class="p">,</span>
             <span class="n">data_revision</span><span class="o">=</span><span class="n">data_revision</span><span class="p">,</span>
             <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">idx_repo_id</span><span class="p">,</span>
             <span class="n">idx_revision</span><span class="o">=</span><span class="n">idx_revision</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_files</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -165,7 +166,7 @@
 <span class="sd">        :rtype: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_files</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">hf_fs</span> <span class="o">=</span> <span class="n">get_hf_fs</span><span class="p">()</span>
+            <span class="n">hf_fs</span> <span class="o">=</span> <span class="n">get_hf_fs</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_hf_token</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_files</span> <span class="o">=</span> <span class="n">natsorted</span><span class="p">([</span>
                 <span class="n">parse_hf_fs_path</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">filename</span>
                 <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">hf_fs</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">hf_fs_path</span><span class="p">(</span>
@@ -211,13 +212,14 @@
 <span class="sd">    :type idx_revision: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DanbooruDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="DanbooruDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">_BaseDanbooruDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">data_repo_id</span><span class="o">=</span><span class="n">_DEFAULT_DATA_REPO_ID</span><span class="p">,</span>
             <span class="n">data_revision</span><span class="o">=</span><span class="n">data_revision</span><span class="p">,</span>
             <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_DEFAULT_IDX_REPO_ID</span><span class="p">,</span>
             <span class="n">idx_revision</span><span class="o">=</span><span class="n">idx_revision</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
         <span class="p">)</span></div></div>
 
 
@@ -229,11 +231,12 @@
 <span class="sd">    to provide access to a stable version of the Danbooru dataset.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DanbooruStableDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruStableDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DanbooruStableDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruStableDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">DanbooruDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">data_revision</span><span class="o">=</span><span class="s1">&#39;81652caef9403712b4112a3fcb5d9b4997424ac3&#39;</span><span class="p">,</span>
             <span class="n">idx_revision</span><span class="o">=</span><span class="s1">&#39;20240319&#39;</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
         <span class="p">)</span></div></div>
 
 
@@ -252,13 +255,14 @@
 <span class="sd">    :type idx_revision: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">data_repo_id</span><span class="o">=</span><span class="n">_N_REPO_ID</span><span class="p">,</span>
             <span class="n">data_revision</span><span class="o">=</span><span class="n">data_revision</span><span class="p">,</span>
             <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_N_REPO_ID</span><span class="p">,</span>
             <span class="n">idx_revision</span><span class="o">=</span><span class="n">idx_revision</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
         <span class="p">)</span>
 
 
@@ -270,9 +274,9 @@
 <span class="sd">    the newest additions, providing a comprehensive view of the data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DanbooruNewestDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_old_pool</span> <span class="o">=</span> <span class="n">DanbooruStableDataPool</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_newest_pool</span> <span class="o">=</span> <span class="n">_DanbooruNewestPartialDataPool</span><span class="p">()</span></div>
+<div class="viewcode-block" id="DanbooruNewestDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_old_pool</span> <span class="o">=</span> <span class="n">DanbooruStableDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_newest_pool</span> <span class="o">=</span> <span class="n">_DanbooruNewestPartialDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DanbooruNewestDataPool.mock_resource"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestDataPool.mock_resource">[docs]</a>    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
@@ -323,13 +327,14 @@
 <span class="sd">    :type idx_revision: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DanbooruWebpDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruWebpDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="DanbooruWebpDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruWebpDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">_BaseDanbooruDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">data_repo_id</span><span class="o">=</span><span class="n">_DEFAULT_WEBP_DATA_REPO_ID</span><span class="p">,</span>
             <span class="n">data_revision</span><span class="o">=</span><span class="n">data_revision</span><span class="p">,</span>
             <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_DEFAULT_WEBP_IDX_REPO_ID</span><span class="p">,</span>
             <span class="n">idx_revision</span><span class="o">=</span><span class="n">idx_revision</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_request_possible_archives</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
@@ -369,13 +374,14 @@
 <span class="sd">    :type idx_revision: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">data_repo_id</span><span class="o">=</span><span class="n">_N_WEBP_RPEO_ID</span><span class="p">,</span>
             <span class="n">data_revision</span><span class="o">=</span><span class="n">data_revision</span><span class="p">,</span>
             <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_N_WEBP_RPEO_ID</span><span class="p">,</span>
             <span class="n">idx_revision</span><span class="o">=</span><span class="n">idx_revision</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
         <span class="p">)</span>
 
 
@@ -387,9 +393,9 @@
 <span class="sd">    and the newest WebP additions, providing a comprehensive view of the WebP data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DanbooruNewestWebpDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_old_pool</span> <span class="o">=</span> <span class="n">DanbooruWebpDataPool</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_newest_pool</span> <span class="o">=</span> <span class="n">_DanbooruNewestPartialWebpDataPool</span><span class="p">()</span></div>
+<div class="viewcode-block" id="DanbooruNewestWebpDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_old_pool</span> <span class="o">=</span> <span class="n">DanbooruWebpDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_newest_pool</span> <span class="o">=</span> <span class="n">_DanbooruNewestPartialWebpDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DanbooruNewestWebpDataPool.mock_resource"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.mock_resource">[docs]</a>    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
@@ -460,7 +466,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/hf/index.html">dev/hf</a></dd>
                         <dd><a href="danbooru.html">main</a></dd>
                 </dl>
         </div>

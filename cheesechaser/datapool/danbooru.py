@@ -22,7 +22,7 @@ import os
 from contextlib import contextmanager
 from typing import Iterable, ContextManager, Tuple, Any, Optional
 
-from hfutils.operate.base import get_hf_fs
+from hfutils.operate import get_hf_fs
 from hfutils.utils import parse_hf_fs_path, hf_fs_path
 from natsort import natsorted
 
@@ -72,7 +72,7 @@ class _BaseDanbooruDataPool(IncrementIDDataPool):
         :rtype: list
         """
         if self._update_files is None:
-            hf_fs = get_hf_fs()
+            hf_fs = get_hf_fs(hf_token=self._hf_token)
             self._update_files = natsorted([
                 parse_hf_fs_path(file).filename
                 for file in hf_fs.glob(hf_fs_path(

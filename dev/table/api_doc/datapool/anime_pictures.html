@@ -135,12 +135,16 @@ for handling anime picture data. It uses a predefined repository for storing
 and retrieving anime pictures.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face token for authentication, defaults to None.</p></li>
+</ul>
 </dd>
 </dl>
 <dl>
 <dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">AnimePicturesDataPool</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">AnimePicturesDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="s1">&#39;v1.0&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">AnimePicturesDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="o">=</span><span class="s1">&#39;your_hf_token&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -153,9 +157,14 @@ and retrieving anime pictures.</p>
 <dt class="sig sig-object py" id="cheesechaser.datapool.anime_pictures.AnimePicturesDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/anime_pictures.html#AnimePicturesDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.anime_pictures.AnimePicturesDataPool.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the AnimePicturesDataPool.</p>
+<p>This method sets up the data pool by calling the parent class constructor
+with specific parameters for the anime pictures repository.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face token for authentication, defaults to None.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

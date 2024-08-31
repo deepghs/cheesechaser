@@ -133,20 +133,43 @@ providing an easy-to-use interface for accessing and managing this data.</p>
 <p>This class extends the IncrementIDDataPool to provide specific functionality
 for the BangumiBase dataset. It simplifies the process of initializing the
 data pool with the correct repository and revision information.</p>
+<p>The BangumiBaseDataPool allows users to easily interact with the BangumiBase
+dataset, providing methods for retrieving, updating, and managing anime and
+manga information.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the BangumiBase dataset to use.
-Defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The specific revision of the BangumiBase dataset to use.
+Defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – An optional Hugging Face token for accessing private repositories.
+Defaults to None.</p></li>
+</ul>
 </dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
 </dl>
+<p>To create a BangumiBaseDataPool instance:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">BangumiBaseDataPool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Or with a specific revision</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">BangumiBaseDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="s1">&#39;v1.2.3&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Or with a Hugging Face token</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">BangumiBaseDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="s1">&#39;your_hf_token_here&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.bangumibase.BangumiBaseDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/bangumibase.html#BangumiBaseDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.bangumibase.BangumiBaseDataPool.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the BangumiBaseDataPool.</p>
+<p>This constructor sets up the data pool with the BangumiBase dataset repository
+and the specified revision. It uses the same repository for both data and index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The specific revision of the BangumiBase dataset to use.
-Defaults to ‘main’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The specific revision of the BangumiBase dataset to use.
+Defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – An optional Hugging Face token for accessing private repositories.
+Defaults to None.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

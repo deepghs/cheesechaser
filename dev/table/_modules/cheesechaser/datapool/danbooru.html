@@ -141,6 +141,8 @@
 <span class="sd">    :type idx_repo_id: str</span>
 <span class="sd">    :param idx_revision: The revision of the index repository to use. Defaults to &#39;main&#39;.</span>
 <span class="sd">    :type idx_revision: str</span>
+<span class="sd">    :param hf_token: Optional Hugging Face token for authentication.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_repo_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span>
@@ -210,6 +212,8 @@
 <span class="sd">    :type data_revision: str</span>
 <span class="sd">    :param idx_revision: The revision of the index repository to use. Defaults to &#39;main&#39;.</span>
 <span class="sd">    :type idx_revision: str</span>
+<span class="sd">    :param hf_token: Optional Hugging Face token for authentication.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="DanbooruDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -229,6 +233,9 @@
 
 <span class="sd">    This class uses specific revisions of the data and index repositories</span>
 <span class="sd">    to provide access to a stable version of the Danbooru dataset.</span>
+
+<span class="sd">    :param hf_token: Optional Hugging Face token for authentication.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="DanbooruStableDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruStableDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -253,6 +260,8 @@
 <span class="sd">    :type data_revision: str</span>
 <span class="sd">    :param idx_revision: The revision of the index repository to use. Defaults to &#39;main&#39;.</span>
 <span class="sd">    :type idx_revision: str</span>
+<span class="sd">    :param hf_token: Optional Hugging Face token for authentication.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -272,6 +281,9 @@
 
 <span class="sd">    This class combines access to both the stable Danbooru dataset and</span>
 <span class="sd">    the newest additions, providing a comprehensive view of the data.</span>
+
+<span class="sd">    :param hf_token: Optional Hugging Face token for authentication.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="DanbooruNewestDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -325,6 +337,8 @@
 <span class="sd">    :type data_revision: str</span>
 <span class="sd">    :param idx_revision: The revision of the index repository to use. Defaults to &#39;main&#39;.</span>
 <span class="sd">    :type idx_revision: str</span>
+<span class="sd">    :param hf_token: Optional Hugging Face token for authentication.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="DanbooruWebpDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruWebpDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -372,6 +386,8 @@
 <span class="sd">    :type data_revision: str</span>
 <span class="sd">    :param idx_revision: The revision of the index repository to use. Defaults to &#39;main&#39;.</span>
 <span class="sd">    :type idx_revision: str</span>
+<span class="sd">    :param hf_token: Optional Hugging Face token for authentication.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -391,6 +407,9 @@
 
 <span class="sd">    This class combines access to both the stable WebP-formatted Danbooru dataset</span>
 <span class="sd">    and the newest WebP additions, providing a comprehensive view of the WebP data.</span>
+
+<span class="sd">    :param hf_token: Optional Hugging Face token for authentication.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="DanbooruNewestWebpDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>

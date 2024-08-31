@@ -162,6 +162,7 @@ for interacting with the Hugging Face file system.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data_revision</strong> (<em>str</em>) – The revision of the data repository to use. Defaults to ‘main’.</p></li>
 <li><p><strong>idx_revision</strong> (<em>str</em>) – The revision of the index repository to use. Defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face token for authentication.</p></li>
 </ul>
 </dd>
 </dl>
@@ -181,6 +182,11 @@ for interacting with the Hugging Face file system.</p>
 <dd><p>Class for accessing a stable version of Danbooru data.</p>
 <p>This class uses specific revisions of the data and index repositories
 to provide access to a stable version of the Danbooru dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face token for authentication.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruStableDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruStableDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruStableDataPool.__init__" title="Permalink to this definition"></a></dt>
@@ -197,6 +203,11 @@ to provide access to a stable version of the Danbooru dataset.</p>
 <dd><p>Class for accessing both stable and newest Danbooru data.</p>
 <p>This class combines access to both the stable Danbooru dataset and
 the newest additions, providing a comprehensive view of the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face token for authentication.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruNewestDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruNewestDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestDataPool.__init__" title="Permalink to this definition"></a></dt>
@@ -243,6 +254,7 @@ typically smaller in file size while maintaining good quality.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data_revision</strong> (<em>str</em>) – The revision of the data repository to use. Defaults to ‘main’.</p></li>
 <li><p><strong>idx_revision</strong> (<em>str</em>) – The revision of the index repository to use. Defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face token for authentication.</p></li>
 </ul>
 </dd>
 </dl>
@@ -262,6 +274,11 @@ typically smaller in file size while maintaining good quality.</p>
 <dd><p>Class for accessing both stable and newest WebP Danbooru data.</p>
 <p>This class combines access to both the stable WebP-formatted Danbooru dataset
 and the newest WebP additions, providing a comprehensive view of the WebP data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face token for authentication.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruNewestWebpDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.__init__" title="Permalink to this definition"></a></dt>

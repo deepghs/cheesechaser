@@ -99,6 +99,7 @@
 <span class="sd">This class is designed to manage and access a repository of anime pictures,</span>
 <span class="sd">utilizing an incremental ID system for efficient data retrieval.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span>
@@ -116,10 +117,13 @@
 
 <span class="sd">    :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
 <span class="sd">    :type revision: str</span>
+<span class="sd">    :param hf_token: Optional Hugging Face token for authentication, defaults to None.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
 
 <span class="sd">    Usage:</span>
 <span class="sd">        &gt;&gt;&gt; pool = AnimePicturesDataPool()</span>
 <span class="sd">        &gt;&gt;&gt; pool = AnimePicturesDataPool(revision=&#39;v1.0&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; pool = AnimePicturesDataPool(revision=&#39;main&#39;, hf_token=&#39;your_hf_token&#39;)</span>
 
 <span class="sd">    .. note::</span>
 <span class="sd">        The class uses the same repository for both data and index storage.</span>
@@ -129,8 +133,13 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the AnimePicturesDataPool.</span>
 
+<span class="sd">        This method sets up the data pool by calling the parent class constructor</span>
+<span class="sd">        with specific parameters for the anime pictures repository.</span>
+
 <span class="sd">        :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
 <span class="sd">        :type revision: str</span>
+<span class="sd">        :param hf_token: Optional Hugging Face token for authentication, defaults to None.</span>
+<span class="sd">        :type hf_token: Optional[str]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>

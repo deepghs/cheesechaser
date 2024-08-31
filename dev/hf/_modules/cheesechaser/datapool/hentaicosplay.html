@@ -112,7 +112,7 @@
 <span class="kn">from</span> <span class="nn">natsort</span> <span class="kn">import</span> <span class="n">natsorted</span>
 
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">IncrementIDDataPool</span><span class="p">,</span> <span class="n">id_modulo_cut</span>
-<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">get_hf_fs</span>
+<span class="kn">from</span> <span class="nn">hfutils.operate</span> <span class="kn">import</span> <span class="n">get_hf_fs</span>
 
 <span class="n">_HC_REPO</span> <span class="o">=</span> <span class="s1">&#39;deepghs/hentai_cosplay_trans&#39;</span>
 
@@ -165,7 +165,7 @@
 <span class="sd">        :rtype: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_archive_dirs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">hf_fs</span> <span class="o">=</span> <span class="n">get_hf_fs</span><span class="p">()</span>
+            <span class="n">hf_fs</span> <span class="o">=</span> <span class="n">get_hf_fs</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_hf_token</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_archive_dirs</span> <span class="o">=</span> <span class="n">natsorted</span><span class="p">({</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;datasets/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data_repo_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
                 <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">hf_fs</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;datasets/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data_repo_id</span><span class="si">}</span><span class="s1">/**/*.tar&#39;</span><span class="p">)</span>

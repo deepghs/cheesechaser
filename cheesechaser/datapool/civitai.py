@@ -7,8 +7,9 @@ It uses a predefined repository to store and retrieve data.
 Classes:
     CivitaiDataPool: A data pool class for managing Civitai data.
 
-Constants:
-    _CIVITAI_REPO: The repository used for storing Civitai data.
+.. note::
+    The dataset `deepghs/civitai_full <https://huggingface.co/datasets/deepghs/civitai_full>`_
+    is gated, you have to get the access of it before using this module.
 """
 
 from typing import Optional

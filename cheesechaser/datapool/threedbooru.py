@@ -4,6 +4,10 @@ This module provides a data pool implementation for the 3D Booru dataset.
 It includes a class `ThreedbooruDataPool` which extends the `IncrementIDDataPool`
 to specifically handle the 3D Booru dataset. This module allows users to easily
 access and manage data from the 3D Booru repository hosted on Hugging Face.
+
+.. note::
+    The dataset `deepghs/3dbooru_full <https://huggingface.co/datasets/deepghs/3dbooru_full>`_
+    is gated, you have to get the access of it before using this module.
 """
 
 from typing import Optional

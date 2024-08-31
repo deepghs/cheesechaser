@@ -3,6 +3,10 @@ This module provides a data pool implementation for Yande image data.
 
 It extends the IncrementIDDataPool class to specifically handle Yande image data,
 utilizing a predefined Hugging Face repository for data storage and indexing.
+
+.. note::
+    The dataset `deepghs/yande_full <https://huggingface.co/datasets/deepghs/yande_full>`_
+    is gated, you have to get the access of it before using this module.
 """
 
 from typing import Optional

@@ -4,6 +4,10 @@ This module provides a data pool implementation for Konachan images.
 It defines the KonachanDataPool class, which is a specialized version of the
 IncrementIDDataPool for handling Konachan image data. The module uses a
 predefined repository for storing and accessing Konachan image data.
+
+.. note::
+    The dataset `deepghs/konachan_full <https://huggingface.co/datasets/deepghs/konachan_full>`_
+    is gated, you have to get the access of it before using this module.
 """
 
 from typing import Optional

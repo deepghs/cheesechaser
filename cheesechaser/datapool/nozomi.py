@@ -5,6 +5,10 @@ It extends the functionality of the IncrementIDDataPool class to specifically ha
 Nozomi datasets stored in a Hugging Face repository. The module defines a constant
 for the repository name and a class that initializes the data pool with the
 appropriate repository and revision information.
+
+.. note::
+    The dataset `deepghs/nozomi_standalone_full <https://huggingface.co/datasets/deepghs/nozomi_standalone_full>`_
+    is gated, you have to get the access of it before using this module.
 """
 
 from typing import Optional

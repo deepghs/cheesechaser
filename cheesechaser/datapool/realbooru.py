@@ -3,6 +3,10 @@ This module provides a data pool implementation for Realbooru dataset.
 
 The RealbooruDataPool class extends the IncrementIDDataPool to specifically handle
 the Realbooru dataset, which is stored in a Hugging Face repository.
+
+.. note::
+    The dataset `deepghs/realbooru_full <https://huggingface.co/datasets/deepghs/realbooru_full>`_
+    is gated, you have to get the access of it before using this module.
 """
 
 from typing import Optional

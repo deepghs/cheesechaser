@@ -8,6 +8,10 @@ The module includes two main classes:
 
 These classes provide functionality for retrieving manga information, downloading images,
 and managing resources from a Hugging Face dataset repository.
+
+.. note::
+    The dataset `deepghs/nhentai_full <https://huggingface.co/datasets/deepghs/nhentai_full>`_
+    is gated, you have to get the access of it before using this module.
 """
 
 import json

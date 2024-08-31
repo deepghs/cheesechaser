@@ -12,8 +12,9 @@ with Gelbooru image data, allowing users to easily integrate this data into thei
 research.
 
 .. note::
-    The GelbooruWebpDataPool may require authentication with a Hugging Face token,
-    depending on the repository's access settings.
+    The datasets `deepghs/gelbooru_full <https://huggingface.co/datasets/deepghs/gelbooru_full>`_ and
+    `deepghs/gelbooru-webp-4Mpixel <https://huggingface.co/datasets/deepghs/gelbooru-webp-4Mpixel>`_
+    is gated, you have to get the access of it before using this module.
 """
 
 from typing import Optional

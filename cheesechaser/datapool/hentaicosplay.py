@@ -10,6 +10,10 @@ Key features:
 - Manages access to data stored in Hugging Face repositories
 - Implements a natural sorting algorithm for archive directories
 - Provides methods to locate and retrieve specific resources based on their IDs
+
+.. note::
+    The dataset `deepghs/hentai_cosplay_trans <https://huggingface.co/datasets/deepghs/hentai_cosplay_trans>`_
+    is private, you have to get the access of it before using this module.
 """
 
 import os

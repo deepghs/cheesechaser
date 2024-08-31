@@ -4,6 +4,10 @@ This module provides a data pool implementation for anime pictures.
 It defines a class `AnimePicturesDataPool` which inherits from `IncrementIDDataPool`.
 This class is designed to manage and access a repository of anime pictures,
 utilizing an incremental ID system for efficient data retrieval.
+
+.. note::
+    The dataset `deepghs/anime_pictures_full <https://huggingface.co/datasets/deepghs/anime_pictures_full>`_
+    is gated, you have to get the access of it before using this module.
 """
 
 from typing import Optional

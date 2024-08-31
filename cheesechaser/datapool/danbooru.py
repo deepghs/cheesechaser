@@ -15,6 +15,9 @@ Classes:
 
 The module uses various utility functions and classes from the hfutils package
 for interacting with the Hugging Face file system.
+
+.. note::
+    Danbooru series datasets are all freely-opened.
 """
 
 import fnmatch

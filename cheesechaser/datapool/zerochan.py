@@ -8,6 +8,11 @@ It includes two main classes:
 
 These classes inherit from IncrementIDDataPool and provide easy access to
 Zerochan images stored in Hugging Face repositories.
+
+.. note::
+    The datasets `deepghs/zerochan_full <https://huggingface.co/datasets/deepghs/zerochan_full>`_
+    and `deepghs/zerochan-webp-4Mpixel <https://huggingface.co/datasets/deepghs/zerochan-webp-4Mpixel>`_
+    is gated, you have to get the access of it before using this module.
 """
 
 from typing import Optional

@@ -4,6 +4,10 @@ This module provides a data pool implementation for the BangumiBase dataset.
 The BangumiBase dataset is a comprehensive collection of anime and manga information.
 This module extends the IncrementIDDataPool to specifically handle the BangumiBase dataset,
 providing an easy-to-use interface for accessing and managing this data.
+
+.. note::
+    The dataset `deepghs/bangumibase_full <https://huggingface.co/datasets/deepghs/bangumibase_full>`_
+    is gated, you have to get the access of it before using this module.
 """
 
 from typing import Optional

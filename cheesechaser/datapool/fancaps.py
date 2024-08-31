@@ -6,6 +6,10 @@ The module is designed to facilitate access to the Fancaps dataset, which is hos
 the Hugging Face Hub.
 
 The constant `_FANCAPS_REPO` defines the repository ID for the Fancaps dataset.
+
+.. note::
+    The dataset `deepghs/fancaps_full <https://huggingface.co/datasets/deepghs/fancaps_full>`_
+    is gated, you have to get the access of it before using this module.
 """
 from typing import Optional
 

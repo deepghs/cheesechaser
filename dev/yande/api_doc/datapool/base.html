@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cheesechaser.datapool.base &mdash; cheesechaser 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=c9d0a6ec" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=2389946f"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="cheesechaser.datapool.civitai" href="civitai.html" />
+    <link rel="prev" title="cheesechaser.datapool.bangumibase" href="bangumibase.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            cheesechaser
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/quick_start/index.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../information/environment.result.html">Run Environment Information</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">cheesechaser.config</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">cheesechaser.datapool</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="anime_pictures.html">cheesechaser.datapool.anime_pictures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bangumibase.html">cheesechaser.datapool.bangumibase</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">cheesechaser.datapool.base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#datalocation">DataLocation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cheesechaser.datapool.base.DataLocation"><code class="docutils literal notranslate"><span class="pre">DataLocation</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#datapool">DataPool</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cheesechaser.datapool.base.DataPool"><code class="docutils literal notranslate"><span class="pre">DataPool</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#hfbaseddatapool">HfBasedDataPool</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cheesechaser.datapool.base.HfBasedDataPool"><code class="docutils literal notranslate"><span class="pre">HfBasedDataPool</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#incrementiddatapool">IncrementIDDataPool</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cheesechaser.datapool.base.IncrementIDDataPool"><code class="docutils literal notranslate"><span class="pre">IncrementIDDataPool</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#invalidresourcedataerror">InvalidResourceDataError</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cheesechaser.datapool.base.InvalidResourceDataError"><code class="docutils literal notranslate"><span class="pre">InvalidResourceDataError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fileunrecognizableerror">FileUnrecognizableError</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cheesechaser.datapool.base.FileUnrecognizableError"><code class="docutils literal notranslate"><span class="pre">FileUnrecognizableError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#resourcenotfounderror">ResourceNotFoundError</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cheesechaser.datapool.base.ResourceNotFoundError"><code class="docutils literal notranslate"><span class="pre">ResourceNotFoundError</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="civitai.html">cheesechaser.datapool.civitai</a></li>
+<li class="toctree-l2"><a class="reference internal" href="danbooru.html">cheesechaser.datapool.danbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fancaps.html">cheesechaser.datapool.fancaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gelbooru.html">cheesechaser.datapool.gelbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hentaicosplay.html">cheesechaser.datapool.hentaicosplay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="konachan.html">cheesechaser.datapool.konachan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nhentai.html">cheesechaser.datapool.nhentai</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nozomi.html">cheesechaser.datapool.nozomi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="realbooru.html">cheesechaser.datapool.realbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="table.html">cheesechaser.datapool.table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threedbooru.html">cheesechaser.datapool.threedbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yande.html">cheesechaser.datapool.yande</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zerochan.html">cheesechaser.datapool.zerochan</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pipe/index.html">cheesechaser.pipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../query/index.html">cheesechaser.query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">cheesechaser.utils</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">cheesechaser</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">cheesechaser.datapool</a></li>
+      <li class="breadcrumb-item active">cheesechaser.datapool.base</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api_doc/datapool/base.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+    
+    
+  <section id="module-cheesechaser.datapool.base">
+<span id="cheesechaser-datapool-base"></span><h1>cheesechaser.datapool.base<a class="headerlink" href="#module-cheesechaser.datapool.base" title="Permalink to this heading"></a></h1>
+<p>This module provides functionality for managing and downloading resources from a data pool,
+particularly focused on Hugging Face-based datasets. It includes classes for handling data locations,
+managing data pools, and specific implementations for incremental ID-based data pools.</p>
+<p>The module offers features such as:</p>
+<ul class="simple">
+<li><p>Normalized path handling</p></li>
+<li><p>Custom exception classes for resource-related errors</p></li>
+<li><p>A generic DataPool class with batch downloading capabilities</p></li>
+<li><p>A HuggingFace-based data pool implementation</p></li>
+<li><p>An incremental ID-based data pool implementation</p></li>
+</ul>
+<p>Key components:</p>
+<ul class="simple">
+<li><p>DataLocation: Represents the location of a file within a tar archive</p></li>
+<li><p>DataPool: Abstract base class for data pool operations</p></li>
+<li><p>HfBasedDataPool: Implementation of DataPool for Hugging Face datasets</p></li>
+<li><p>IncrementIDDataPool: Specialized implementation for incremental ID-based datasets</p></li>
+</ul>
+<p>This module is useful for efficiently managing and retrieving resources from large datasets,
+especially those hosted on Hugging Face.</p>
+<section id="datalocation">
+<h2>DataLocation<a class="headerlink" href="#datalocation" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.DataLocation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.base.</span></span><span class="sig-name descname"><span class="pre">DataLocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/base.html#DataLocation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.base.DataLocation" title="Permalink to this definition"></a></dt>
+<dd><p>Represents the location of a file within a tar archive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_id</strong> (<em>int</em>) – The unique identifier for the resource.</p></li>
+<li><p><strong>tar_file</strong> (<em>str</em>) – The name of the tar file containing the data.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The name of the file within the tar archive.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.DataLocation.__eq__">
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cheesechaser.datapool.base.DataLocation.__eq__" title="Permalink to this definition"></a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.DataLocation.__hash__">
+<span class="sig-name descname"><span class="pre">__hash__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cheesechaser.datapool.base.DataLocation.__hash__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.DataLocation.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tar_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cheesechaser.datapool.base.DataLocation.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.DataLocation.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cheesechaser.datapool.base.DataLocation.__repr__" title="Permalink to this definition"></a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.DataLocation.__weakref__">
+<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#cheesechaser.datapool.base.DataLocation.__weakref__" title="Permalink to this definition"></a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="datapool">
+<h2>DataPool<a class="headerlink" href="#datapool" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.DataPool">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.base.</span></span><span class="sig-name descname"><span class="pre">DataPool</span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/base.html#DataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.base.DataPool" title="Permalink to this definition"></a></dt>
+<dd><p>Abstract base class for data pool operations.</p>
+<p>This class defines the interface for data pool operations and provides a method
+for batch downloading resources to a directory. Subclasses should implement the
+<cite>mock_resource</cite> method to provide specific functionality for different types of data pools.</p>
+<p>The DataPool class is designed to be extended for various data sources and storage mechanisms.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.DataPool.__weakref__">
+<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#cheesechaser.datapool.base.DataPool.__weakref__" title="Permalink to this definition"></a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.DataPool.batch_download_to_directory">
+<span class="sig-name descname"><span class="pre">batch_download_to_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_metainfo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metainfo_fmt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'{resource_id}_metainfo.json'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/base.html#DataPool.batch_download_to_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.base.DataPool.batch_download_to_directory" title="Permalink to this definition"></a></dt>
+<dd><p>Download multiple resources to a directory.</p>
+<p>This method downloads a batch of resources to a specified directory, optionally saving metadata for each resource.
+It uses a thread pool to parallelize downloads for improved performance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_ids</strong> (<em>Iterable</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>]</em>) – List of resource IDs or tuples of (resource_id, resource_info) to download.</p></li>
+<li><p><strong>dst_dir</strong> (<em>str</em>) – Destination directory for downloaded files.</p></li>
+<li><p><strong>max_workers</strong> (<em>int</em>) – Maximum number of worker threads for parallel downloads.</p></li>
+<li><p><strong>save_metainfo</strong> (<em>bool</em>) – Whether to save metadata information for each resource.</p></li>
+<li><p><strong>metainfo_fmt</strong> (<em>str</em>) – Format string for metadata filenames.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>OSError</strong> – If there’s an issue creating the destination directory or copying files.</p>
+</dd>
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_pool</span> <span class="o">=</span> <span class="n">SomeDataPoolImplementation</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_pool</span><span class="o">.</span><span class="n">batch_download_to_directory</span><span class="p">([</span><span class="s1">&#39;resource1&#39;</span><span class="p">,</span> <span class="s1">&#39;resource2&#39;</span><span class="p">],</span> <span class="s1">&#39;/path/to/destination&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.DataPool.mock_resource">
+<span class="sig-name descname"><span class="pre">mock_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AbstractContextManager</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/base.html#DataPool.mock_resource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.base.DataPool.mock_resource" title="Permalink to this definition"></a></dt>
+<dd><p>Context manager to mock a resource.</p>
+<p>This method should be implemented by subclasses to provide a way to temporarily
+access a resource. It’s typically used to download or generate a temporary copy
+of the resource for processing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_id</strong> – The ID of the resource to mock.</p></li>
+<li><p><strong>resource_info</strong> – Additional information about the resource.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the path to the mocked resource and its info.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – If not implemented by a subclass.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="hfbaseddatapool">
+<h2>HfBasedDataPool<a class="headerlink" href="#hfbaseddatapool" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.HfBasedDataPool">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.base.</span></span><span class="sig-name descname"><span class="pre">HfBasedDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_repo_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_repo_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/base.html#HfBasedDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.base.HfBasedDataPool" title="Permalink to this definition"></a></dt>
+<dd><p>Implementation of DataPool for Hugging Face datasets.</p>
+<p>This class provides methods to interact with and download resources from Hugging Face datasets.
+It handles the complexities of working with Hugging Face’s repository structure and file organization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_repo_id</strong> (<em>str</em>) – The ID of the Hugging Face dataset repository.</p></li>
+<li><p><strong>data_revision</strong> (<em>str</em>) – The revision of the dataset to use.</p></li>
+<li><p><strong>idx_repo_id</strong> (<em>str</em>) – The ID of the index repository (defaults to data_repo_id if not provided).</p></li>
+<li><p><strong>idx_revision</strong> (<em>str</em>) – The revision of the index to use.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face authentication token.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_pool</span> <span class="o">=</span> <span class="n">HfBasedDataPool</span><span class="p">(</span><span class="s1">&#39;username/dataset&#39;</span><span class="p">,</span> <span class="n">data_revision</span><span class="o">=</span><span class="s1">&#39;main&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">data_pool</span><span class="o">.</span><span class="n">mock_resource</span><span class="p">(</span><span class="s1">&#39;resource1&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># Work with the resource at &#39;path&#39;</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.HfBasedDataPool.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_repo_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_repo_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/base.html#HfBasedDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.base.HfBasedDataPool.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.HfBasedDataPool.mock_resource">
+<span class="sig-name descname"><span class="pre">mock_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AbstractContextManager</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/base.html#HfBasedDataPool.mock_resource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.base.HfBasedDataPool.mock_resource" title="Permalink to this definition"></a></dt>
+<dd><p>Context manager to temporarily access a resource.</p>
+<p>This method downloads the requested resource to a temporary directory and provides access to it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_id</strong> – The ID of the resource to mock.</p></li>
+<li><p><strong>resource_info</strong> – Additional information about the resource.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the path to the temporary directory and the resource info.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cheesechaser.datapool.base.ResourceNotFoundError" title="cheesechaser.datapool.base.ResourceNotFoundError"><strong>ResourceNotFoundError</strong></a> – If the resource cannot be found or downloaded.</p>
+</dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_pool</span> <span class="o">=</span> <span class="n">HfBasedDataPool</span><span class="p">(</span><span class="s1">&#39;username/dataset&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">data_pool</span><span class="o">.</span><span class="n">mock_resource</span><span class="p">(</span><span class="s1">&#39;resource1&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="s1">&#39;value&#39;</span><span class="p">})</span> <span class="k">as</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># Work with the resource at &#39;path&#39;</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resource path: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resource info: </span><span class="si">{</span><span class="n">info</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="incrementiddatapool">
+<h2>IncrementIDDataPool<a class="headerlink" href="#incrementiddatapool" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.IncrementIDDataPool">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.base.</span></span><span class="sig-name descname"><span class="pre">IncrementIDDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_repo_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_repo_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'images'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/base.html#IncrementIDDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.base.IncrementIDDataPool" title="Permalink to this definition"></a></dt>
+<dd><p>A specialized implementation of HfBasedDataPool for incremental ID-based datasets.</p>
+<p>This class is designed to work with datasets where resources are identified by incremental integer IDs
+and are organized in a hierarchical directory structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_repo_id</strong> (<em>str</em>) – The ID of the Hugging Face dataset repository.</p></li>
+<li><p><strong>data_revision</strong> (<em>str</em>) – The revision of the dataset to use.</p></li>
+<li><p><strong>idx_repo_id</strong> (<em>str</em>) – The ID of the index repository (defaults to data_repo_id if not provided).</p></li>
+<li><p><strong>idx_revision</strong> (<em>str</em>) – The revision of the index to use.</p></li>
+<li><p><strong>base_level</strong> (<em>int</em>) – The base level for the hierarchical structure.</p></li>
+<li><p><strong>base_dir</strong> (<em>str</em>) – The base directory for the dataset files.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.IncrementIDDataPool.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_repo_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_repo_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'images'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/base.html#IncrementIDDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.base.IncrementIDDataPool.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="invalidresourcedataerror">
+<h2>InvalidResourceDataError<a class="headerlink" href="#invalidresourcedataerror" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.InvalidResourceDataError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.base.</span></span><span class="sig-name descname"><span class="pre">InvalidResourceDataError</span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/base.html#InvalidResourceDataError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.base.InvalidResourceDataError" title="Permalink to this definition"></a></dt>
+<dd><p>Base exception for invalid resource data.</p>
+<p>This exception is raised when there’s an issue with the resource data that prevents
+it from being processed or used correctly.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.InvalidResourceDataError.__weakref__">
+<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#cheesechaser.datapool.base.InvalidResourceDataError.__weakref__" title="Permalink to this definition"></a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="fileunrecognizableerror">
+<h2>FileUnrecognizableError<a class="headerlink" href="#fileunrecognizableerror" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.FileUnrecognizableError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.base.</span></span><span class="sig-name descname"><span class="pre">FileUnrecognizableError</span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/base.html#FileUnrecognizableError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.base.FileUnrecognizableError" title="Permalink to this definition"></a></dt>
+<dd><p>Exception raised when a file cannot be recognized or processed.</p>
+<p>This exception is used when the system encounters a file that it cannot parse or
+interpret according to the expected format or structure.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.FileUnrecognizableError.__weakref__">
+<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#cheesechaser.datapool.base.FileUnrecognizableError.__weakref__" title="Permalink to this definition"></a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="resourcenotfounderror">
+<h2>ResourceNotFoundError<a class="headerlink" href="#resourcenotfounderror" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cheesechaser.datapool.base.ResourceNotFoundError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.base.</span></span><span class="sig-name descname"><span class="pre">ResourceNotFoundError</span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/base.html#ResourceNotFoundError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.base.ResourceNotFoundError" title="Permalink to this definition"></a></dt>
+<dd><p>Exception raised when a requested resource is not found.</p>
+<p>This exception is typically raised when attempting to access or download a resource
+that does not exist in the data pool.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="bangumibase.html" class="btn btn-neutral float-left" title="cheesechaser.datapool.bangumibase" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="civitai.html" class="btn btn-neutral float-right" title="cheesechaser.datapool.civitai" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, narugo1992.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: dev/yande
+    <span class="fa fa-caret-down"></span>
+  </span>
+        <div class="rst-other-versions">
+                <dl>
+                    <dt>Tags</dt>
+                        <dd><a href="../../../../v0.0.1/api_doc/datapool/base.html">v0.0.1</a></dd>
+                        <dd><a href="../../../../v0.0.2/api_doc/datapool/base.html">v0.0.2</a></dd>
+                        <dd><a href="../../../../v0.0.3/api_doc/datapool/base.html">v0.0.3</a></dd>
+                        <dd><a href="../../../../v0.1.0/api_doc/datapool/base.html">v0.1.0</a></dd>
+                </dl>
+                <dl>
+                    <dt>Branches</dt>
+                        <dd><a href="base.html">dev/yande</a></dd>
+                        <dd><a href="../../../../main/api_doc/datapool/base.html">main</a></dd>
+                </dl>
+        </div>
+    </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cheesechaser.datapool.base &mdash; cheesechaser 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=c9d0a6ec" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=87f11076"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            cheesechaser
+          </a>
+              <div class="version">
+                0.1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/quick_start/index.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../information/environment.result.html">Run Environment Information</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/config/index.html">cheesechaser.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/datapool/index.html">cheesechaser.datapool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/pipe/index.html">cheesechaser.pipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/query/index.html">cheesechaser.query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/utils/index.html">cheesechaser.utils</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cheesechaser</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cheesechaser.datapool.base</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+    
+    
+  <h1>Source code for cheesechaser.datapool.base</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides functionality for managing and downloading resources from a data pool,</span>
+<span class="sd">particularly focused on Hugging Face-based datasets. It includes classes for handling data locations,</span>
+<span class="sd">managing data pools, and specific implementations for incremental ID-based data pools.</span>
+
+<span class="sd">The module offers features such as:</span>
+
+<span class="sd">- Normalized path handling</span>
+<span class="sd">- Custom exception classes for resource-related errors</span>
+<span class="sd">- A generic DataPool class with batch downloading capabilities</span>
+<span class="sd">- A HuggingFace-based data pool implementation</span>
+<span class="sd">- An incremental ID-based data pool implementation</span>
+
+<span class="sd">Key components:</span>
+
+<span class="sd">- DataLocation: Represents the location of a file within a tar archive</span>
+<span class="sd">- DataPool: Abstract base class for data pool operations</span>
+<span class="sd">- HfBasedDataPool: Implementation of DataPool for Hugging Face datasets</span>
+<span class="sd">- IncrementIDDataPool: Specialized implementation for incremental ID-based datasets</span>
+
+<span class="sd">This module is useful for efficiently managing and retrieving resources from large datasets,</span>
+<span class="sd">especially those hosted on Hugging Face.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">ContextManager</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">hbutils.system</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
+<span class="kn">from</span> <span class="nn">hfutils.index</span> <span class="kn">import</span> <span class="n">hf_tar_list_files</span><span class="p">,</span> <span class="n">hf_tar_file_download</span>
+<span class="kn">from</span> <span class="nn">huggingface_hub.utils</span> <span class="kn">import</span> <span class="n">EntryNotFoundError</span><span class="p">,</span> <span class="n">RepositoryNotFoundError</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+
+<div class="viewcode-block" id="DataLocation"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.DataLocation">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">DataLocation</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents the location of a file within a tar archive.</span>
+
+<span class="sd">    :param resource_id: The unique identifier for the resource.</span>
+<span class="sd">    :type resource_id: int</span>
+<span class="sd">    :param tar_file: The name of the tar file containing the data.</span>
+<span class="sd">    :type tar_file: str</span>
+<span class="sd">    :param filename: The name of the file within the tar archive.</span>
+<span class="sd">    :type filename: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">resource_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">tar_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<span class="k">def</span> <span class="nf">_n_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalize a file path.</span>
+
+<span class="sd">    This function takes a file path and normalizes it by joining it with the root directory</span>
+<span class="sd">    and then normalizing the resulting path. It&#39;s useful for ensuring consistent path formats</span>
+<span class="sd">    across different operating systems.</span>
+
+<span class="sd">    :param path: The file path to normalize.</span>
+<span class="sd">    :type path: str</span>
+<span class="sd">    :return: The normalized file path.</span>
+<span class="sd">    :rtype: str</span>
+
+<span class="sd">    :example:</span>
+<span class="sd">    &gt;&gt;&gt; _n_path(&#39;dir1/dir2/../file.txt&#39;)</span>
+<span class="sd">    &#39;/dir1/file.txt&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="InvalidResourceDataError"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.InvalidResourceDataError">[docs]</a><span class="k">class</span> <span class="nc">InvalidResourceDataError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base exception for invalid resource data.</span>
+
+<span class="sd">    This exception is raised when there&#39;s an issue with the resource data that prevents</span>
+<span class="sd">    it from being processed or used correctly.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ResourceNotFoundError"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.ResourceNotFoundError">[docs]</a><span class="k">class</span> <span class="nc">ResourceNotFoundError</span><span class="p">(</span><span class="n">InvalidResourceDataError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception raised when a requested resource is not found.</span>
+
+<span class="sd">    This exception is typically raised when attempting to access or download a resource</span>
+<span class="sd">    that does not exist in the data pool.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="FileUnrecognizableError"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.FileUnrecognizableError">[docs]</a><span class="k">class</span> <span class="nc">FileUnrecognizableError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception raised when a file cannot be recognized or processed.</span>
+
+<span class="sd">    This exception is used when the system encounters a file that it cannot parse or</span>
+<span class="sd">    interpret according to the expected format or structure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="DataPool"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.DataPool">[docs]</a><span class="k">class</span> <span class="nc">DataPool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract base class for data pool operations.</span>
+
+<span class="sd">    This class defines the interface for data pool operations and provides a method</span>
+<span class="sd">    for batch downloading resources to a directory. Subclasses should implement the</span>
+<span class="sd">    `mock_resource` method to provide specific functionality for different types of data pools.</span>
+
+<span class="sd">    The DataPool class is designed to be extended for various data sources and storage mechanisms.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DataPool.mock_resource"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.DataPool.mock_resource">[docs]</a>    <span class="nd">@contextmanager</span>
+    <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Context manager to mock a resource.</span>
+
+<span class="sd">        This method should be implemented by subclasses to provide a way to temporarily</span>
+<span class="sd">        access a resource. It&#39;s typically used to download or generate a temporary copy</span>
+<span class="sd">        of the resource for processing.</span>
+
+<span class="sd">        :param resource_id: The ID of the resource to mock.</span>
+<span class="sd">        :param resource_info: Additional information about the resource.</span>
+<span class="sd">        :return: A tuple containing the path to the mocked resource and its info.</span>
+<span class="sd">        :raises NotImplementedError: If not implemented by a subclass.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>  <span class="c1"># pragma: no cover</span></div>
+
+<div class="viewcode-block" id="DataPool.batch_download_to_directory"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.DataPool.batch_download_to_directory">[docs]</a>    <span class="k">def</span> <span class="nf">batch_download_to_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_ids</span><span class="p">,</span> <span class="n">dst_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
+                                    <span class="n">save_metainfo</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">metainfo_fmt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{resource_id}</span><span class="s1">_metainfo.json&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Download multiple resources to a directory.</span>
+
+<span class="sd">        This method downloads a batch of resources to a specified directory, optionally saving metadata for each resource.</span>
+<span class="sd">        It uses a thread pool to parallelize downloads for improved performance.</span>
+
+<span class="sd">        :param resource_ids: List of resource IDs or tuples of (resource_id, resource_info) to download.</span>
+<span class="sd">        :type resource_ids: Iterable[Union[str, Tuple[str, Any]]]</span>
+<span class="sd">        :param dst_dir: Destination directory for downloaded files.</span>
+<span class="sd">        :type dst_dir: str</span>
+<span class="sd">        :param max_workers: Maximum number of worker threads for parallel downloads.</span>
+<span class="sd">        :type max_workers: int</span>
+<span class="sd">        :param save_metainfo: Whether to save metadata information for each resource.</span>
+<span class="sd">        :type save_metainfo: bool</span>
+<span class="sd">        :param metainfo_fmt: Format string for metadata filenames.</span>
+<span class="sd">        :type metainfo_fmt: str</span>
+
+<span class="sd">        :raises OSError: If there&#39;s an issue creating the destination directory or copying files.</span>
+
+<span class="sd">        :example:</span>
+<span class="sd">        &gt;&gt;&gt; data_pool = SomeDataPoolImplementation()</span>
+<span class="sd">        &gt;&gt;&gt; data_pool.batch_download_to_directory([&#39;resource1&#39;, &#39;resource2&#39;], &#39;/path/to/destination&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pg_res</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">resource_ids</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Batch Downloading&#39;</span><span class="p">)</span>
+        <span class="n">pg_downloaded</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Files Downloaded&#39;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dst_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_func</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">mock_resource</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">):</span>
+                    <span class="n">copied</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">td</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                            <span class="n">src_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+                            <span class="n">dst_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dst_dir</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">src_file</span><span class="p">,</span> <span class="n">td</span><span class="p">))</span>
+                            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dst_file</span><span class="p">):</span>
+                                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dst_file</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                            <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">src_file</span><span class="p">,</span> <span class="n">dst_file</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">save_metainfo</span> <span class="ow">and</span> <span class="n">resource_info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                <span class="n">meta_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">metainfo_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resource_id</span><span class="o">=</span><span class="n">resource_id</span><span class="p">))</span>
+                                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">meta_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                                    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">resource_info</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+                            <span class="n">pg_downloaded</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+                            <span class="n">copied</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">copied</span><span class="p">:</span>
+                        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No files found for resource </span><span class="si">{</span><span class="n">resource_id</span><span class="si">!r}</span><span class="s1">.&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">ResourceNotFoundError</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Resource </span><span class="si">{</span><span class="n">resource_id</span><span class="si">!r}</span><span class="s1"> not found, skipped.&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error occurred when downloading resource </span><span class="si">{</span><span class="n">resource_id</span><span class="si">!r}</span><span class="s1"> - </span><span class="si">{</span><span class="n">err</span><span class="si">!r}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">pg_res</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+        <span class="n">tp</span> <span class="o">=</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="n">max_workers</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ritem</span> <span class="ow">in</span> <span class="n">resource_ids</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ritem</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="n">rid</span><span class="p">,</span> <span class="n">rinfo</span> <span class="o">=</span> <span class="n">ritem</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rid</span><span class="p">,</span> <span class="n">rinfo</span> <span class="o">=</span> <span class="n">ritem</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="n">tp</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">_func</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">rinfo</span><span class="p">)</span>
+
+        <span class="n">tp</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="HfBasedDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.HfBasedDataPool">[docs]</a><span class="k">class</span> <span class="nc">HfBasedDataPool</span><span class="p">(</span><span class="n">DataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implementation of DataPool for Hugging Face datasets.</span>
+
+<span class="sd">    This class provides methods to interact with and download resources from Hugging Face datasets.</span>
+<span class="sd">    It handles the complexities of working with Hugging Face&#39;s repository structure and file organization.</span>
+
+<span class="sd">    :param data_repo_id: The ID of the Hugging Face dataset repository.</span>
+<span class="sd">    :type data_repo_id: str</span>
+<span class="sd">    :param data_revision: The revision of the dataset to use.</span>
+<span class="sd">    :type data_revision: str</span>
+<span class="sd">    :param idx_repo_id: The ID of the index repository (defaults to data_repo_id if not provided).</span>
+<span class="sd">    :type idx_repo_id: str</span>
+<span class="sd">    :param idx_revision: The revision of the index to use.</span>
+<span class="sd">    :type idx_revision: str</span>
+<span class="sd">    :param hf_token: Optional Hugging Face authentication token.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
+
+<span class="sd">    :example:</span>
+<span class="sd">    &gt;&gt;&gt; data_pool = HfBasedDataPool(&#39;username/dataset&#39;, data_revision=&#39;main&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; with data_pool.mock_resource(&#39;resource1&#39;, None) as (path, info):</span>
+<span class="sd">    ...     # Work with the resource at &#39;path&#39;</span>
+<span class="sd">    ...     pass</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="HfBasedDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.HfBasedDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_repo_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span>
+                 <span class="n">idx_repo_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_repo_id</span> <span class="o">=</span> <span class="n">data_repo_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_revision</span> <span class="o">=</span> <span class="n">data_revision</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">idx_repo_id</span> <span class="o">=</span> <span class="n">idx_repo_id</span> <span class="ow">or</span> <span class="n">data_repo_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idx_revision</span> <span class="o">=</span> <span class="n">idx_revision</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hf_token</span> <span class="o">=</span> <span class="n">hf_token</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tar_infos</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+    <span class="k">def</span> <span class="nf">_file_to_resource_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tar_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert a file path to a resource ID.</span>
+
+<span class="sd">        This method should be implemented by subclasses to define how file paths are mapped to resource IDs.</span>
+
+<span class="sd">        :param tar_file: The name of the tar file containing the resource.</span>
+<span class="sd">        :type tar_file: str</span>
+<span class="sd">        :param body: The file path within the tar file.</span>
+<span class="sd">        :type body: str</span>
+<span class="sd">        :return: The resource ID.</span>
+<span class="sd">        :raises NotImplementedError: If not implemented by a subclass.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>  <span class="c1"># pragma: no cover</span>
+
+    <span class="k">def</span> <span class="nf">_make_tar_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tar_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create or retrieve information about a tar file.</span>
+
+<span class="sd">        This method lists the files in a tar archive and maps them to resource IDs.</span>
+<span class="sd">        It caches the information to avoid repeated API calls.</span>
+
+<span class="sd">        :param tar_file: The name of the tar file.</span>
+<span class="sd">        :type tar_file: str</span>
+<span class="sd">        :param force: Whether to force a refresh of the information.</span>
+<span class="sd">        :type force: bool</span>
+<span class="sd">        :return: A dictionary mapping resource IDs to lists of file paths.</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        :raises EntryNotFoundError: If the specified tar file is not found in the repository.</span>
+<span class="sd">        :raises RepositoryNotFoundError: If the specified repository is not found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">_n_path</span><span class="p">(</span><span class="n">tar_file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">force</span> <span class="ow">or</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tar_infos</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">all_files</span> <span class="o">=</span> <span class="n">hf_tar_list_files</span><span class="p">(</span>
+                <span class="n">repo_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_repo_id</span><span class="p">,</span>
+                <span class="n">repo_type</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">,</span>
+                <span class="n">archive_in_repo</span><span class="o">=</span><span class="n">tar_file</span><span class="p">,</span>
+                <span class="n">revision</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_revision</span><span class="p">,</span>
+
+                <span class="n">idx_repo_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_repo_id</span><span class="p">,</span>
+                <span class="n">idx_repo_type</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">,</span>
+                <span class="n">idx_revision</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_revision</span><span class="p">,</span>
+                <span class="n">hf_token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_hf_token</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">resource_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_to_resource_id</span><span class="p">(</span><span class="n">tar_file</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">FileUnrecognizableError</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">resource_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">data</span><span class="p">[</span><span class="n">resource_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">resource_id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tar_infos</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tar_infos</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_request_possible_archives</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a list of possible archive files for a given resource ID.</span>
+
+<span class="sd">        This method should be implemented by subclasses to define how to find potential archives for a resource.</span>
+
+<span class="sd">        :param resource_id: The ID of the resource.</span>
+<span class="sd">        :return: A list of possible archive file names.</span>
+<span class="sd">        :raises NotImplementedError: If not implemented by a subclass.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>  <span class="c1"># pragma: no cover</span>
+
+    <span class="k">def</span> <span class="nf">_request_resource_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DataLocation</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Request resource locations for a given resource ID.</span>
+
+<span class="sd">        This method searches for the resource in possible archives and returns its locations.</span>
+
+<span class="sd">        :param resource_id: The ID of the resource to request.</span>
+<span class="sd">        :return: A list of DataLocation objects representing the resource&#39;s locations.</span>
+<span class="sd">        :raises ResourceNotFoundError: If the resource is not found in any archive.</span>
+
+<span class="sd">        :example:</span>
+<span class="sd">        &gt;&gt;&gt; data_pool = HfBasedDataPool(&#39;username/dataset&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; locations = data_pool._request_resource_by_id(&#39;resource1&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(locations[0].tar_file, locations[0].filename)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">archive_file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_possible_archives</span><span class="p">(</span><span class="n">resource_id</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_tar_info</span><span class="p">(</span><span class="n">archive_file</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="n">EntryNotFoundError</span><span class="p">,</span> <span class="n">RepositoryNotFoundError</span><span class="p">):</span>
+                <span class="c1"># no information found, skipped</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">resource_id</span> <span class="ow">in</span> <span class="n">info</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span>
+                    <span class="n">DataLocation</span><span class="p">(</span><span class="n">resource_id</span><span class="o">=</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">tar_file</span><span class="o">=</span><span class="n">archive_file</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">info</span><span class="p">[</span><span class="n">resource_id</span><span class="p">]</span>
+                <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ResourceNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Resource </span><span class="si">{</span><span class="n">resource_id</span><span class="si">!r}</span><span class="s1"> not found.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_dst_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">DataLocation</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the destination filename for a given DataLocation.</span>
+
+<span class="sd">        This method determines the filename to use when saving a resource locally.</span>
+
+<span class="sd">        :param location: The DataLocation object containing information about the resource.</span>
+<span class="sd">        :type location: DataLocation</span>
+<span class="sd">        :return: The filename to use for the local copy of the resource.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">location</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+
+<div class="viewcode-block" id="HfBasedDataPool.mock_resource"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.HfBasedDataPool.mock_resource">[docs]</a>    <span class="nd">@contextmanager</span>
+    <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Context manager to temporarily access a resource.</span>
+
+<span class="sd">        This method downloads the requested resource to a temporary directory and provides access to it.</span>
+
+<span class="sd">        :param resource_id: The ID of the resource to mock.</span>
+<span class="sd">        :param resource_info: Additional information about the resource.</span>
+<span class="sd">        :return: A tuple containing the path to the temporary directory and the resource info.</span>
+<span class="sd">        :raises ResourceNotFoundError: If the resource cannot be found or downloaded.</span>
+
+<span class="sd">        :example:</span>
+<span class="sd">        &gt;&gt;&gt; data_pool = HfBasedDataPool(&#39;username/dataset&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; with data_pool.mock_resource(&#39;resource1&#39;, {&#39;metadata&#39;: &#39;value&#39;}) as (path, info):</span>
+<span class="sd">        ...     # Work with the resource at &#39;path&#39;</span>
+<span class="sd">        ...     print(f&quot;Resource path: {path}&quot;)</span>
+<span class="sd">        ...     print(f&quot;Resource info: {info}&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_resource_by_id</span><span class="p">(</span><span class="n">resource_id</span><span class="p">):</span>
+                <span class="n">dst_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_dst_filename</span><span class="p">(</span><span class="n">location</span><span class="p">))</span>
+                <span class="n">hf_tar_file_download</span><span class="p">(</span>
+                    <span class="n">repo_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_repo_id</span><span class="p">,</span>
+                    <span class="n">repo_type</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">,</span>
+                    <span class="n">archive_in_repo</span><span class="o">=</span><span class="n">location</span><span class="o">.</span><span class="n">tar_file</span><span class="p">,</span>
+                    <span class="n">file_in_archive</span><span class="o">=</span><span class="n">location</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span>
+                    <span class="n">local_file</span><span class="o">=</span><span class="n">dst_filename</span><span class="p">,</span>
+                    <span class="n">revision</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_revision</span><span class="p">,</span>
+
+                    <span class="n">idx_repo_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_repo_id</span><span class="p">,</span>
+                    <span class="n">idx_repo_type</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">,</span>
+                    <span class="n">idx_revision</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_revision</span><span class="p">,</span>
+                    <span class="n">hf_token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_hf_token</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">yield</span> <span class="n">td</span><span class="p">,</span> <span class="n">resource_info</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">id_modulo_cut</span><span class="p">(</span><span class="n">id_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cut an ID string into segments of 3 characters each, starting from the end.</span>
+
+<span class="sd">    This function is used to create a hierarchical structure for IDs, which can be useful</span>
+<span class="sd">    for organizing files in a directory structure based on their IDs.</span>
+
+<span class="sd">    :param id_text: The ID string to cut.</span>
+<span class="sd">    :type id_text: str</span>
+<span class="sd">    :return: A list of 3-character segments.</span>
+<span class="sd">    :rtype: List[str]</span>
+
+<span class="sd">    :example:</span>
+<span class="sd">    &gt;&gt;&gt; id_modulo_cut(&#39;123456789&#39;)</span>
+<span class="sd">    [&#39;789&#39;, &#39;456&#39;, &#39;123&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_text</span> <span class="o">=</span> <span class="n">id_text</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">id_text</span><span class="p">),</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">id_text</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="IncrementIDDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.IncrementIDDataPool">[docs]</a><span class="k">class</span> <span class="nc">IncrementIDDataPool</span><span class="p">(</span><span class="n">HfBasedDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A specialized implementation of HfBasedDataPool for incremental ID-based datasets.</span>
+
+<span class="sd">    This class is designed to work with datasets where resources are identified by incremental integer IDs</span>
+<span class="sd">    and are organized in a hierarchical directory structure.</span>
+
+<span class="sd">    :param data_repo_id: The ID of the Hugging Face dataset repository.</span>
+<span class="sd">    :type data_repo_id: str</span>
+<span class="sd">    :param data_revision: The revision of the dataset to use.</span>
+<span class="sd">    :type data_revision: str</span>
+<span class="sd">    :param idx_repo_id: The ID of the index repository (defaults to data_repo_id if not provided).</span>
+<span class="sd">    :type idx_repo_id: str</span>
+<span class="sd">    :param idx_revision: The revision of the index to use.</span>
+<span class="sd">    :type idx_revision: str</span>
+<span class="sd">    :param base_level: The base level for the hierarchical structure.</span>
+<span class="sd">    :type base_level: int</span>
+<span class="sd">    :param base_dir: The base directory for the dataset files.</span>
+<span class="sd">    :type base_dir: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="IncrementIDDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.IncrementIDDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_repo_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span>
+                 <span class="n">idx_repo_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">idx_revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span>
+                 <span class="n">base_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">base_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;images&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">HfBasedDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">data_repo_id</span><span class="o">=</span><span class="n">data_repo_id</span><span class="p">,</span>
+            <span class="n">data_revision</span><span class="o">=</span><span class="n">data_revision</span><span class="p">,</span>
+            <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">idx_repo_id</span><span class="p">,</span>
+            <span class="n">idx_revision</span><span class="o">=</span><span class="n">idx_revision</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_level</span> <span class="o">=</span> <span class="n">base_level</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span> <span class="o">=</span> <span class="n">base_dir</span></div>
+
+    <span class="k">def</span> <span class="nf">_file_to_resource_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tar_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert a filename to a resource ID.</span>
+
+<span class="sd">        This method extracts the resource ID from the filename, assuming it&#39;s an integer.</span>
+
+<span class="sd">        :param tar_file: The name of the tar file (unused in this implementation).</span>
+<span class="sd">        :type tar_file: str</span>
+<span class="sd">        :param filename: The name of the file.</span>
+<span class="sd">        :type filename: str</span>
+<span class="sd">        :return: The resource ID as an integer.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :raises FileUnrecognizableError: If the filename cannot be converted to an integer ID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">body</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">FileUnrecognizableError</span>
+
+    <span class="k">def</span> <span class="nf">_request_possible_archives</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate possible archive paths for a given resource ID.</span>
+
+<span class="sd">        This method creates a hierarchical path structure based on the resource ID.</span>
+
+<span class="sd">        :param resource_id: The ID of the resource to request.</span>
+<span class="sd">        :return: A list of DataLocation objects representing the resource&#39;s locations.</span>
+<span class="sd">        :raises ResourceNotFoundError: If the resource is not found in any archive.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">modulo</span> <span class="o">=</span> <span class="n">resource_id</span> <span class="o">%</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_level</span><span class="p">)</span>
+        <span class="n">modulo_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">modulo</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">modulo_str</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_level</span><span class="p">:</span>
+            <span class="n">modulo_str</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_level</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">modulo_str</span><span class="p">))</span> <span class="o">+</span> <span class="n">modulo_str</span>
+
+        <span class="n">modulo_segments</span> <span class="o">=</span> <span class="n">id_modulo_cut</span><span class="p">(</span><span class="n">modulo_str</span><span class="p">)</span>
+        <span class="n">modulo_segments</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;0</span><span class="si">{</span><span class="n">modulo_segments</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">modulo_segments</span><span class="p">)</span><span class="si">}</span><span class="s1">.tar&#39;</span><span class="p">]</span></div>
+</pre></div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, narugo1992.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: v0.1.1
+    <span class="fa fa-caret-down"></span>
+  </span>
+        <div class="rst-other-versions">
+                <dl>
+                    <dt>Tags</dt>
+                        <dd><a href="../../../../v0.0.1/index.html">v0.0.1</a></dd>
+                        <dd><a href="../../../../v0.0.2/index.html">v0.0.2</a></dd>
+                        <dd><a href="../../../../v0.0.3/index.html">v0.0.3</a></dd>
+                        <dd><a href="../../../../v0.1.0/index.html">v0.1.0</a></dd>
+                        <dd><a href="base.html">v0.1.1</a></dd>
+                </dl>
+                <dl>
+                    <dt>Branches</dt>
+                        <dd><a href="../../../../main/index.html">main</a></dd>
+                </dl>
+        </div>
+    </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

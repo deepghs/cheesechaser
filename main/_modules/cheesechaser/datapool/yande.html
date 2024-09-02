@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cheesechaser.datapool.yande &mdash; cheesechaser 0.1.0 documentation</title>
+  <title>cheesechaser.datapool.yande &mdash; cheesechaser 0.1.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
@@ -16,7 +16,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=2389946f"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=87f11076"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -37,7 +37,7 @@
             cheesechaser
           </a>
               <div class="version">
-                0.1.0
+                0.1.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -93,14 +93,19 @@
     
   <h1>Source code for cheesechaser.datapool.yande</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module provides a data pool implementation for Yande image data.</span>
+<span class="sd">This module provides data pool implementations for Yande image data.</span>
 
 <span class="sd">It extends the IncrementIDDataPool class to specifically handle Yande image data,</span>
-<span class="sd">utilizing a predefined Hugging Face repository for data storage and indexing.</span>
+<span class="sd">utilizing predefined Hugging Face repositories for data storage and indexing.</span>
+
+<span class="sd">The module includes two main classes:</span>
+<span class="sd">1. YandeDataPool: For managing original Yande image data.</span>
+<span class="sd">2. YandeWebpDataPool: For managing WebP-formatted Yande image data.</span>
 
 <span class="sd">.. note::</span>
-<span class="sd">    The dataset `deepghs/yande_full &lt;https://huggingface.co/datasets/deepghs/yande_full&gt;`_</span>
-<span class="sd">    is gated, you have to get the access of it before using this module.</span>
+<span class="sd">    The datasets `deepghs/yande_full &lt;https://huggingface.co/datasets/deepghs/yande_full&gt;`_ and</span>
+<span class="sd">    `deepghs/yande-webp-4Mpixel &lt;https://huggingface.co/datasets/deepghs/yande-webp-4Mpixel&gt;`_</span>
+<span class="sd">    are gated, you have to get access to them before using this module.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
@@ -129,10 +134,6 @@
 <span class="sd">    Usage:</span>
 <span class="sd">        &gt;&gt;&gt; yande_pool = YandeDataPool()</span>
 <span class="sd">        &gt;&gt;&gt; yande_pool_with_token = YandeDataPool(hf_token=&#39;your_token_here&#39;)</span>
-
-<span class="sd">    .. note::</span>
-<span class="sd">        This class assumes that both data and index information are stored</span>
-<span class="sd">        in the same repository (_YANDE_REPO).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="YandeDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/yande.html#cheesechaser.datapool.yande.YandeDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -153,6 +154,53 @@
             <span class="n">data_repo_id</span><span class="o">=</span><span class="n">_YANDE_REPO</span><span class="p">,</span>
             <span class="n">data_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
             <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_YANDE_REPO</span><span class="p">,</span>
+            <span class="n">idx_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<span class="n">_YANDE_WEBP_REPO</span> <span class="o">=</span> <span class="s1">&#39;deepghs/yande-webp-4Mpixel&#39;</span>
+
+
+<div class="viewcode-block" id="YandeWebpDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/yande.html#cheesechaser.datapool.yande.YandeWebpDataPool">[docs]</a><span class="k">class</span> <span class="nc">YandeWebpDataPool</span><span class="p">(</span><span class="n">IncrementIDDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A data pool class for managing WebP-formatted Yande image data.</span>
+
+<span class="sd">    This class extends IncrementIDDataPool to provide a specialized implementation</span>
+<span class="sd">    for handling WebP-formatted Yande image data. It uses a predefined Hugging Face</span>
+<span class="sd">    repository for both data storage and indexing.</span>
+
+<span class="sd">    :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
+<span class="sd">    :type revision: str</span>
+<span class="sd">    :param hf_token: Optional Hugging Face authentication token.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
+
+<span class="sd">    :ivar data_repo_id: The Hugging Face repository ID for data storage.</span>
+<span class="sd">    :ivar idx_repo_id: The Hugging Face repository ID for indexing.</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        &gt;&gt;&gt; yande_webp_pool = YandeWebpDataPool()</span>
+<span class="sd">        &gt;&gt;&gt; yande_webp_pool_with_token = YandeWebpDataPool(hf_token=&#39;your_token_here&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="YandeWebpDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/yande.html#cheesechaser.datapool.yande.YandeWebpDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the YandeWebpDataPool.</span>
+
+<span class="sd">        :param revision: The revision of the data to use, defaults to &#39;main&#39;.</span>
+<span class="sd">        :type revision: str</span>
+<span class="sd">        :param hf_token: Optional Hugging Face authentication token for accessing private repositories.</span>
+<span class="sd">        :type hf_token: Optional[str]</span>
+
+<span class="sd">        This constructor initializes the YandeWebpDataPool by calling the parent class constructor</span>
+<span class="sd">        with specific parameters for the WebP-formatted Yande data repository. It sets up both the data</span>
+<span class="sd">        and index repositories to use the same Hugging Face repository and revision.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">data_repo_id</span><span class="o">=</span><span class="n">_YANDE_WEBP_REPO</span><span class="p">,</span>
+            <span class="n">data_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
+            <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_YANDE_WEBP_REPO</span><span class="p">,</span>
             <span class="n">idx_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
             <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
         <span class="p">)</span></div></div>
@@ -196,7 +244,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/yande/index.html">dev/yande</a></dd>
                         <dd><a href="yande.html">main</a></dd>
                 </dl>
         </div>

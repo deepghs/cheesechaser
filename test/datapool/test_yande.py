@@ -1,7 +1,7 @@
 import pytest
 from hbutils.testing import isolated_directory
 
-from cheesechaser.datapool import YandeDataPool
+from cheesechaser.datapool import YandeDataPool, YandeWebpDataPool
 from ..testings import get_testfile, dir_compare
 
 
@@ -16,3 +16,13 @@ class TestDatapoolYande:
             )
 
             dir_compare('.', get_testfile('yande_3'))
+
+    def test_yande_webp_origin(self):
+        with isolated_directory():
+            pool = YandeWebpDataPool()
+            pool.batch_download_to_directory(
+                resource_ids=range(500000, 500003),
+                dst_dir='.',
+            )
+
+            dir_compare('.', get_testfile('yande_webp_3'))

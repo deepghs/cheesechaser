@@ -65,3 +65,18 @@ class KonachanDataPool(IncrementIDDataPool):
             idx_revision=revision,
             hf_token=hf_token,
         )
+
+
+_KONACHAN_WEBP_REPO = 'deepghs/konachan-webp-4Mpixel'
+
+
+class KonachanWebpDataPool(IncrementIDDataPool):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
+        IncrementIDDataPool.__init__(
+            self,
+            data_repo_id=_KONACHAN_WEBP_REPO,
+            data_revision=revision,
+            idx_repo_id=_KONACHAN_WEBP_REPO,
+            idx_revision=revision,
+            hf_token=hf_token,
+        )

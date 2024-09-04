@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cheesechaser.datapool.konachan &mdash; cheesechaser 0.1.1 documentation</title>
+  <title>cheesechaser.datapool.konachan &mdash; cheesechaser 0.1.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
@@ -17,7 +17,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=87f11076"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b0099a1c"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -40,7 +40,7 @@
             cheesechaser
           </a>
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -74,6 +74,10 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">cheesechaser.datapool.konachan</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#konachandatapool">KonachanDataPool</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#cheesechaser.datapool.konachan.KonachanDataPool"><code class="docutils literal notranslate"><span class="pre">KonachanDataPool</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#konachanwebpdatapool">KonachanWebpDataPool</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cheesechaser.datapool.konachan.KonachanWebpDataPool"><code class="docutils literal notranslate"><span class="pre">KonachanWebpDataPool</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -121,14 +125,18 @@
     
   <section id="module-cheesechaser.datapool.konachan">
 <span id="cheesechaser-datapool-konachan"></span><h1>cheesechaser.datapool.konachan<a class="headerlink" href="#module-cheesechaser.datapool.konachan" title="Permalink to this heading"></a></h1>
-<p>This module provides a data pool implementation for Konachan images.</p>
-<p>It defines the KonachanDataPool class, which is a specialized version of the
-IncrementIDDataPool for handling Konachan image data. The module uses a
-predefined repository for storing and accessing Konachan image data.</p>
+<p>This module provides data pool implementations for Konachan images.</p>
+<p>It defines two classes:</p>
+<ol class="arabic simple">
+<li><p>KonachanDataPool: A specialized version of IncrementIDDataPool for handling Konachan image data.</p></li>
+<li><p>KonachanWebpDataPool: A specialized version of IncrementIDDataPool for handling Konachan WebP image data.</p></li>
+</ol>
+<p>The module uses predefined repositories for storing and accessing Konachan image data.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The dataset <a class="reference external" href="https://huggingface.co/datasets/deepghs/konachan_full">deepghs/konachan_full</a>
-is gated, you have to get the access of it before using this module.</p>
+<p>The datasets <a class="reference external" href="https://huggingface.co/datasets/deepghs/konachan_full">deepghs/konachan_full</a> and
+<a class="reference external" href="https://huggingface.co/datasets/deepghs/konachan-webp-4Mpixel">deepghs/konachan-webp-4Mpixel</a> are gated.
+You have to get access to them before using this module.</p>
 </div>
 <section id="konachandatapool">
 <h2>KonachanDataPool<a class="headerlink" href="#konachandatapool" title="Permalink to this heading"></a></h2>
@@ -174,10 +182,53 @@ with the predefined Konachan repository for both data and index management.</p>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="konachanwebpdatapool">
+<h2>KonachanWebpDataPool<a class="headerlink" href="#konachanwebpdatapool" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cheesechaser.datapool.konachan.KonachanWebpDataPool">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.konachan.</span></span><span class="sig-name descname"><span class="pre">KonachanWebpDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/konachan.html#KonachanWebpDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.konachan.KonachanWebpDataPool" title="Permalink to this definition"></a></dt>
+<dd><p>A data pool class for managing Konachan WebP image data.</p>
+<p>This class extends the IncrementIDDataPool to provide specific functionality
+for handling Konachan WebP image data. It uses a predefined repository to store
+and access the WebP image data and indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face token for authentication, defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
 <dl>
-<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">KonachanDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="s1">&#39;v2.0&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="o">=</span><span class="s1">&#39;my_secret_token&#39;</span><span class="p">)</span>
+<dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">konachan_webp_pool</span> <span class="o">=</span> <span class="n">KonachanWebpDataPool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">konachan_webp_pool_with_token</span> <span class="o">=</span> <span class="n">KonachanWebpDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="s1">&#39;your_token_here&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">konachan_webp_pool_specific_revision</span> <span class="o">=</span> <span class="n">KonachanWebpDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="s1">&#39;v1.0&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd>
+<dt>Note:</dt><dd><p>The KonachanWebpDataPool uses a predefined repository (_KONACHAN_WEBP_REPO) for both
+data and index storage. This ensures consistency in data access and management
+for Konachan WebP images.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cheesechaser.datapool.konachan.KonachanWebpDataPool.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/konachan.html#KonachanWebpDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.konachan.KonachanWebpDataPool.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the KonachanWebpDataPool.</p>
+<p>This constructor sets up the KonachanWebpDataPool with the specified revision
+and optional Hugging Face token. It initializes the underlying IncrementIDDataPool
+with the predefined Konachan WebP repository for both data and index management.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face token for authentication, defaults to None.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -230,7 +281,6 @@ with the predefined Konachan repository for both data and index management.</p>
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../dev/konachan/api_doc/datapool/konachan.html">dev/konachan</a></dd>
                         <dd><a href="konachan.html">main</a></dd>
                 </dl>
         </div>

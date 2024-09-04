@@ -1,7 +1,7 @@
 import pytest
 from hbutils.testing import isolated_directory
 
-from cheesechaser.datapool import KonachanDataPool
+from cheesechaser.datapool import KonachanDataPool, KonachanWebpDataPool
 from ..testings import get_testfile, dir_compare
 
 
@@ -16,3 +16,13 @@ class TestDatapoolKonachan:
             )
 
             dir_compare('.', get_testfile('konachan_3'))
+
+    def test_konachan_webp(self):
+        with isolated_directory():
+            pool = KonachanWebpDataPool()
+            pool.batch_download_to_directory(
+                resource_ids=range(200000, 200003),
+                dst_dir='.',
+            )
+
+            dir_compare('.', get_testfile('konachan_webp_3'))

@@ -14,3 +14,11 @@ KonachanDataPool
 
 
 
+KonachanWebpDataPool
+-----------------------------------------------------
+
+.. autoclass:: KonachanWebpDataPool
+    :members: __doc__,__init__,__module__
+
+
+

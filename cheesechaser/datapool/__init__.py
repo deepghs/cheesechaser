@@ -1,4 +1,4 @@
-from .anime_pictures import AnimePicturesDataPool
+from .anime_pictures import AnimePicturesDataPool, AnimePicturesWebpDataPool
 from .bangumibase import BangumiBaseDataPool
 from .base import DataLocation, DataPool, HfBasedDataPool, IncrementIDDataPool, InvalidResourceDataError, \
     FileUnrecognizableError, ResourceNotFoundError

@@ -32,7 +32,7 @@ class AnimePicturesDataPool(IncrementIDDataPool):
 
     Usage:
         >>> pool = AnimePicturesDataPool()
-        >>> pool = AnimePicturesDataPool(revision='v1.0')
+        >>> pool = AnimePicturesDataPool(revision='main')
         >>> pool = AnimePicturesDataPool(revision='main', hf_token='your_hf_token')
 
     .. note::
@@ -56,6 +56,21 @@ class AnimePicturesDataPool(IncrementIDDataPool):
             data_repo_id=_ANIME_PICTURES_REPO,
             data_revision=revision,
             idx_repo_id=_ANIME_PICTURES_REPO,
+            idx_revision=revision,
+            hf_token=hf_token,
+        )
+
+
+_ANIME_PICTURES_WEBP_REPO = 'deepghs/anime_pictures-webp-4Mpixel'
+
+
+class AnimePicturesWebpDataPool(IncrementIDDataPool):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
+        IncrementIDDataPool.__init__(
+            self,
+            data_repo_id=_ANIME_PICTURES_WEBP_REPO,
+            data_revision=revision,
+            idx_repo_id=_ANIME_PICTURES_WEBP_REPO,
             idx_revision=revision,
             hf_token=hf_token,
         )

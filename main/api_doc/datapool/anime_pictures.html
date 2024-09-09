@@ -68,6 +68,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#cheesechaser.datapool.anime_pictures.AnimePicturesDataPool"><code class="docutils literal notranslate"><span class="pre">AnimePicturesDataPool</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#animepictureswebpdatapool">AnimePicturesWebpDataPool</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cheesechaser.datapool.anime_pictures.AnimePicturesWebpDataPool"><code class="docutils literal notranslate"><span class="pre">AnimePicturesWebpDataPool</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="bangumibase.html">cheesechaser.datapool.bangumibase</a></li>
@@ -121,14 +125,22 @@
     
   <section id="module-cheesechaser.datapool.anime_pictures">
 <span id="cheesechaser-datapool-anime-pictures"></span><h1>cheesechaser.datapool.anime_pictures<a class="headerlink" href="#module-cheesechaser.datapool.anime_pictures" title="Permalink to this heading"></a></h1>
-<p>This module provides a data pool implementation for anime pictures.</p>
-<p>It defines a class <cite>AnimePicturesDataPool</cite> which inherits from <cite>IncrementIDDataPool</cite>.
-This class is designed to manage and access a repository of anime pictures,
-utilizing an incremental ID system for efficient data retrieval.</p>
+<p>This module provides data pool implementations for anime pictures.</p>
+<p>It defines two classes:</p>
+<ol class="arabic simple">
+<li><p><cite>AnimePicturesDataPool</cite>: Manages and accesses a repository of anime pictures.</p></li>
+<li><p><cite>AnimePicturesWebpDataPool</cite>: Manages and accesses a repository of WebP-formatted anime pictures.</p></li>
+</ol>
+<p>Both classes inherit from <cite>IncrementIDDataPool</cite> and utilize an incremental ID system
+for efficient data retrieval.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The dataset <a class="reference external" href="https://huggingface.co/datasets/deepghs/anime_pictures_full">deepghs/anime_pictures_full</a>
-is gated, you have to get the access of it before using this module.</p>
+<p>The datasets used by these classes are gated. You must have access to the
+respective Hugging Face repositories before using this module:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://huggingface.co/datasets/deepghs/anime_pictures_full">deepghs/anime_pictures_full</a></p></li>
+<li><p><a class="reference external" href="https://huggingface.co/datasets/deepghs/anime_pictures-webp-4Mpixel">deepghs/anime_pictures-webp-4Mpixel</a></p></li>
+</ul>
 </div>
 <section id="animepicturesdatapool">
 <h2>AnimePicturesDataPool<a class="headerlink" href="#animepicturesdatapool" title="Permalink to this heading"></a></h2>
@@ -149,7 +161,7 @@ and retrieving anime pictures.</p>
 </dl>
 <dl>
 <dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">AnimePicturesDataPool</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">AnimePicturesDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="s1">&#39;v1.0&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">AnimePicturesDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="s1">&#39;main&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">AnimePicturesDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="o">=</span><span class="s1">&#39;your_hf_token&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -165,6 +177,55 @@ and retrieving anime pictures.</p>
 <dd><p>Initialize the AnimePicturesDataPool.</p>
 <p>This method sets up the data pool by calling the parent class constructor
 with specific parameters for the anime pictures repository.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face token for authentication, defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="animepictureswebpdatapool">
+<h2>AnimePicturesWebpDataPool<a class="headerlink" href="#animepictureswebpdatapool" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cheesechaser.datapool.anime_pictures.AnimePicturesWebpDataPool">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.datapool.anime_pictures.</span></span><span class="sig-name descname"><span class="pre">AnimePicturesWebpDataPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/anime_pictures.html#AnimePicturesWebpDataPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.anime_pictures.AnimePicturesWebpDataPool" title="Permalink to this definition"></a></dt>
+<dd><p>A data pool class for managing and accessing WebP-formatted anime pictures.</p>
+<p>This class extends the IncrementIDDataPool to provide specific functionality
+for handling WebP-formatted anime picture data. It uses a predefined repository
+for storing and retrieving these pictures.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>revision</strong> (<em>str</em>) – The revision of the data to use, defaults to ‘main’.</p></li>
+<li><p><strong>hf_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional Hugging Face token for authentication, defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">AnimePicturesWebpDataPool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">AnimePicturesWebpDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="s1">&#39;main&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">AnimePicturesWebpDataPool</span><span class="p">(</span><span class="n">revision</span><span class="o">=</span><span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="o">=</span><span class="s1">&#39;your_hf_token&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The class uses the same repository for both data and index storage.
+The pictures in this pool are in WebP format and have a maximum size of 4 megapixels.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="cheesechaser.datapool.anime_pictures.AnimePicturesWebpDataPool.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/anime_pictures.html#AnimePicturesWebpDataPool.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.anime_pictures.AnimePicturesWebpDataPool.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the AnimePicturesWebpDataPool.</p>
+<p>This method sets up the data pool by calling the parent class constructor
+with specific parameters for the WebP-formatted anime pictures repository.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -224,7 +285,6 @@ with specific parameters for the anime pictures repository.</p>
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../dev/ap/api_doc/datapool/anime_pictures.html">dev/ap</a></dd>
                         <dd><a href="anime_pictures.html">main</a></dd>
                 </dl>
         </div>

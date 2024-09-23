@@ -203,15 +203,20 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">is_start</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="n">block</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_count_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_count_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update current count. If the count reaches the limit, set the status to ``stopped``.</span>
 
 <span class="sd">        :param n: Count for Adding. Default is 1.</span>
+<span class="sd">        :return: Reached the limit or not</span>
+<span class="sd">        :rtype: bool</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_count</span> <span class="o">+=</span> <span class="n">n</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_count</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_count</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_count</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">is_stopped</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="PipeSession.__iter__"><a class="viewcode-back" href="../../../api_doc/pipe/base.html#cheesechaser.pipe.base.PipeSession.__iter__">[docs]</a>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">PipeItem</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -221,14 +226,17 @@
 <span class="sd">        :rtype: Iterator[PipeItem]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pg</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Piped Items&#39;</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_count</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_count_update</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count_update</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+            <span class="k">return</span>
+
         <span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">is_stopped</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">empty</span><span class="p">()):</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">next</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">PipeItem</span><span class="p">):</span>
                     <span class="n">pg</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
                     <span class="k">yield</span> <span class="n">data</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_count_update</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count_update</span><span class="p">():</span>
+                        <span class="k">break</span>
             <span class="k">except</span> <span class="n">Empty</span><span class="p">:</span>
                 <span class="k">pass</span></div>
 

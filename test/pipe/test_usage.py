@@ -33,3 +33,16 @@ class TestPipeUsage:
                 image_count += 1
 
             assert image_count >= 90
+
+    def test_actual_usage_with_100_images_limited_20(self):
+        pool = DanbooruNewestWebpDataPool()
+        pipe = SimpleImagePipe(pool)
+
+        ids = range(7000000, 7700000, 7000)
+        with pipe.batch_retrieve(ids, max_count=20) as session:
+            image_count = 0
+            for item in session:
+                assert isinstance(item.data, Image.Image)
+                image_count += 1
+
+            assert image_count == 20

@@ -126,6 +126,8 @@ class DataPool:
 
         :param resource_id: The ID of the resource to mock.
         :param resource_info: Additional information about the resource.
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :return: A tuple containing the path to the mocked resource and its info.
         :raises NotImplementedError: If not implemented by a subclass.
         """
@@ -150,6 +152,8 @@ class DataPool:
         :type save_metainfo: bool
         :param metainfo_fmt: Format string for metadata filenames.
         :type metainfo_fmt: str
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
 
         :raises OSError: If there's an issue creating the destination directory or copying files.
 
@@ -358,6 +362,8 @@ class HfBasedDataPool(DataPool):
 
         :param resource_id: The ID of the resource to mock.
         :param resource_info: Additional information about the resource.
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :return: A tuple containing the path to the temporary directory and the resource info.
         :raises ResourceNotFoundError: If the resource cannot be found or downloaded.
 

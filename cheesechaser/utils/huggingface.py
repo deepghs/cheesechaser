@@ -24,11 +24,11 @@ def get_hf_token() -> Optional[str]:
     :rtype: Optional[str]
 
     :usage:
-        token = get_hf_token()
-        if token:
-            print("Token found")
-        else:
-            print("Token not set in environment variables")
+        >>> token = get_hf_token()
+        >>> if token:
+        >>>     print("Token found")
+        >>> else:
+        >>>     print("Token not set in environment variables")
     """
     return os.environ.get('HF_TOKEN')
 
@@ -45,9 +45,9 @@ def get_hf_client() -> HfApi:
     :rtype: HfApi
 
     :usage:
-        client = get_hf_client()
-        # Use the client to interact with the Hugging Face Hub
-        models = client.list_models()
+        >>> client = get_hf_client()
+        >>> # Use the client to interact with the Hugging Face Hub
+        >>> models = client.list_models()
     """
     return HfApi(token=get_hf_token())
 
@@ -64,8 +64,8 @@ def get_hf_fs() -> HfFileSystem:
     :rtype: HfFileSystem
 
     :usage:
-        fs = get_hf_fs()
-        # Use the file system to interact with files on the Hugging Face Hub
-        files = fs.ls('username/repo_name')
+        >>> fs = get_hf_fs()
+        >>> # Use the file system to interact with files on the Hugging Face Hub
+        >>> files = fs.ls('username/repo_name')
     """
     return HfFileSystem(token=get_hf_token())

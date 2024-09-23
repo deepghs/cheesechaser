@@ -177,6 +177,8 @@ class NHentaiMangaDataPool(DataPool):
         :type resource_id: int
         :param resource_info: Additional information about the resource.
         :type resource_info: Any
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :yield: A tuple containing the path to the temporary directory with the images and the resource info.
         :rtype: Tuple[str, Any]
         :raises ResourceNotFoundError: If the specified manga resource is not found.

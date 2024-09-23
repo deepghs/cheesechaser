@@ -54,6 +54,8 @@ class SimpleImagePipe(Pipe):
 
         :param resource_id: The identifier of the resource to retrieve.
         :param resource_metainfo: Metadata information about the resource.
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :return: A PIL Image object of the retrieved image.
         :rtype: PIL.Image.Image
         :raises ResourceNotFoundError: If no image file is found.
@@ -107,6 +109,8 @@ class DataAttachedImagePipe(Pipe):
 
         :param resource_id: The identifier of the resource to retrieve.
         :param resource_metainfo: Metadata information about the resource.
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :return: A DataAttachedImage object containing the image and any associated data.
         :rtype: DataAttachedImage
         :raises ResourceNotFoundError: If no image file is found.

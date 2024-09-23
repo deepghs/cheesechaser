@@ -211,6 +211,8 @@ class DanbooruNewestDataPool(DataPool):
         :type resource_id: Any
         :param resource_info: Additional information about the resource.
         :type resource_info: Any
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :return: A context manager yielding a tuple of (temporary directory, resource info).
         :rtype: ContextManager[Tuple[str, Any]]
         :raises ResourceNotFoundError: If the resource is not found in either pool.
@@ -337,6 +339,8 @@ class DanbooruNewestWebpDataPool(DataPool):
         :type resource_id: Any
         :param resource_info: Additional information about the resource.
         :type resource_info: Any
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :return: A context manager yielding a tuple of (temporary directory, resource info).
         :rtype: ContextManager[Tuple[str, Any]]
         :raises ResourceNotFoundError: If the resource is not found in either WebP pool.

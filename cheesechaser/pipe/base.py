@@ -171,6 +171,8 @@ class Pipe:
 
         :param resource_id: The ID of the resource to retrieve.
         :param resource_metainfo: Additional metadata for the resource.
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :raises NotImplementedError: If not implemented by a subclass.
         """
         raise NotImplementedError  # pragma: no cover

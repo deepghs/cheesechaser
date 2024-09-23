@@ -232,28 +232,34 @@
                                     <span class="n">save_metainfo</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">metainfo_fmt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{resource_id}</span><span class="s1">_metainfo.json&#39;</span><span class="p">,</span>
                                     <span class="n">max_downloads</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Download multiple resources to a directory.</span>
+<span class="sd">        Download multiple resources to a directory in parallel.</span>
 
-<span class="sd">        This method downloads a batch of resources to a specified directory,</span>
-<span class="sd">        optionally saving metadata for each resource. It uses a thread pool to parallelize</span>
+<span class="sd">        This method efficiently downloads a batch of resources to a specified directory,</span>
+<span class="sd">        optionally saving metadata for each resource. It utilizes a thread pool to parallelize</span>
 <span class="sd">        downloads for improved performance.</span>
 
 <span class="sd">        :param resource_ids: List of resource IDs or tuples of (resource_id, resource_info) to download.</span>
 <span class="sd">        :type resource_ids: Iterable[Union[str, Tuple[str, Any]]]</span>
 <span class="sd">        :param dst_dir: Destination directory for downloaded files.</span>
 <span class="sd">        :type dst_dir: str</span>
-<span class="sd">        :param max_workers: Maximum number of worker threads for parallel downloads.</span>
+<span class="sd">        :param max_workers: Maximum number of worker threads for parallel downloads. Defaults to 12.</span>
 <span class="sd">        :type max_workers: int</span>
-<span class="sd">        :param save_metainfo: Whether to save metadata information for each resource.</span>
+<span class="sd">        :param save_metainfo: Whether to save metadata information for each resource. Defaults to True.</span>
 <span class="sd">        :type save_metainfo: bool</span>
-<span class="sd">        :param metainfo_fmt: Format string for metadata filenames.</span>
+<span class="sd">        :param metainfo_fmt: Format string for metadata filenames. Defaults to &#39;{resource_id}_metainfo.json&#39;.</span>
 <span class="sd">        :type metainfo_fmt: str</span>
-<span class="sd">        :param max_downloads: Max download number of this task, unlimited when not given.</span>
+<span class="sd">        :param max_downloads: Maximum number of downloads to perform.</span>
+<span class="sd">                              If None, all resources will be downloaded. Defaults to None.</span>
 <span class="sd">        :type max_downloads: Optional[int]</span>
-<span class="sd">        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.</span>
+<span class="sd">        :param silent: If True, suppresses progress bar of each standalone file during the download process.</span>
+<span class="sd">                       Defaults to False.</span>
 <span class="sd">        :type silent: bool</span>
 
 <span class="sd">        :raises OSError: If there&#39;s an issue creating the destination directory or copying files.</span>
+
+<span class="sd">        .. note::</span>
+<span class="sd">            The `max_downloads` argument provides a rough limit on the download count.</span>
+<span class="sd">            Due to parallel processing, the actual number of downloads may slightly exceed this limit.</span>
 
 <span class="sd">        :example:</span>
 <span class="sd">        &gt;&gt;&gt; data_pool = SomeDataPoolImplementation()</span>

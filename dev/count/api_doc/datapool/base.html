@@ -230,25 +230,34 @@ for batch downloading resources to a directory. Subclasses should implement the
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.base.DataPool.batch_download_to_directory">
 <span class="sig-name descname"><span class="pre">batch_download_to_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_metainfo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metainfo_fmt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'{resource_id}_metainfo.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_downloads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">silent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/datapool/base.html#DataPool.batch_download_to_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.base.DataPool.batch_download_to_directory" title="Permalink to this definition"></a></dt>
-<dd><p>Download multiple resources to a directory.</p>
-<p>This method downloads a batch of resources to a specified directory,
-optionally saving metadata for each resource. It uses a thread pool to parallelize
+<dd><p>Download multiple resources to a directory in parallel.</p>
+<p>This method efficiently downloads a batch of resources to a specified directory,
+optionally saving metadata for each resource. It utilizes a thread pool to parallelize
 downloads for improved performance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>resource_ids</strong> (<em>Iterable</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>]</em>) – List of resource IDs or tuples of (resource_id, resource_info) to download.</p></li>
 <li><p><strong>dst_dir</strong> (<em>str</em>) – Destination directory for downloaded files.</p></li>
-<li><p><strong>max_workers</strong> (<em>int</em>) – Maximum number of worker threads for parallel downloads.</p></li>
-<li><p><strong>save_metainfo</strong> (<em>bool</em>) – Whether to save metadata information for each resource.</p></li>
-<li><p><strong>metainfo_fmt</strong> (<em>str</em>) – Format string for metadata filenames.</p></li>
-<li><p><strong>max_downloads</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Max download number of this task, unlimited when not given.</p></li>
-<li><p><strong>silent</strong> (<em>bool</em>) – If True, suppresses progress bar of each standalone files during the mocking process.</p></li>
+<li><p><strong>max_workers</strong> (<em>int</em>) – Maximum number of worker threads for parallel downloads. Defaults to 12.</p></li>
+<li><p><strong>save_metainfo</strong> (<em>bool</em>) – Whether to save metadata information for each resource. Defaults to True.</p></li>
+<li><p><strong>metainfo_fmt</strong> (<em>str</em>) – Format string for metadata filenames. Defaults to ‘{resource_id}_metainfo.json’.</p></li>
+<li><p><strong>max_downloads</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Maximum number of downloads to perform.
+If None, all resources will be downloaded. Defaults to None.</p></li>
+<li><p><strong>silent</strong> (<em>bool</em>) – If True, suppresses progress bar of each standalone file during the download process.
+Defaults to False.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>OSError</strong> – If there’s an issue creating the destination directory or copying files.</p>
 </dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <cite>max_downloads</cite> argument provides a rough limit on the download count.
+Due to parallel processing, the actual number of downloads may slightly exceed this limit.</p>
+</div>
+<dl class="field-list simple">
 <dt class="field-odd">Example<span class="colon">:</span></dt>
 <dd class="field-odd"><p></p></dd>
 </dl>

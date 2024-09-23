@@ -138,28 +138,34 @@ class DataPool:
                                     save_metainfo: bool = True, metainfo_fmt: str = '{resource_id}_metainfo.json',
                                     max_downloads: Optional[int] = None, silent: bool = False):
         """
-        Download multiple resources to a directory.
+        Download multiple resources to a directory in parallel.
 
-        This method downloads a batch of resources to a specified directory,
-        optionally saving metadata for each resource. It uses a thread pool to parallelize
+        This method efficiently downloads a batch of resources to a specified directory,
+        optionally saving metadata for each resource. It utilizes a thread pool to parallelize
         downloads for improved performance.
 
         :param resource_ids: List of resource IDs or tuples of (resource_id, resource_info) to download.
         :type resource_ids: Iterable[Union[str, Tuple[str, Any]]]
         :param dst_dir: Destination directory for downloaded files.
         :type dst_dir: str
-        :param max_workers: Maximum number of worker threads for parallel downloads.
+        :param max_workers: Maximum number of worker threads for parallel downloads. Defaults to 12.
         :type max_workers: int
-        :param save_metainfo: Whether to save metadata information for each resource.
+        :param save_metainfo: Whether to save metadata information for each resource. Defaults to True.
         :type save_metainfo: bool
-        :param metainfo_fmt: Format string for metadata filenames.
+        :param metainfo_fmt: Format string for metadata filenames. Defaults to '{resource_id}_metainfo.json'.
         :type metainfo_fmt: str
-        :param max_downloads: Max download number of this task, unlimited when not given.
+        :param max_downloads: Maximum number of downloads to perform.
+                              If None, all resources will be downloaded. Defaults to None.
         :type max_downloads: Optional[int]
-        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :param silent: If True, suppresses progress bar of each standalone file during the download process.
+                       Defaults to False.
         :type silent: bool
 
         :raises OSError: If there's an issue creating the destination directory or copying files.
+
+        .. note::
+            The `max_downloads` argument provides a rough limit on the download count.
+            Due to parallel processing, the actual number of downloads may slightly exceed this limit.
 
         :example:
         >>> data_pool = SomeDataPoolImplementation()

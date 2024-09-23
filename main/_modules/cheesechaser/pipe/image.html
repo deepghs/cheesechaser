@@ -142,18 +142,20 @@
 <span class="sd">    :raises InvalidResourceDataError: If multiple image files are found in the resource.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="SimpleImagePipe.retrieve"><a class="viewcode-back" href="../../../api_doc/pipe/image.html#cheesechaser.pipe.image.SimpleImagePipe.retrieve">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_metainfo</span><span class="p">):</span>
+<div class="viewcode-block" id="SimpleImagePipe.retrieve"><a class="viewcode-back" href="../../../api_doc/pipe/image.html#cheesechaser.pipe.image.SimpleImagePipe.retrieve">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_metainfo</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve an image from the resource pool.</span>
 
 <span class="sd">        :param resource_id: The identifier of the resource to retrieve.</span>
 <span class="sd">        :param resource_metainfo: Metadata information about the resource.</span>
+<span class="sd">        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.</span>
+<span class="sd">        :type silent: bool</span>
 <span class="sd">        :return: A PIL Image object of the retrieved image.</span>
 <span class="sd">        :rtype: PIL.Image.Image</span>
 <span class="sd">        :raises ResourceNotFoundError: If no image file is found.</span>
 <span class="sd">        :raises InvalidResourceDataError: If multiple image files are found.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">mock_resource</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_metainfo</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">resource_metainfo</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">mock_resource</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_metainfo</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="n">silent</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">resource_metainfo</span><span class="p">):</span>
             <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">td</span><span class="p">)</span>
             <span class="n">image_files</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
@@ -195,18 +197,20 @@
 <span class="sd">    :raises InvalidResourceDataError: If multiple image files or JSON files are found in the resource.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DataAttachedImagePipe.retrieve"><a class="viewcode-back" href="../../../api_doc/pipe/image.html#cheesechaser.pipe.image.DataAttachedImagePipe.retrieve">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_metainfo</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAttachedImagePipe.retrieve"><a class="viewcode-back" href="../../../api_doc/pipe/image.html#cheesechaser.pipe.image.DataAttachedImagePipe.retrieve">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_metainfo</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve an image and its associated data from the resource pool.</span>
 
 <span class="sd">        :param resource_id: The identifier of the resource to retrieve.</span>
 <span class="sd">        :param resource_metainfo: Metadata information about the resource.</span>
+<span class="sd">        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.</span>
+<span class="sd">        :type silent: bool</span>
 <span class="sd">        :return: A DataAttachedImage object containing the image and any associated data.</span>
 <span class="sd">        :rtype: DataAttachedImage</span>
 <span class="sd">        :raises ResourceNotFoundError: If no image file is found.</span>
 <span class="sd">        :raises InvalidResourceDataError: If multiple image files or JSON files are found.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">mock_resource</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_metainfo</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">resource_metainfo</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">mock_resource</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_metainfo</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="n">silent</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">resource_metainfo</span><span class="p">):</span>
             <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">td</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">ResourceNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Image not found for resource </span><span class="si">{</span><span class="n">resource_id</span><span class="si">!r}</span><span class="s1">.&#39;</span><span class="p">)</span>
@@ -282,7 +286,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/silent/index.html">dev/silent</a></dd>
                         <dd><a href="image.html">main</a></dd>
                 </dl>
         </div>

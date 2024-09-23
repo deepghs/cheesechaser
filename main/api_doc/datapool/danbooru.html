@@ -220,7 +220,7 @@ the newest additions, providing a comprehensive view of the data.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruNewestDataPool.mock_resource">
-<span class="sig-name descname"><span class="pre">mock_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AbstractContextManager</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruNewestDataPool.mock_resource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestDataPool.mock_resource" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mock_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">silent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AbstractContextManager</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruNewestDataPool.mock_resource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestDataPool.mock_resource" title="Permalink to this definition"></a></dt>
 <dd><p>Provide a context manager for accessing a resource.</p>
 <p>This method attempts to retrieve the resource from both the stable and newest
 data pools, returning the first successful match.</p>
@@ -229,6 +229,7 @@ data pools, returning the first successful match.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>resource_id</strong> (<em>Any</em>) – The ID of the resource to retrieve.</p></li>
 <li><p><strong>resource_info</strong> (<em>Any</em>) – Additional information about the resource.</p></li>
+<li><p><strong>silent</strong> (<em>bool</em>) – If True, suppresses progress bar of each standalone files during the mocking process.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -291,7 +292,7 @@ and the newest WebP additions, providing a comprehensive view of the WebP data.<
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.mock_resource">
-<span class="sig-name descname"><span class="pre">mock_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AbstractContextManager</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruNewestWebpDataPool.mock_resource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.mock_resource" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mock_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">silent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AbstractContextManager</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/cheesechaser/datapool/danbooru.html#DanbooruNewestWebpDataPool.mock_resource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.mock_resource" title="Permalink to this definition"></a></dt>
 <dd><p>Provide a context manager for accessing a WebP resource.</p>
 <p>This method attempts to retrieve the WebP resource from both the stable and newest
 WebP data pools, returning the first successful match.</p>
@@ -300,6 +301,7 @@ WebP data pools, returning the first successful match.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>resource_id</strong> (<em>Any</em>) – The ID of the resource to retrieve.</p></li>
 <li><p><strong>resource_info</strong> (<em>Any</em>) – Additional information about the resource.</p></li>
+<li><p><strong>silent</strong> (<em>bool</em>) – If True, suppresses progress bar of each standalone files during the mocking process.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -364,7 +366,6 @@ WebP data pools, returning the first successful match.</p>
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../dev/silent/api_doc/datapool/danbooru.html">dev/silent</a></dd>
                         <dd><a href="danbooru.html">main</a></dd>
                 </dl>
         </div>

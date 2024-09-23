@@ -210,7 +210,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="DataPool.mock_resource"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.DataPool.mock_resource">[docs]</a>    <span class="nd">@contextmanager</span>
-    <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+    <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Context manager to mock a resource.</span>
 
@@ -220,13 +220,16 @@
 
 <span class="sd">        :param resource_id: The ID of the resource to mock.</span>
 <span class="sd">        :param resource_info: Additional information about the resource.</span>
+<span class="sd">        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.</span>
+<span class="sd">        :type silent: bool</span>
 <span class="sd">        :return: A tuple containing the path to the mocked resource and its info.</span>
 <span class="sd">        :raises NotImplementedError: If not implemented by a subclass.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>  <span class="c1"># pragma: no cover</span></div>
 
 <div class="viewcode-block" id="DataPool.batch_download_to_directory"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.DataPool.batch_download_to_directory">[docs]</a>    <span class="k">def</span> <span class="nf">batch_download_to_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_ids</span><span class="p">,</span> <span class="n">dst_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
-                                    <span class="n">save_metainfo</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">metainfo_fmt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{resource_id}</span><span class="s1">_metainfo.json&#39;</span><span class="p">):</span>
+                                    <span class="n">save_metainfo</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">metainfo_fmt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{resource_id}</span><span class="s1">_metainfo.json&#39;</span><span class="p">,</span>
+                                    <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Download multiple resources to a directory.</span>
 
@@ -243,6 +246,8 @@
 <span class="sd">        :type save_metainfo: bool</span>
 <span class="sd">        :param metainfo_fmt: Format string for metadata filenames.</span>
 <span class="sd">        :type metainfo_fmt: str</span>
+<span class="sd">        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.</span>
+<span class="sd">        :type silent: bool</span>
 
 <span class="sd">        :raises OSError: If there&#39;s an issue creating the destination directory or copying files.</span>
 
@@ -256,7 +261,7 @@
 
         <span class="k">def</span> <span class="nf">_func</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">):</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">mock_resource</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">):</span>
+                <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">mock_resource</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="n">silent</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">):</span>
                     <span class="n">copied</span> <span class="o">=</span> <span class="kc">False</span>
                     <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">td</span><span class="p">):</span>
                         <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
@@ -443,7 +448,7 @@
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">location</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
 
 <div class="viewcode-block" id="HfBasedDataPool.mock_resource"><a class="viewcode-back" href="../../../api_doc/datapool/base.html#cheesechaser.datapool.base.HfBasedDataPool.mock_resource">[docs]</a>    <span class="nd">@contextmanager</span>
-    <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+    <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Context manager to temporarily access a resource.</span>
 
@@ -451,6 +456,8 @@
 
 <span class="sd">        :param resource_id: The ID of the resource to mock.</span>
 <span class="sd">        :param resource_info: Additional information about the resource.</span>
+<span class="sd">        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.</span>
+<span class="sd">        :type silent: bool</span>
 <span class="sd">        :return: A tuple containing the path to the temporary directory and the resource info.</span>
 <span class="sd">        :raises ResourceNotFoundError: If the resource cannot be found or downloaded.</span>
 
@@ -476,6 +483,7 @@
                     <span class="n">idx_repo_type</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">,</span>
                     <span class="n">idx_revision</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_revision</span><span class="p">,</span>
                     <span class="n">hf_token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_hf_token</span><span class="p">,</span>
+                    <span class="n">silent</span><span class="o">=</span><span class="n">silent</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">yield</span> <span class="n">td</span><span class="p">,</span> <span class="n">resource_info</span></div></div>
 
@@ -619,7 +627,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/silent/index.html">dev/silent</a></dd>
                         <dd><a href="base.html">main</a></dd>
                 </dl>
         </div>

@@ -134,15 +134,13 @@ efficient through the use of caching mechanisms.</p>
 <dd class="field-even"><p>Optional[str]</p>
 </dd>
 <dt class="field-odd">Usage<span class="colon">:</span></dt>
-<dd class="field-odd"><p>token = get_hf_token()
-if token:</p>
-<blockquote>
-<div><p>print(“Token found”)</p>
-</div></blockquote>
-<dl class="simple">
-<dt>else:</dt><dd><p>print(“Token not set in environment variables”)</p>
-</dd>
-</dl>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">token</span> <span class="o">=</span> <span class="n">get_hf_token</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">token</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token found&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">else</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token not set in environment variables&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -156,7 +154,7 @@ if token:</p>
 <dd><p>Create and return a Hugging Face API client.</p>
 <p>This function is cached to reuse the same client instance across multiple calls.
 The client is initialized with the API token retrieved from get_hf_token().</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>An instance of the Hugging Face API client.</p>
 </dd>
@@ -164,9 +162,11 @@ The client is initialized with the API token retrieved from get_hf_token().</p>
 <dd class="field-even"><p>HfApi</p>
 </dd>
 <dt class="field-odd">Usage<span class="colon">:</span></dt>
-<dd class="field-odd"><p>client = get_hf_client()
-# Use the client to interact with the Hugging Face Hub
-models = client.list_models()</p>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">get_hf_client</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use the client to interact with the Hugging Face Hub</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">models</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">list_models</span><span class="p">()</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -180,7 +180,7 @@ models = client.list_models()</p>
 <dd><p>Create and return a Hugging Face file system instance.</p>
 <p>This function is cached to reuse the same file system instance across multiple calls.
 The file system is initialized with the API token retrieved from get_hf_token().</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>An instance of the Hugging Face file system.</p>
 </dd>
@@ -188,9 +188,11 @@ The file system is initialized with the API token retrieved from get_hf_token().
 <dd class="field-even"><p>HfFileSystem</p>
 </dd>
 <dt class="field-odd">Usage<span class="colon">:</span></dt>
-<dd class="field-odd"><p>fs = get_hf_fs()
-# Use the file system to interact with files on the Hugging Face Hub
-files = fs.ls(‘username/repo_name’)</p>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fs</span> <span class="o">=</span> <span class="n">get_hf_fs</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use the file system to interact with files on the Hugging Face Hub</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">files</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;username/repo_name&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -243,7 +245,6 @@ files = fs.ls(‘username/repo_name’)</p>
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../dev/silent/api_doc/utils/huggingface.html">dev/silent</a></dd>
                         <dd><a href="huggingface.html">main</a></dd>
                 </dl>
         </div>

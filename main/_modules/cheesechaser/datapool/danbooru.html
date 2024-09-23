@@ -294,7 +294,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_newest_pool</span> <span class="o">=</span> <span class="n">_DanbooruNewestPartialDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DanbooruNewestDataPool.mock_resource"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestDataPool.mock_resource">[docs]</a>    <span class="nd">@contextmanager</span>
-    <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+    <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide a context manager for accessing a resource.</span>
 
@@ -305,6 +305,8 @@
 <span class="sd">        :type resource_id: Any</span>
 <span class="sd">        :param resource_info: Additional information about the resource.</span>
 <span class="sd">        :type resource_info: Any</span>
+<span class="sd">        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.</span>
+<span class="sd">        :type silent: bool</span>
 <span class="sd">        :return: A context manager yielding a tuple of (temporary directory, resource info).</span>
 <span class="sd">        :rtype: ContextManager[Tuple[str, Any]]</span>
 <span class="sd">        :raises ResourceNotFoundError: If the resource is not found in either pool.</span>
@@ -313,7 +315,7 @@
         <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">for</span> <span class="n">pool</span> <span class="ow">in</span> <span class="n">pools</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">with</span> <span class="n">pool</span><span class="o">.</span><span class="n">mock_resource</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+                <span class="k">with</span> <span class="n">pool</span><span class="o">.</span><span class="n">mock_resource</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="n">silent</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
                     <span class="k">yield</span> <span class="n">td</span><span class="p">,</span> <span class="n">info</span>
             <span class="k">except</span> <span class="n">ResourceNotFoundError</span><span class="p">:</span>
                 <span class="k">pass</span>
@@ -420,7 +422,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_newest_pool</span> <span class="o">=</span> <span class="n">_DanbooruNewestPartialWebpDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DanbooruNewestWebpDataPool.mock_resource"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.DanbooruNewestWebpDataPool.mock_resource">[docs]</a>    <span class="nd">@contextmanager</span>
-    <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+    <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide a context manager for accessing a WebP resource.</span>
 
@@ -431,6 +433,8 @@
 <span class="sd">        :type resource_id: Any</span>
 <span class="sd">        :param resource_info: Additional information about the resource.</span>
 <span class="sd">        :type resource_info: Any</span>
+<span class="sd">        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.</span>
+<span class="sd">        :type silent: bool</span>
 <span class="sd">        :return: A context manager yielding a tuple of (temporary directory, resource info).</span>
 <span class="sd">        :rtype: ContextManager[Tuple[str, Any]]</span>
 <span class="sd">        :raises ResourceNotFoundError: If the resource is not found in either WebP pool.</span>
@@ -439,7 +443,7 @@
         <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">for</span> <span class="n">pool</span> <span class="ow">in</span> <span class="n">pools</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">with</span> <span class="n">pool</span><span class="o">.</span><span class="n">mock_resource</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+                <span class="k">with</span> <span class="n">pool</span><span class="o">.</span><span class="n">mock_resource</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="n">silent</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
                     <span class="k">yield</span> <span class="n">td</span><span class="p">,</span> <span class="n">info</span>
             <span class="k">except</span> <span class="n">ResourceNotFoundError</span><span class="p">:</span>
                 <span class="k">pass</span>
@@ -492,7 +496,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/silent/index.html">dev/silent</a></dd>
                         <dd><a href="danbooru.html">main</a></dd>
                 </dl>
         </div>

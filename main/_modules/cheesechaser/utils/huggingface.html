@@ -118,11 +118,11 @@
 <span class="sd">    :rtype: Optional[str]</span>
 
 <span class="sd">    :usage:</span>
-<span class="sd">        token = get_hf_token()</span>
-<span class="sd">        if token:</span>
-<span class="sd">            print(&quot;Token found&quot;)</span>
-<span class="sd">        else:</span>
-<span class="sd">            print(&quot;Token not set in environment variables&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; token = get_hf_token()</span>
+<span class="sd">        &gt;&gt;&gt; if token:</span>
+<span class="sd">        &gt;&gt;&gt;     print(&quot;Token found&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; else:</span>
+<span class="sd">        &gt;&gt;&gt;     print(&quot;Token not set in environment variables&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;HF_TOKEN&#39;</span><span class="p">)</span></div>
 
@@ -139,9 +139,9 @@
 <span class="sd">    :rtype: HfApi</span>
 
 <span class="sd">    :usage:</span>
-<span class="sd">        client = get_hf_client()</span>
-<span class="sd">        # Use the client to interact with the Hugging Face Hub</span>
-<span class="sd">        models = client.list_models()</span>
+<span class="sd">        &gt;&gt;&gt; client = get_hf_client()</span>
+<span class="sd">        &gt;&gt;&gt; # Use the client to interact with the Hugging Face Hub</span>
+<span class="sd">        &gt;&gt;&gt; models = client.list_models()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">HfApi</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">get_hf_token</span><span class="p">())</span></div>
 
@@ -158,9 +158,9 @@
 <span class="sd">    :rtype: HfFileSystem</span>
 
 <span class="sd">    :usage:</span>
-<span class="sd">        fs = get_hf_fs()</span>
-<span class="sd">        # Use the file system to interact with files on the Hugging Face Hub</span>
-<span class="sd">        files = fs.ls(&#39;username/repo_name&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; fs = get_hf_fs()</span>
+<span class="sd">        &gt;&gt;&gt; # Use the file system to interact with files on the Hugging Face Hub</span>
+<span class="sd">        &gt;&gt;&gt; files = fs.ls(&#39;username/repo_name&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">HfFileSystem</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">get_hf_token</span><span class="p">())</span></div>
 </pre></div>
@@ -206,7 +206,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/silent/index.html">dev/silent</a></dd>
                         <dd><a href="huggingface.html">main</a></dd>
                 </dl>
         </div>

@@ -260,7 +260,7 @@
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="NHentaiMangaDataPool.mock_resource"><a class="viewcode-back" href="../../../api_doc/datapool/nhentai.html#cheesechaser.datapool.nhentai.NHentaiMangaDataPool.mock_resource">[docs]</a>    <span class="nd">@contextmanager</span>
-    <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+    <span class="k">def</span> <span class="nf">mock_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_id</span><span class="p">,</span> <span class="n">resource_info</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a mock resource for a given manga.</span>
 
@@ -271,6 +271,8 @@
 <span class="sd">        :type resource_id: int</span>
 <span class="sd">        :param resource_info: Additional information about the resource.</span>
 <span class="sd">        :type resource_info: Any</span>
+<span class="sd">        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.</span>
+<span class="sd">        :type silent: bool</span>
 <span class="sd">        :yield: A tuple containing the path to the temporary directory with the images and the resource info.</span>
 <span class="sd">        :rtype: Tuple[str, Any]</span>
 <span class="sd">        :raises ResourceNotFoundError: If the specified manga resource is not found.</span>
@@ -288,6 +290,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">images_pool</span><span class="o">.</span><span class="n">batch_download_to_directory</span><span class="p">(</span>
                 <span class="n">image_ids</span><span class="p">,</span> <span class="n">origin_dir</span><span class="p">,</span>
                 <span class="n">save_metainfo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">silent</span><span class="o">=</span><span class="n">silent</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">files</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">src_image_file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">origin_dir</span><span class="p">):</span>
@@ -352,7 +355,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/silent/index.html">dev/silent</a></dd>
                         <dd><a href="nhentai.html">main</a></dd>
                 </dl>
         </div>

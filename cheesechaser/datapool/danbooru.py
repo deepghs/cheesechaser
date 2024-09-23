@@ -200,7 +200,7 @@ class DanbooruNewestDataPool(DataPool):
         self._newest_pool = _DanbooruNewestPartialDataPool(hf_token=hf_token)
 
     @contextmanager
-    def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
+    def mock_resource(self, resource_id, resource_info, silent: bool = False) -> ContextManager[Tuple[str, Any]]:
         """
         Provide a context manager for accessing a resource.
 
@@ -219,7 +219,7 @@ class DanbooruNewestDataPool(DataPool):
         found = False
         for pool in pools:
             try:
-                with pool.mock_resource(resource_id, resource_info) as (td, info):
+                with pool.mock_resource(resource_id, resource_info, silent=silent) as (td, info):
                     yield td, info
             except ResourceNotFoundError:
                 pass
@@ -326,7 +326,7 @@ class DanbooruNewestWebpDataPool(DataPool):
         self._newest_pool = _DanbooruNewestPartialWebpDataPool(hf_token=hf_token)
 
     @contextmanager
-    def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
+    def mock_resource(self, resource_id, resource_info, silent: bool = False) -> ContextManager[Tuple[str, Any]]:
         """
         Provide a context manager for accessing a WebP resource.
 
@@ -345,7 +345,7 @@ class DanbooruNewestWebpDataPool(DataPool):
         found = False
         for pool in pools:
             try:
-                with pool.mock_resource(resource_id, resource_info) as (td, info):
+                with pool.mock_resource(resource_id, resource_info, silent=silent) as (td, info):
                     yield td, info
             except ResourceNotFoundError:
                 pass

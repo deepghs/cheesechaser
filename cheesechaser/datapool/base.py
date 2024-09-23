@@ -116,7 +116,7 @@ class DataPool:
     """
 
     @contextmanager
-    def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
+    def mock_resource(self, resource_id, resource_info, silent: bool = False) -> ContextManager[Tuple[str, Any]]:
         """
         Context manager to mock a resource.
 
@@ -132,7 +132,8 @@ class DataPool:
         raise NotImplementedError  # pragma: no cover
 
     def batch_download_to_directory(self, resource_ids, dst_dir: str, max_workers: int = 12,
-                                    save_metainfo: bool = True, metainfo_fmt: str = '{resource_id}_metainfo.json'):
+                                    save_metainfo: bool = True, metainfo_fmt: str = '{resource_id}_metainfo.json',
+                                    silent: bool = False):
         """
         Download multiple resources to a directory.
 
@@ -162,7 +163,7 @@ class DataPool:
 
         def _func(resource_id, resource_info):
             try:
-                with self.mock_resource(resource_id, resource_info) as (td, resource_info):
+                with self.mock_resource(resource_id, resource_info, silent=silent) as (td, resource_info):
                     copied = False
                     for root, dirs, files in os.walk(td):
                         for file in files:
@@ -349,7 +350,7 @@ class HfBasedDataPool(DataPool):
         return os.path.basename(location.filename)
 
     @contextmanager
-    def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
+    def mock_resource(self, resource_id, resource_info, silent: bool = False) -> ContextManager[Tuple[str, Any]]:
         """
         Context manager to temporarily access a resource.
 
@@ -382,6 +383,7 @@ class HfBasedDataPool(DataPool):
                     idx_repo_type='dataset',
                     idx_revision=self.idx_revision,
                     hf_token=self._hf_token,
+                    silent=silent,
                 )
             yield td, resource_info
 

@@ -166,7 +166,7 @@ class NHentaiMangaDataPool(DataPool):
         return pd.read_csv(csv_file)
 
     @contextmanager
-    def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
+    def mock_resource(self, resource_id, resource_info, silent: bool = False) -> ContextManager[Tuple[str, Any]]:
         """
         Create a mock resource for a given manga.
 
@@ -194,6 +194,7 @@ class NHentaiMangaDataPool(DataPool):
             self.images_pool.batch_download_to_directory(
                 image_ids, origin_dir,
                 save_metainfo=False,
+                silent=silent,
             )
             files = {}
             for src_image_file in os.listdir(origin_dir):

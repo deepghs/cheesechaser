@@ -110,6 +110,11 @@ class PipeSession:
         return self.queue.get(block=block, timeout=timeout)
 
     def _count_update(self, n: int = 1):
+        """
+        Update current count. If the count reaches the limit, set the status to ``stopped``.
+
+        :param n: Count for Adding. Default is 1.
+        """
         self._current_count += n
         if self.max_count is not None and self._current_count >= self.max_count:
             self.is_stopped.set()

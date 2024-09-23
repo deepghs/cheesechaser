@@ -109,15 +109,20 @@ class PipeSession:
             self.is_start.set()
         return self.queue.get(block=block, timeout=timeout)
 
-    def _count_update(self, n: int = 1):
+    def _count_update(self, n: int = 1) -> bool:
         """
         Update current count. If the count reaches the limit, set the status to ``stopped``.
 
         :param n: Count for Adding. Default is 1.
+        :return: Reached the limit or not
+        :rtype: bool
         """
         self._current_count += n
         if self.max_count is not None and self._current_count >= self.max_count:
             self.is_stopped.set()
+            return True
+        else:
+            return False
 
     def __iter__(self) -> Iterator[PipeItem]:
         """
@@ -127,14 +132,17 @@ class PipeSession:
         :rtype: Iterator[PipeItem]
         """
         pg = tqdm(desc='Piped Items', total=self.max_count)
-        self._count_update(0)
+        if self._count_update(0):
+            return
+
         while not (self.is_stopped.is_set() and self.queue.empty()):
             try:
                 data = self.next(block=True, timeout=1.0)
                 if isinstance(data, PipeItem):
                     pg.update()
                     yield data
-                    self._count_update()
+                    if self._count_update():
+                        break
             except Empty:
                 pass
 

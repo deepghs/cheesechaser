@@ -48,18 +48,20 @@ class SimpleImagePipe(Pipe):
     :raises InvalidResourceDataError: If multiple image files are found in the resource.
     """
 
-    def retrieve(self, resource_id, resource_metainfo):
+    def retrieve(self, resource_id, resource_metainfo, silent: bool = False):
         """
         Retrieve an image from the resource pool.
 
         :param resource_id: The identifier of the resource to retrieve.
         :param resource_metainfo: Metadata information about the resource.
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :return: A PIL Image object of the retrieved image.
         :rtype: PIL.Image.Image
         :raises ResourceNotFoundError: If no image file is found.
         :raises InvalidResourceDataError: If multiple image files are found.
         """
-        with self.pool.mock_resource(resource_id, resource_metainfo) as (td, resource_metainfo):
+        with self.pool.mock_resource(resource_id, resource_metainfo, silent=silent) as (td, resource_metainfo):
             files = os.listdir(td)
             image_files = []
             for file in files:
@@ -101,18 +103,20 @@ class DataAttachedImagePipe(Pipe):
     :raises InvalidResourceDataError: If multiple image files or JSON files are found in the resource.
     """
 
-    def retrieve(self, resource_id, resource_metainfo):
+    def retrieve(self, resource_id, resource_metainfo, silent: bool = False):
         """
         Retrieve an image and its associated data from the resource pool.
 
         :param resource_id: The identifier of the resource to retrieve.
         :param resource_metainfo: Metadata information about the resource.
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :return: A DataAttachedImage object containing the image and any associated data.
         :rtype: DataAttachedImage
         :raises ResourceNotFoundError: If no image file is found.
         :raises InvalidResourceDataError: If multiple image files or JSON files are found.
         """
-        with self.pool.mock_resource(resource_id, resource_metainfo) as (td, resource_metainfo):
+        with self.pool.mock_resource(resource_id, resource_metainfo, silent=silent) as (td, resource_metainfo):
             files = os.listdir(td)
             if len(files) == 0:
                 raise ResourceNotFoundError(f'Image not found for resource {resource_id!r}.')

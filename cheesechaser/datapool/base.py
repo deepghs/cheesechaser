@@ -116,7 +116,7 @@ class DataPool:
     """
 
     @contextmanager
-    def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
+    def mock_resource(self, resource_id, resource_info, silent: bool = False) -> ContextManager[Tuple[str, Any]]:
         """
         Context manager to mock a resource.
 
@@ -126,13 +126,16 @@ class DataPool:
 
         :param resource_id: The ID of the resource to mock.
         :param resource_info: Additional information about the resource.
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :return: A tuple containing the path to the mocked resource and its info.
         :raises NotImplementedError: If not implemented by a subclass.
         """
         raise NotImplementedError  # pragma: no cover
 
     def batch_download_to_directory(self, resource_ids, dst_dir: str, max_workers: int = 12,
-                                    save_metainfo: bool = True, metainfo_fmt: str = '{resource_id}_metainfo.json'):
+                                    save_metainfo: bool = True, metainfo_fmt: str = '{resource_id}_metainfo.json',
+                                    silent: bool = False):
         """
         Download multiple resources to a directory.
 
@@ -149,6 +152,8 @@ class DataPool:
         :type save_metainfo: bool
         :param metainfo_fmt: Format string for metadata filenames.
         :type metainfo_fmt: str
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
 
         :raises OSError: If there's an issue creating the destination directory or copying files.
 
@@ -162,7 +167,7 @@ class DataPool:
 
         def _func(resource_id, resource_info):
             try:
-                with self.mock_resource(resource_id, resource_info) as (td, resource_info):
+                with self.mock_resource(resource_id, resource_info, silent=silent) as (td, resource_info):
                     copied = False
                     for root, dirs, files in os.walk(td):
                         for file in files:
@@ -349,7 +354,7 @@ class HfBasedDataPool(DataPool):
         return os.path.basename(location.filename)
 
     @contextmanager
-    def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
+    def mock_resource(self, resource_id, resource_info, silent: bool = False) -> ContextManager[Tuple[str, Any]]:
         """
         Context manager to temporarily access a resource.
 
@@ -357,6 +362,8 @@ class HfBasedDataPool(DataPool):
 
         :param resource_id: The ID of the resource to mock.
         :param resource_info: Additional information about the resource.
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :return: A tuple containing the path to the temporary directory and the resource info.
         :raises ResourceNotFoundError: If the resource cannot be found or downloaded.
 
@@ -382,6 +389,7 @@ class HfBasedDataPool(DataPool):
                     idx_repo_type='dataset',
                     idx_revision=self.idx_revision,
                     hf_token=self._hf_token,
+                    silent=silent,
                 )
             yield td, resource_info
 

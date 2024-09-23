@@ -200,7 +200,7 @@ class DanbooruNewestDataPool(DataPool):
         self._newest_pool = _DanbooruNewestPartialDataPool(hf_token=hf_token)
 
     @contextmanager
-    def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
+    def mock_resource(self, resource_id, resource_info, silent: bool = False) -> ContextManager[Tuple[str, Any]]:
         """
         Provide a context manager for accessing a resource.
 
@@ -211,6 +211,8 @@ class DanbooruNewestDataPool(DataPool):
         :type resource_id: Any
         :param resource_info: Additional information about the resource.
         :type resource_info: Any
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :return: A context manager yielding a tuple of (temporary directory, resource info).
         :rtype: ContextManager[Tuple[str, Any]]
         :raises ResourceNotFoundError: If the resource is not found in either pool.
@@ -219,7 +221,7 @@ class DanbooruNewestDataPool(DataPool):
         found = False
         for pool in pools:
             try:
-                with pool.mock_resource(resource_id, resource_info) as (td, info):
+                with pool.mock_resource(resource_id, resource_info, silent=silent) as (td, info):
                     yield td, info
             except ResourceNotFoundError:
                 pass
@@ -326,7 +328,7 @@ class DanbooruNewestWebpDataPool(DataPool):
         self._newest_pool = _DanbooruNewestPartialWebpDataPool(hf_token=hf_token)
 
     @contextmanager
-    def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
+    def mock_resource(self, resource_id, resource_info, silent: bool = False) -> ContextManager[Tuple[str, Any]]:
         """
         Provide a context manager for accessing a WebP resource.
 
@@ -337,6 +339,8 @@ class DanbooruNewestWebpDataPool(DataPool):
         :type resource_id: Any
         :param resource_info: Additional information about the resource.
         :type resource_info: Any
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :return: A context manager yielding a tuple of (temporary directory, resource info).
         :rtype: ContextManager[Tuple[str, Any]]
         :raises ResourceNotFoundError: If the resource is not found in either WebP pool.
@@ -345,7 +349,7 @@ class DanbooruNewestWebpDataPool(DataPool):
         found = False
         for pool in pools:
             try:
-                with pool.mock_resource(resource_id, resource_info) as (td, info):
+                with pool.mock_resource(resource_id, resource_info, silent=silent) as (td, info):
                     yield td, info
             except ResourceNotFoundError:
                 pass

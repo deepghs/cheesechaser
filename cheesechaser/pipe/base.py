@@ -163,7 +163,7 @@ class Pipe:
     def __init__(self, pool: DataPool):
         self.pool = pool
 
-    def retrieve(self, resource_id, resource_metainfo):
+    def retrieve(self, resource_id, resource_metainfo, silent: bool = False):
         """
         Retrieve a single resource from the data pool.
 
@@ -171,11 +171,13 @@ class Pipe:
 
         :param resource_id: The ID of the resource to retrieve.
         :param resource_metainfo: Additional metadata for the resource.
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :raises NotImplementedError: If not implemented by a subclass.
         """
         raise NotImplementedError  # pragma: no cover
 
-    def batch_retrieve(self, resource_ids, max_workers: int = 12) -> PipeSession:
+    def batch_retrieve(self, resource_ids, max_workers: int = 12, silent: bool = False) -> PipeSession:
         """
         Retrieve multiple resources in parallel using a thread pool.
 
@@ -198,7 +200,7 @@ class Pipe:
             data, error = None, None
             try:
                 try:
-                    data = self.retrieve(resource_id, resource_metainfo)
+                    data = self.retrieve(resource_id, resource_metainfo, silent=silent)
                 except ResourceNotFoundError as err:
                     logging.warning(f'Resource {resource_id!r} not found.')
                     error = err

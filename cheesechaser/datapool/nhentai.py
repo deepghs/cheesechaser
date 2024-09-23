@@ -166,7 +166,7 @@ class NHentaiMangaDataPool(DataPool):
         return pd.read_csv(csv_file)
 
     @contextmanager
-    def mock_resource(self, resource_id, resource_info) -> ContextManager[Tuple[str, Any]]:
+    def mock_resource(self, resource_id, resource_info, silent: bool = False) -> ContextManager[Tuple[str, Any]]:
         """
         Create a mock resource for a given manga.
 
@@ -177,6 +177,8 @@ class NHentaiMangaDataPool(DataPool):
         :type resource_id: int
         :param resource_info: Additional information about the resource.
         :type resource_info: Any
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :yield: A tuple containing the path to the temporary directory with the images and the resource info.
         :rtype: Tuple[str, Any]
         :raises ResourceNotFoundError: If the specified manga resource is not found.
@@ -194,6 +196,7 @@ class NHentaiMangaDataPool(DataPool):
             self.images_pool.batch_download_to_directory(
                 image_ids, origin_dir,
                 save_metainfo=False,
+                silent=silent,
             )
             files = {}
             for src_image_file in os.listdir(origin_dir):

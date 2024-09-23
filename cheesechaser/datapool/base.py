@@ -26,6 +26,7 @@ import json
 import logging
 import os
 import shutil
+import threading
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from dataclasses import dataclass
@@ -135,37 +136,54 @@ class DataPool:
 
     def batch_download_to_directory(self, resource_ids, dst_dir: str, max_workers: int = 12,
                                     save_metainfo: bool = True, metainfo_fmt: str = '{resource_id}_metainfo.json',
-                                    silent: bool = False):
+                                    max_downloads: Optional[int] = None, silent: bool = False):
         """
-        Download multiple resources to a directory.
+        Download multiple resources to a directory in parallel.
 
-        This method downloads a batch of resources to a specified directory, optionally saving metadata for each resource.
-        It uses a thread pool to parallelize downloads for improved performance.
+        This method efficiently downloads a batch of resources to a specified directory,
+        optionally saving metadata for each resource. It utilizes a thread pool to parallelize
+        downloads for improved performance.
 
         :param resource_ids: List of resource IDs or tuples of (resource_id, resource_info) to download.
         :type resource_ids: Iterable[Union[str, Tuple[str, Any]]]
         :param dst_dir: Destination directory for downloaded files.
         :type dst_dir: str
-        :param max_workers: Maximum number of worker threads for parallel downloads.
+        :param max_workers: Maximum number of worker threads for parallel downloads. Defaults to 12.
         :type max_workers: int
-        :param save_metainfo: Whether to save metadata information for each resource.
+        :param save_metainfo: Whether to save metadata information for each resource. Defaults to True.
         :type save_metainfo: bool
-        :param metainfo_fmt: Format string for metadata filenames.
+        :param metainfo_fmt: Format string for metadata filenames. Defaults to '{resource_id}_metainfo.json'.
         :type metainfo_fmt: str
-        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :param max_downloads: Maximum number of downloads to perform.
+                              If None, all resources will be downloaded. Defaults to None.
+        :type max_downloads: Optional[int]
+        :param silent: If True, suppresses progress bar of each standalone file during the download process.
+                       Defaults to False.
         :type silent: bool
 
         :raises OSError: If there's an issue creating the destination directory or copying files.
+
+        .. note::
+            The `max_downloads` argument provides a rough limit on the download count.
+            Due to parallel processing, the actual number of downloads may slightly exceed this limit.
 
         :example:
         >>> data_pool = SomeDataPoolImplementation()
         >>> data_pool.batch_download_to_directory(['resource1', 'resource2'], '/path/to/destination')
         """
         pg_res = tqdm(resource_ids, desc='Batch Downloading')
-        pg_downloaded = tqdm(desc='Files Downloaded')
+        pg_file_download = tqdm(desc='Files Downloaded')
+        pg_download = tqdm(desc='Download Count', total=max_downloads)
         os.makedirs(dst_dir, exist_ok=True)
 
+        is_completed = threading.Event()
+        downloaded_count = 0
+
         def _func(resource_id, resource_info):
+            nonlocal downloaded_count
+            if is_completed.is_set():
+                return
+
             try:
                 with self.mock_resource(resource_id, resource_info, silent=silent) as (td, resource_info):
                     copied = False
@@ -180,11 +198,15 @@ class DataPool:
                                 meta_file = os.path.join(td, metainfo_fmt.format(resource_id=resource_id))
                                 with open(meta_file, 'w') as f:
                                     json.dump(resource_info, f, indent=4, sort_keys=True, ensure_ascii=False)
-
-                            pg_downloaded.update()
+                            pg_file_download.update()
                             copied = True
+
                     if not copied:
                         logging.warning(f'No files found for resource {resource_id!r}.')
+                    downloaded_count += 1
+                    if max_downloads is not None and downloaded_count >= max_downloads:
+                        is_completed.set()
+                    pg_download.update()
             except ResourceNotFoundError:
                 logging.warning(f'Resource {resource_id!r} not found, skipped.')
             except Exception as err:

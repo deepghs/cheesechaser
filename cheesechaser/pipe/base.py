@@ -80,13 +80,18 @@ class PipeSession:
     :type is_stopped: Event
     :param is_finished: An event indicating whether the session has finished.
     :type is_finished: Event
+    :param max_count: Max item count for iterating from the data source. Unlimited when not given.
+    :type max_count: Optional[int]
     """
 
-    def __init__(self, queue: Queue, is_start: Event, is_stopped: Event, is_finished: Event):
+    def __init__(self, queue: Queue, is_start: Event, is_stopped: Event, is_finished: Event,
+                 max_count: Optional[int] = None):
         self.queue = queue
         self.is_start = is_start
         self.is_stopped = is_stopped
         self.is_finished = is_finished
+        self.max_count: Optional[int] = max_count
+        self._current_count: int = 0
 
     def next(self, block: bool = True, timeout: Optional[float] = None) -> PipeItem:
         """
@@ -104,6 +109,21 @@ class PipeSession:
             self.is_start.set()
         return self.queue.get(block=block, timeout=timeout)
 
+    def _count_update(self, n: int = 1) -> bool:
+        """
+        Update current count. If the count reaches the limit, set the status to ``stopped``.
+
+        :param n: Count for Adding. Default is 1.
+        :return: Reached the limit or not
+        :rtype: bool
+        """
+        self._current_count += n
+        if self.max_count is not None and self._current_count >= self.max_count:
+            self.is_stopped.set()
+            return True
+        else:
+            return False
+
     def __iter__(self) -> Iterator[PipeItem]:
         """
         Iterate over the items in the pipeline.
@@ -111,11 +131,18 @@ class PipeSession:
         :return: An iterator of PipeItems.
         :rtype: Iterator[PipeItem]
         """
+        pg = tqdm(desc='Piped Items', total=self.max_count)
+        if self._count_update(0):
+            return
+
         while not (self.is_stopped.is_set() and self.queue.empty()):
             try:
                 data = self.next(block=True, timeout=1.0)
                 if isinstance(data, PipeItem):
+                    pg.update()
                     yield data
+                    if self._count_update():
+                        break
             except Empty:
                 pass
 
@@ -177,13 +204,18 @@ class Pipe:
         """
         raise NotImplementedError  # pragma: no cover
 
-    def batch_retrieve(self, resource_ids, max_workers: int = 12, silent: bool = False) -> PipeSession:
+    def batch_retrieve(self, resource_ids, max_workers: int = 12, max_count: Optional[int] = None,
+                       silent: bool = False) -> PipeSession:
         """
         Retrieve multiple resources in parallel using a thread pool.
 
         :param resource_ids: An iterable of resource IDs or (ID, metainfo) tuples to retrieve.
         :param max_workers: The maximum number of worker threads to use.
         :type max_workers: int
+        :param max_count: Max item count for iterating from the data source. Unlimited when not given.
+        :type max_count: Optional[int]
+        :param silent: If True, suppresses progress bar of each standalone files during the mocking process.
+        :type silent: bool
         :return: A PipeSession object for iterating over the retrieved items.
         :rtype: PipeSession
         """
@@ -272,5 +304,6 @@ class Pipe:
             queue=queue,
             is_start=is_started,
             is_stopped=is_stopped,
-            is_finished=is_finished
+            is_finished=is_finished,
+            max_count=max_count,
         )

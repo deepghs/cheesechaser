@@ -1,3 +1,24 @@
+"""
+This module provides classes for accessing and managing E621 image data.
+
+It includes classes for handling both original and WebP-formatted images,
+as well as stable and newest datasets. The module uses Hugging Face's
+file system for data storage and retrieval.
+
+Classes:
+
+- BaseE621DataPool: Base class for E621 data pools.
+- E621DataPool: Main class for accessing E621 image data.
+- E621StableDataPool: Class for accessing a stable version of E621 data.
+- E621NewestPartialDataPool: Class for accessing the newest partial E621 data.
+- E621NewestDataPool: Class for accessing both stable and newest E621 data.
+- E621WebpDataPool: Class for accessing WebP versions of E621 images.
+- E621NewestPartialWebpDataPool: Class for accessing the newest partial WebP E621 data.
+- E621NewestWebpDataPool: Class for accessing both stable and newest WebP E621 data.
+
+The module uses several constants to define default repository IDs and revisions.
+"""
+
 from contextlib import contextmanager
 from typing import Iterable, ContextManager, Tuple, Any, Optional
 

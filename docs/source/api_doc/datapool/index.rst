@@ -14,6 +14,7 @@ cheesechaser.datapool
     base
     civitai
     danbooru
+    e621
     fancaps
     gelbooru
     hentaicosplay

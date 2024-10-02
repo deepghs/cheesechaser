@@ -5,6 +5,7 @@ from .base import DataLocation, DataPool, HfBasedDataPool, IncrementIDDataPool, 
 from .civitai import CivitaiDataPool
 from .danbooru import DanbooruDataPool, DanbooruStableDataPool, DanbooruNewestDataPool, DanbooruWebpDataPool, \
     DanbooruNewestWebpDataPool
+from .e621 import E621DataPool, E621StableDataPool, E621NewestDataPool, E621WebpDataPool, E621NewestWebpDataPool
 from .fancaps import FancapsDataPool
 from .gelbooru import GelbooruDataPool, GelbooruWebpDataPool
 from .hentaicosplay import HentaiCosplayDataPool

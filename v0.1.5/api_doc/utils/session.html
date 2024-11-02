@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cheesechaser.utils.session &mdash; cheesechaser 0.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=c9d0a6ec" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=7b800ad1"></script>
+      <script src="../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="cheesechaser.utils.huggingface" href="huggingface.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            cheesechaser
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/quick_start/index.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../information/environment.result.html">Run Environment Information</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">cheesechaser.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datapool/index.html">cheesechaser.datapool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipe/index.html">cheesechaser.pipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../query/index.html">cheesechaser.query</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">cheesechaser.utils</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="huggingface.html">cheesechaser.utils.huggingface</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">cheesechaser.utils.session</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#timeouthttpadapter">TimeoutHTTPAdapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cheesechaser.utils.session.TimeoutHTTPAdapter"><code class="docutils literal notranslate"><span class="pre">TimeoutHTTPAdapter</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#get-requests-session">get_requests_session</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cheesechaser.utils.session.get_requests_session"><code class="docutils literal notranslate"><span class="pre">get_requests_session()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#srequest">srequest</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cheesechaser.utils.session.srequest"><code class="docutils literal notranslate"><span class="pre">srequest()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">cheesechaser</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">cheesechaser.utils</a></li>
+      <li class="breadcrumb-item active">cheesechaser.utils.session</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api_doc/utils/session.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+    
+    
+  <section id="module-cheesechaser.utils.session">
+<span id="cheesechaser-utils-session"></span><h1>cheesechaser.utils.session<a class="headerlink" href="#module-cheesechaser.utils.session" title="Permalink to this heading"></a></h1>
+<p>This module provides utilities for making HTTP requests with enhanced functionality.</p>
+<p>It includes classes and functions for:</p>
+<ul class="simple">
+<li><p>Creating custom HTTP adapters with default timeouts</p></li>
+<li><p>Generating random user agents</p></li>
+<li><p>Creating and configuring requests sessions with retries and timeouts</p></li>
+<li><p>Making HTTP requests with automatic retries and error handling</p></li>
+</ul>
+<p>The module supports both the <cite>requests</cite> and <cite>httpx</cite> libraries for making HTTP requests.</p>
+<section id="timeouthttpadapter">
+<h2>TimeoutHTTPAdapter<a class="headerlink" href="#timeouthttpadapter" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cheesechaser.utils.session.TimeoutHTTPAdapter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cheesechaser.utils.session.</span></span><span class="sig-name descname"><span class="pre">TimeoutHTTPAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cheesechaser/utils/session.html#TimeoutHTTPAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.utils.session.TimeoutHTTPAdapter" title="Permalink to this definition"></a></dt>
+<dd><p>Custom HTTP adapter that sets a default timeout for requests.</p>
+<p>Inherits from <cite>HTTPAdapter</cite>.</p>
+<p>Usage:
+- Create an instance of <cite>TimeoutHTTPAdapter</cite> and pass it to a <cite>requests.Session</cite> object’s <cite>mount</cite> method.</p>
+<dl>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adapter</span> <span class="o">=</span> <span class="n">TimeoutHTTPAdapter</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span><span class="p">,</span> <span class="n">adapter</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;https://&#39;</span><span class="p">,</span> <span class="n">adapter</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>timeout</strong> (<em>int</em>) – The default timeout value in seconds. (default: 10)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="get-requests-session">
+<h2>get_requests_session<a class="headerlink" href="#get-requests-session" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="cheesechaser.utils.session.get_requests_session">
+<span class="sig-prename descclassname"><span class="pre">cheesechaser.utils.session.</span></span><span class="sig-name descname"><span class="pre">get_requests_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_retries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Client</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_httpx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Client</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Session</span></span></span><a class="reference internal" href="../../_modules/cheesechaser/utils/session.html#get_requests_session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.utils.session.get_requests_session" title="Permalink to this definition"></a></dt>
+<dd><p>Creates and configures a requests or httpx session with retries, timeouts, and custom headers.</p>
+<p>This function can create a new session or modify an existing one. It supports both the <cite>requests</cite>
+and <cite>httpx</cite> libraries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_retries</strong> (<em>int</em>) – Maximum number of retries for failed requests. (default: 5)</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) – Timeout value in seconds for requests. (default: DEFAULT_TIMEOUT)</p></li>
+<li><p><strong>headers</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>) – Additional headers to add to the session. (default: None)</p></li>
+<li><p><strong>session</strong> (<em>Optional</em><em>[</em><em>httpx.Client</em><em>]</em>) – An existing session to modify. If None, a new session is created. (default: None)</p></li>
+<li><p><strong>use_httpx</strong> (<em>bool</em>) – Whether to use httpx instead of requests. (default: False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A configured requests.Session or httpx.Client object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[httpx.Client, requests.Session]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="srequest">
+<h2>srequest<a class="headerlink" href="#srequest" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="cheesechaser.utils.session.srequest">
+<span class="sig-prename descclassname"><span class="pre">cheesechaser.utils.session.</span></span><span class="sig-name descname"><span class="pre">srequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_retries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backoff_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_for_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="reference internal" href="../../_modules/cheesechaser/utils/session.html#srequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cheesechaser.utils.session.srequest" title="Permalink to this definition"></a></dt>
+<dd><p>Sends an HTTP request with automatic retries and error handling.</p>
+<p>This function uses exponential backoff for retries and can raise exceptions for HTTP errors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>session</strong> (<em>httpx.Client</em>) – The httpx.Client session to use for the request.</p></li>
+<li><p><strong>method</strong> (<em>str</em>) – The HTTP method to use (e.g., ‘GET’, ‘POST’).</p></li>
+<li><p><strong>url</strong> (<em>str</em>) – The URL to send the request to.</p></li>
+<li><p><strong>max_retries</strong> (<em>int</em>) – Maximum number of retries for failed requests. (default: 5)</p></li>
+<li><p><strong>backoff_factor</strong> (<em>float</em>) – Factor to calculate the exponential backoff time between retries. (default: 1.0)</p></li>
+<li><p><strong>raise_for_status</strong> (<em>bool</em>) – Whether to raise an exception for HTTP errors. (default: True)</p></li>
+<li><p><strong>kwargs</strong> – Additional keyword arguments to pass to the request method.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The response object from the successful request.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>httpx.Response</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p>Various exceptions related to HTTP errors and request failures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="huggingface.html" class="btn btn-neutral float-left" title="cheesechaser.utils.huggingface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, narugo1992.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: v0.1.5
+    <span class="fa fa-caret-down"></span>
+  </span>
+        <div class="rst-other-versions">
+                <dl>
+                    <dt>Tags</dt>
+                        <dd><a href="../../../v0.0.1/api_doc/utils/session.html">v0.0.1</a></dd>
+                        <dd><a href="../../../v0.0.2/api_doc/utils/session.html">v0.0.2</a></dd>
+                        <dd><a href="../../../v0.0.3/api_doc/utils/session.html">v0.0.3</a></dd>
+                        <dd><a href="../../../v0.1.0/api_doc/utils/session.html">v0.1.0</a></dd>
+                        <dd><a href="../../../v0.1.1/api_doc/utils/session.html">v0.1.1</a></dd>
+                        <dd><a href="../../../v0.1.2/api_doc/utils/session.html">v0.1.2</a></dd>
+                        <dd><a href="../../../v0.1.3/api_doc/utils/session.html">v0.1.3</a></dd>
+                        <dd><a href="../../../v0.1.4/api_doc/utils/session.html">v0.1.4</a></dd>
+                        <dd><a href="session.html">v0.1.5</a></dd>
+                </dl>
+                <dl>
+                    <dt>Branches</dt>
+                        <dd><a href="../../../main/api_doc/utils/session.html">main</a></dd>
+                </dl>
+        </div>
+    </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

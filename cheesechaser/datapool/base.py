@@ -30,7 +30,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import List, Iterable, ContextManager, Tuple, Any, Optional
+from typing import List, Iterable, ContextManager, Tuple, Any, Optional, Union
 
 from hbutils.system import TemporaryDirectory
 from hfutils.index import hf_tar_list_files, hf_tar_file_download
@@ -462,7 +462,7 @@ class IncrementIDDataPool(HfBasedDataPool):
 
     def __init__(self, data_repo_id: str, data_revision: str = 'main',
                  idx_repo_id: str = None, idx_revision: str = 'main',
-                 base_level: int = 3, base_dir: str = 'images', hf_token: Optional[str] = None):
+                 base_level: Union[int, List[int]] = 3, base_dir: str = 'images', hf_token: Optional[str] = None):
         HfBasedDataPool.__init__(
             self,
             data_repo_id=data_repo_id,
@@ -504,11 +504,19 @@ class IncrementIDDataPool(HfBasedDataPool):
         :return: A list of DataLocation objects representing the resource's locations.
         :raises ResourceNotFoundError: If the resource is not found in any archive.
         """
-        modulo = resource_id % (10 ** self.base_level)
-        modulo_str = str(modulo)
-        if len(modulo_str) < self.base_level:
-            modulo_str = '0' * (self.base_level - len(modulo_str)) + modulo_str
+        if isinstance(self.base_level, int):
+            base_levels = [self.base_level]
+        else:
+            base_levels = self.base_level
 
-        modulo_segments = id_modulo_cut(modulo_str)
-        modulo_segments[-1] = f'0{modulo_segments[-1]}'
-        return [f'{self.base_dir}/{"/".join(modulo_segments)}.tar']
+        archives = []
+        for base_level in base_levels:
+            modulo = resource_id % (10 ** base_level)
+            modulo_str = str(modulo)
+            if len(modulo_str) < base_level:
+                modulo_str = '0' * (base_level - len(modulo_str)) + modulo_str
+
+            modulo_segments = id_modulo_cut(modulo_str)
+            modulo_segments[-1] = f'0{modulo_segments[-1]}'
+            archives.append(f'{self.base_dir}/{"/".join(modulo_segments)}.tar')
+        return archives

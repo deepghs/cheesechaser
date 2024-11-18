@@ -22,6 +22,7 @@ cheesechaser.datapool
     nhentai
     nozomi
     realbooru
+    rule34
     table
     threedbooru
     yande

@@ -101,6 +101,7 @@
 <li class="toctree-l2"><a class="reference internal" href="nhentai.html">cheesechaser.datapool.nhentai</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nozomi.html">cheesechaser.datapool.nozomi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="realbooru.html">cheesechaser.datapool.realbooru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rule34.html">cheesechaser.datapool.rule34</a></li>
 <li class="toctree-l2"><a class="reference internal" href="table.html">cheesechaser.datapool.table</a></li>
 <li class="toctree-l2"><a class="reference internal" href="threedbooru.html">cheesechaser.datapool.threedbooru</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yande.html">cheesechaser.datapool.yande</a></li>
@@ -233,7 +234,7 @@ downloads for improved performance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>resource_ids</strong> (<em>Iterable</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>]</em>) – List of resource IDs or tuples of (resource_id, resource_info) to download.</p></li>
+<li><p><strong>resource_ids</strong> (<em>Iterable</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>int</em><em>, </em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>]</em>) – List of resource IDs or tuples of (resource_id, resource_info) to download.</p></li>
 <li><p><strong>dst_dir</strong> (<em>str</em>) – Destination directory for downloaded files.</p></li>
 <li><p><strong>max_workers</strong> (<em>int</em>) – Maximum number of worker threads for parallel downloads. Defaults to 12.</p></li>
 <li><p><strong>save_metainfo</strong> (<em>bool</em>) – Whether to save metadata information for each resource. Defaults to True.</p></li>
@@ -258,7 +259,7 @@ Due to parallel processing, the actual number of downloads may slightly exceed t
 <dd class="field-odd"><p></p></dd>
 </dl>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_pool</span> <span class="o">=</span> <span class="n">SomeDataPoolImplementation</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data_pool</span><span class="o">.</span><span class="n">batch_download_to_directory</span><span class="p">([</span><span class="s1">&#39;resource1&#39;</span><span class="p">,</span> <span class="s1">&#39;resource2&#39;</span><span class="p">],</span> <span class="s1">&#39;/path/to/destination&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_pool</span><span class="o">.</span><span class="n">batch_download_to_directory</span><span class="p">([</span><span class="mi">111</span><span class="p">,</span> <span class="s1">&#39;resource1&#39;</span><span class="p">,</span> <span class="s1">&#39;resource2&#39;</span><span class="p">],</span> <span class="s1">&#39;/path/to/destination&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -478,7 +479,6 @@ that does not exist in the data pool.</p>
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../dev/rule34/api_doc/datapool/base.html">dev/rule34</a></dd>
                         <dd><a href="base.html">main</a></dd>
                 </dl>
         </div>

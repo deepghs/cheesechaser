@@ -12,12 +12,23 @@ Classes:
 * `DanbooruNewestDataPool`: Class for accessing both stable and newest Danbooru data.
 * `DanbooruWebpDataPool`: Class for accessing WebP versions of Danbooru images.
 * `DanbooruNewestWebpDataPool`: Class for accessing both stable and newest WebP Danbooru data.
+* `Danbooru2024SfwDataPool`: Class for accessing the SFW version of Danbooru2024 dataset.
+* `Danbooru2024DataPool`: Class for accessing the full Danbooru2024 dataset.
+* `Danbooru2024WebpDataPool`: Class for accessing WebP versions of Danbooru2024 images.
 
 The module uses various utility functions and classes from the hfutils package
 for interacting with the Hugging Face file system.
 
+.. warning::
+    The original Danbooru series datasets are no longer publicly available. Unless you are
+    an official member of DeepGHS, you will not be able to continue using these DataPools.
+    Please use the Danbooru2024 series datasets instead.
+
 .. note::
-    Danbooru series datasets are all freely-opened.
+    The `deepghs/danbooru2024-sfw <https://huggingface.co/datasets/deepghs/danbooru2024-sfw>`_ is fully
+    public, while the `deepghs/danbooru2024 <https://huggingface.co/datasets/deepghs/danbooru2024>`_ and
+    `deepghs/danbooru2024-webp-4Mpixel <https://huggingface.co/datasets/deepghs/danbooru2024-webp-4Mpixel>`_ datasets
+    require granted access. Please ensure you have the necessary permissions before attempting to use these datasets.
 """
 
 import fnmatch
@@ -359,3 +370,96 @@ class DanbooruNewestWebpDataPool(DataPool):
 
         if not found:
             raise ResourceNotFoundError(f'Resource {resource_id!r} not found.')
+
+
+_DANBOORU2024_SFW_REPO_ID = 'deepghs/danbooru2024-sfw'
+_DANBOORU2024_REPO_ID = 'deepghs/danbooru2024'
+_DANBOORU2024_WEBP_REPO_ID = 'deepghs/danbooru2024-webp-4Mpixel'
+
+
+class Danbooru2024SfwDataPool(IncrementIDDataPool):
+    """
+    A data pool for accessing the Safe For Work (SFW) version of the Danbooru2024 dataset.
+
+    This class provides an interface to interact with the SFW Danbooru2024 dataset
+    hosted on Hugging Face. It uses incremental IDs for efficient data access.
+
+    :param revision: The specific revision of the dataset to use, defaults to 'main'.
+    :type revision: str
+    :param hf_token: The Hugging Face API token for authentication, defaults to None.
+    :type hf_token: Optional[str]
+
+    Usage:
+        >>> sfw_pool = Danbooru2024SfwDataPool(revision='v1.2', hf_token='your_token_here')
+        >>> # Now you can use sfw_pool to access the SFW Danbooru2024 dataset
+    """
+
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
+        IncrementIDDataPool.__init__(
+            self,
+            data_repo_id=_DANBOORU2024_SFW_REPO_ID,
+            data_revision=revision,
+            idx_repo_id=_DANBOORU2024_SFW_REPO_ID,
+            idx_revision=revision,
+            base_level=3,
+            hf_token=hf_token,
+        )
+
+
+class Danbooru2024DataPool(IncrementIDDataPool):
+    """
+    A data pool for accessing the full version of the Danbooru2024 dataset.
+
+    This class provides an interface to interact with the complete Danbooru2024 dataset
+    hosted on Hugging Face. It uses incremental IDs for efficient data access.
+
+    :param revision: The specific revision of the dataset to use, defaults to 'main'.
+    :type revision: str
+    :param hf_token: The Hugging Face API token for authentication, defaults to None.
+    :type hf_token: Optional[str]
+
+    Usage:
+        >>> full_pool = Danbooru2024DataPool(revision='v2.0', hf_token='your_token_here')
+        >>> # Now you can use full_pool to access the complete Danbooru2024 dataset
+    """
+
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
+        IncrementIDDataPool.__init__(
+            self,
+            data_repo_id=_DANBOORU2024_REPO_ID,
+            data_revision=revision,
+            idx_repo_id=_DANBOORU2024_REPO_ID,
+            idx_revision=revision,
+            base_level=3,
+            hf_token=hf_token,
+        )
+
+
+class Danbooru2024WebpDataPool(IncrementIDDataPool):
+    """
+    A data pool for accessing the WebP-formatted version of the Danbooru2024 dataset.
+
+    This class provides an interface to interact with the WebP-formatted Danbooru2024 dataset
+    hosted on Hugging Face. It uses incremental IDs for efficient data access. The WebP format
+    offers improved compression and potentially faster loading times for images.
+
+    :param revision: The specific revision of the dataset to use, defaults to 'main'.
+    :type revision: str
+    :param hf_token: The Hugging Face API token for authentication, defaults to None.
+    :type hf_token: Optional[str]
+
+    Usage:
+        >>> webp_pool = Danbooru2024WebpDataPool(hf_token='your_token_here')
+        >>> # Now you can use webp_pool to access the WebP-formatted Danbooru2024 dataset
+    """
+
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
+        IncrementIDDataPool.__init__(
+            self,
+            data_repo_id=_DANBOORU2024_WEBP_REPO_ID,
+            data_revision=revision,
+            idx_repo_id=_DANBOORU2024_WEBP_REPO_ID,
+            idx_revision=revision,
+            base_level=3,
+            hf_token=hf_token,
+        )

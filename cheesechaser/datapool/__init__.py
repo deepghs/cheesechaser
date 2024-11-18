@@ -4,7 +4,7 @@ from .base import DataLocation, DataPool, HfBasedDataPool, IncrementIDDataPool, 
     FileUnrecognizableError, ResourceNotFoundError
 from .civitai import CivitaiDataPool
 from .danbooru import DanbooruDataPool, DanbooruStableDataPool, DanbooruNewestDataPool, DanbooruWebpDataPool, \
-    DanbooruNewestWebpDataPool
+    DanbooruNewestWebpDataPool, Danbooru2024DataPool, Danbooru2024SfwDataPool, Danbooru2024WebpDataPool
 from .e621 import E621DataPool, E621StableDataPool, E621NewestDataPool, E621WebpDataPool, E621NewestWebpDataPool
 from .fancaps import FancapsDataPool
 from .gelbooru import GelbooruDataPool, GelbooruWebpDataPool

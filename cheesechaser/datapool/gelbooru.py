@@ -35,10 +35,6 @@ class GelbooruDataPool(IncrementIDDataPool):
     :param revision: The revision of the dataset to use, defaults to 'main'.
     :type revision: str
 
-    Usage:
-        >>> pool = GelbooruDataPool()
-        >>> image_data = pool.get(image_id)
-
     Note:
         This class uses a base level of 4 for file organization, which means
         the images are stored in a directory structure with 4 levels of subdirectories.
@@ -57,7 +53,7 @@ class GelbooruDataPool(IncrementIDDataPool):
             data_revision=revision,
             idx_repo_id=_GELBOORU_REPO,
             idx_revision=revision,
-            base_level=4,
+            base_level=[3, 4],
         )
 
 
@@ -76,10 +72,6 @@ class GelbooruWebpDataPool(IncrementIDDataPool):
     :type revision: str
     :param hf_token: Hugging Face authentication token, defaults to None.
     :type hf_token: Optional[str]
-
-    Usage:
-        >>> pool = GelbooruWebpDataPool(hf_token='your_huggingface_token')
-        >>> image_data = pool.get(image_id)
 
     Note:
         This class uses a base level of 3 for file organization, which means

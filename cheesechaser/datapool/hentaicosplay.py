@@ -42,10 +42,6 @@ class HentaiCosplayDataPool(IncrementIDDataPool):
     :type base_level: int
     :param hf_token: Optional Hugging Face authentication token.
     :type hf_token: Optional[str]
-
-    Usage:
-        >>> pool = HentaiCosplayDataPool()
-        >>> resource = pool.get(12345)  # Retrieves resource with ID 12345
     """
 
     def __init__(self, repo_id: str = _HC_REPO, revision: str = 'main', base_level: int = 3,

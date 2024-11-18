@@ -124,10 +124,6 @@
 <span class="sd">    :param revision: The revision of the dataset to use, defaults to &#39;main&#39;.</span>
 <span class="sd">    :type revision: str</span>
 
-<span class="sd">    Usage:</span>
-<span class="sd">        &gt;&gt;&gt; pool = GelbooruDataPool()</span>
-<span class="sd">        &gt;&gt;&gt; image_data = pool.get(image_id)</span>
-
 <span class="sd">    Note:</span>
 <span class="sd">        This class uses a base level of 4 for file organization, which means</span>
 <span class="sd">        the images are stored in a directory structure with 4 levels of subdirectories.</span>
@@ -146,7 +142,7 @@
             <span class="n">data_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
             <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_GELBOORU_REPO</span><span class="p">,</span>
             <span class="n">idx_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
-            <span class="n">base_level</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">base_level</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
         <span class="p">)</span></div></div>
 
 
@@ -165,10 +161,6 @@
 <span class="sd">    :type revision: str</span>
 <span class="sd">    :param hf_token: Hugging Face authentication token, defaults to None.</span>
 <span class="sd">    :type hf_token: Optional[str]</span>
-
-<span class="sd">    Usage:</span>
-<span class="sd">        &gt;&gt;&gt; pool = GelbooruWebpDataPool(hf_token=&#39;your_huggingface_token&#39;)</span>
-<span class="sd">        &gt;&gt;&gt; image_data = pool.get(image_id)</span>
 
 <span class="sd">    Note:</span>
 <span class="sd">        This class uses a base level of 3 for file organization, which means</span>
@@ -239,7 +231,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/gelbooru/index.html">dev/gelbooru</a></dd>
                         <dd><a href="gelbooru.html">main</a></dd>
                 </dl>
         </div>

@@ -151,12 +151,7 @@ It provides methods to retrieve image data based on image IDs.</p>
 <dd class="field-odd"><p><strong>revision</strong> (<em>str</em>) – The revision of the dataset to use, defaults to ‘main’.</p>
 </dd>
 </dl>
-<dl>
-<dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">GelbooruDataPool</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">image_data</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">image_id</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd>
+<dl class="simple">
 <dt>Note:</dt><dd><p>This class uses a base level of 4 for file organization, which means
 the images are stored in a directory structure with 4 levels of subdirectories.</p>
 </dd>
@@ -192,12 +187,7 @@ It provides methods to retrieve WebP-formatted image data based on image IDs.</p
 </ul>
 </dd>
 </dl>
-<dl>
-<dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">GelbooruWebpDataPool</span><span class="p">(</span><span class="n">hf_token</span><span class="o">=</span><span class="s1">&#39;your_huggingface_token&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">image_data</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">image_id</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd>
+<dl class="simple">
 <dt>Note:</dt><dd><p>This class uses a base level of 3 for file organization, which means
 the images are stored in a directory structure with 3 levels of subdirectories.
 Authentication may be required to access this dataset.</p>
@@ -269,7 +259,6 @@ Authentication may be required to access this dataset.</p>
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../dev/gelbooru/api_doc/datapool/gelbooru.html">dev/gelbooru</a></dd>
                         <dd><a href="gelbooru.html">main</a></dd>
                 </dl>
         </div>

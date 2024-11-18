@@ -145,7 +145,7 @@ class DataPool:
         downloads for improved performance.
 
         :param resource_ids: List of resource IDs or tuples of (resource_id, resource_info) to download.
-        :type resource_ids: Iterable[Union[str, Tuple[str, Any]]]
+        :type resource_ids: Iterable[Union[str, int, Tuple[str, Any]]]
         :param dst_dir: Destination directory for downloaded files.
         :type dst_dir: str
         :param max_workers: Maximum number of worker threads for parallel downloads. Defaults to 12.
@@ -169,7 +169,7 @@ class DataPool:
 
         :example:
         >>> data_pool = SomeDataPoolImplementation()
-        >>> data_pool.batch_download_to_directory(['resource1', 'resource2'], '/path/to/destination')
+        >>> data_pool.batch_download_to_directory([111, 'resource1', 'resource2'], '/path/to/destination')
         """
         pg_res = tqdm(resource_ids, desc='Batch Downloading')
         pg_file_download = tqdm(desc='Files Downloaded')

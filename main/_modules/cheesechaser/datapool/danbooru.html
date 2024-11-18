@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cheesechaser.datapool.danbooru &mdash; cheesechaser 0.1.6 documentation</title>
+  <title>cheesechaser.datapool.danbooru &mdash; cheesechaser 0.2.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=4c7880bb"></script>
+      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b1f64a84"></script>
       <script src="../../../_static/doctools.js?v=888ff710"></script>
       <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -101,12 +101,23 @@
 <span class="sd">* `DanbooruNewestDataPool`: Class for accessing both stable and newest Danbooru data.</span>
 <span class="sd">* `DanbooruWebpDataPool`: Class for accessing WebP versions of Danbooru images.</span>
 <span class="sd">* `DanbooruNewestWebpDataPool`: Class for accessing both stable and newest WebP Danbooru data.</span>
+<span class="sd">* `Danbooru2024SfwDataPool`: Class for accessing the SFW version of Danbooru2024 dataset.</span>
+<span class="sd">* `Danbooru2024DataPool`: Class for accessing the full Danbooru2024 dataset.</span>
+<span class="sd">* `Danbooru2024WebpDataPool`: Class for accessing WebP versions of Danbooru2024 images.</span>
 
 <span class="sd">The module uses various utility functions and classes from the hfutils package</span>
 <span class="sd">for interacting with the Hugging Face file system.</span>
 
+<span class="sd">.. warning::</span>
+<span class="sd">    The original Danbooru series datasets are no longer publicly available. Unless you are</span>
+<span class="sd">    an official member of DeepGHS, you will not be able to continue using these DataPools.</span>
+<span class="sd">    Please use the Danbooru2024 series datasets instead.</span>
+
 <span class="sd">.. note::</span>
-<span class="sd">    Danbooru series datasets are all freely-opened.</span>
+<span class="sd">    The `deepghs/danbooru2024-sfw &lt;https://huggingface.co/datasets/deepghs/danbooru2024-sfw&gt;`_ is fully</span>
+<span class="sd">    public, while the `deepghs/danbooru2024 &lt;https://huggingface.co/datasets/deepghs/danbooru2024&gt;`_ and</span>
+<span class="sd">    `deepghs/danbooru2024-webp-4Mpixel &lt;https://huggingface.co/datasets/deepghs/danbooru2024-webp-4Mpixel&gt;`_ datasets</span>
+<span class="sd">    require granted access. Please ensure you have the necessary permissions before attempting to use these datasets.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">fnmatch</span>
@@ -448,6 +459,99 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ResourceNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Resource </span><span class="si">{</span><span class="n">resource_id</span><span class="si">!r}</span><span class="s1"> not found.&#39;</span><span class="p">)</span></div></div>
+
+
+<span class="n">_DANBOORU2024_SFW_REPO_ID</span> <span class="o">=</span> <span class="s1">&#39;deepghs/danbooru2024-sfw&#39;</span>
+<span class="n">_DANBOORU2024_REPO_ID</span> <span class="o">=</span> <span class="s1">&#39;deepghs/danbooru2024&#39;</span>
+<span class="n">_DANBOORU2024_WEBP_REPO_ID</span> <span class="o">=</span> <span class="s1">&#39;deepghs/danbooru2024-webp-4Mpixel&#39;</span>
+
+
+<div class="viewcode-block" id="Danbooru2024SfwDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.Danbooru2024SfwDataPool">[docs]</a><span class="k">class</span> <span class="nc">Danbooru2024SfwDataPool</span><span class="p">(</span><span class="n">IncrementIDDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A data pool for accessing the Safe For Work (SFW) version of the Danbooru2024 dataset.</span>
+
+<span class="sd">    This class provides an interface to interact with the SFW Danbooru2024 dataset</span>
+<span class="sd">    hosted on Hugging Face. It uses incremental IDs for efficient data access.</span>
+
+<span class="sd">    :param revision: The specific revision of the dataset to use, defaults to &#39;main&#39;.</span>
+<span class="sd">    :type revision: str</span>
+<span class="sd">    :param hf_token: The Hugging Face API token for authentication, defaults to None.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        &gt;&gt;&gt; sfw_pool = Danbooru2024SfwDataPool(revision=&#39;v1.2&#39;, hf_token=&#39;your_token_here&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Now you can use sfw_pool to access the SFW Danbooru2024 dataset</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Danbooru2024SfwDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.Danbooru2024SfwDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">data_repo_id</span><span class="o">=</span><span class="n">_DANBOORU2024_SFW_REPO_ID</span><span class="p">,</span>
+            <span class="n">data_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
+            <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_DANBOORU2024_SFW_REPO_ID</span><span class="p">,</span>
+            <span class="n">idx_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
+            <span class="n">base_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Danbooru2024DataPool"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.Danbooru2024DataPool">[docs]</a><span class="k">class</span> <span class="nc">Danbooru2024DataPool</span><span class="p">(</span><span class="n">IncrementIDDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A data pool for accessing the full version of the Danbooru2024 dataset.</span>
+
+<span class="sd">    This class provides an interface to interact with the complete Danbooru2024 dataset</span>
+<span class="sd">    hosted on Hugging Face. It uses incremental IDs for efficient data access.</span>
+
+<span class="sd">    :param revision: The specific revision of the dataset to use, defaults to &#39;main&#39;.</span>
+<span class="sd">    :type revision: str</span>
+<span class="sd">    :param hf_token: The Hugging Face API token for authentication, defaults to None.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        &gt;&gt;&gt; full_pool = Danbooru2024DataPool(revision=&#39;v2.0&#39;, hf_token=&#39;your_token_here&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Now you can use full_pool to access the complete Danbooru2024 dataset</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Danbooru2024DataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.Danbooru2024DataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">data_repo_id</span><span class="o">=</span><span class="n">_DANBOORU2024_REPO_ID</span><span class="p">,</span>
+            <span class="n">data_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
+            <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_DANBOORU2024_REPO_ID</span><span class="p">,</span>
+            <span class="n">idx_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
+            <span class="n">base_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Danbooru2024WebpDataPool"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.Danbooru2024WebpDataPool">[docs]</a><span class="k">class</span> <span class="nc">Danbooru2024WebpDataPool</span><span class="p">(</span><span class="n">IncrementIDDataPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A data pool for accessing the WebP-formatted version of the Danbooru2024 dataset.</span>
+
+<span class="sd">    This class provides an interface to interact with the WebP-formatted Danbooru2024 dataset</span>
+<span class="sd">    hosted on Hugging Face. It uses incremental IDs for efficient data access. The WebP format</span>
+<span class="sd">    offers improved compression and potentially faster loading times for images.</span>
+
+<span class="sd">    :param revision: The specific revision of the dataset to use, defaults to &#39;main&#39;.</span>
+<span class="sd">    :type revision: str</span>
+<span class="sd">    :param hf_token: The Hugging Face API token for authentication, defaults to None.</span>
+<span class="sd">    :type hf_token: Optional[str]</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        &gt;&gt;&gt; webp_pool = Danbooru2024WebpDataPool(hf_token=&#39;your_token_here&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Now you can use webp_pool to access the WebP-formatted Danbooru2024 dataset</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Danbooru2024WebpDataPool.__init__"><a class="viewcode-back" href="../../../api_doc/datapool/danbooru.html#cheesechaser.datapool.danbooru.Danbooru2024WebpDataPool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">hf_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">IncrementIDDataPool</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">data_repo_id</span><span class="o">=</span><span class="n">_DANBOORU2024_WEBP_REPO_ID</span><span class="p">,</span>
+            <span class="n">data_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
+            <span class="n">idx_repo_id</span><span class="o">=</span><span class="n">_DANBOORU2024_WEBP_REPO_ID</span><span class="p">,</span>
+            <span class="n">idx_revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
+            <span class="n">base_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">hf_token</span><span class="o">=</span><span class="n">hf_token</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 </pre></div>
 
 
@@ -494,7 +598,6 @@
                 </dl>
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="../../../../dev/danbooru2024/index.html">dev/danbooru2024</a></dd>
                         <dd><a href="danbooru.html">main</a></dd>
                 </dl>
         </div>

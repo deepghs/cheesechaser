@@ -46,3 +46,27 @@ DanbooruNewestWebpDataPool
 
 
 
+Danbooru2024DataPool
+-----------------------------------------------------
+
+.. autoclass:: Danbooru2024DataPool
+    :members: __doc__,__init__,__module__
+
+
+
+Danbooru2024SfwDataPool
+-----------------------------------------------------
+
+.. autoclass:: Danbooru2024SfwDataPool
+    :members: __doc__,__init__,__module__
+
+
+
+Danbooru2024WebpDataPool
+-----------------------------------------------------
+
+.. autoclass:: Danbooru2024WebpDataPool
+    :members: __doc__,__init__,__module__
+
+
+

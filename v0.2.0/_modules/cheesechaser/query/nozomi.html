@@ -1,0 +1,418 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cheesechaser.query.nozomi &mdash; cheesechaser 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=c9d0a6ec" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b1f64a84"></script>
+      <script src="../../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            cheesechaser
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/quick_start/index.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../information/environment.result.html">Run Environment Information</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/config/index.html">cheesechaser.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/datapool/index.html">cheesechaser.datapool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/pipe/index.html">cheesechaser.pipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/query/index.html">cheesechaser.query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/utils/index.html">cheesechaser.utils</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cheesechaser</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cheesechaser.query.nozomi</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+    
+    
+  <h1>Source code for cheesechaser.query.nozomi</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides functionality for querying and iterating over Nozomi IDs.</span>
+
+<span class="sd">It includes classes and functions for interacting with the Nozomi API, handling tag-based queries,</span>
+<span class="sd">and managing the retrieval of Nozomi IDs. The module supports both positive and negative tag filtering,</span>
+<span class="sd">as well as ordering options for the retrieved IDs.</span>
+
+<span class="sd">Key components:</span>
+
+<span class="sd">- NozomiIdIterator: A class for iterating over Nozomi IDs based on tags and ordering.</span>
+<span class="sd">- iter_nozomi_ids: A function that combines multiple NozomiIdIterators to filter IDs based on tags.</span>
+<span class="sd">- NozomiIdQuery: A class that extends BaseWebQuery to provide a query interface for Nozomi IDs.</span>
+
+<span class="sd">This module is useful for applications that need to interact with the Nozomi API and process</span>
+<span class="sd">large sets of Nozomi IDs efficiently.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Lock</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">quote_plus</span>
+
+<span class="kn">import</span> <span class="nn">httpx</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">Response</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseWebQuery</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">get_requests_session</span>
+
+<span class="n">OrderByTyping</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;popular&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_decode_nozomi</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decode Nozomi-encoded data into integers.</span>
+
+<span class="sd">    This function takes a bytes-like object and yields integers decoded from it.</span>
+<span class="sd">    Each integer is constructed from 4 bytes in big-endian order.</span>
+
+<span class="sd">    :param n: The Nozomi-encoded data to decode.</span>
+<span class="sd">    :type n: bytes-like object</span>
+<span class="sd">    :return: An iterator of decoded integers.</span>
+<span class="sd">    :rtype: Iterator[int]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span>
+
+
+<span class="n">_NOT_SET</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">NozomiIdIterator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An iterator class for Nozomi IDs based on tags and ordering.</span>
+
+<span class="sd">    This class handles the retrieval and iteration of Nozomi IDs from the Nozomi API.</span>
+<span class="sd">    It supports filtering by tags and ordering the results.</span>
+
+<span class="sd">    :param tag: The tag to filter the Nozomi IDs (optional).</span>
+<span class="sd">    :type tag: Optional[str]</span>
+<span class="sd">    :param order_by: The ordering method for the IDs (&#39;popular&#39; or &#39;date&#39;).</span>
+<span class="sd">    :type order_by: OrderByTyping</span>
+<span class="sd">    :param session: A custom session object for making HTTP requests (optional).</span>
+<span class="sd">    :type session: requests.Session, optional</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">order_by</span><span class="p">:</span> <span class="n">OrderByTyping</span> <span class="o">=</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order_by</span> <span class="o">=</span> <span class="n">order_by</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">session</span> <span class="ow">or</span> <span class="n">get_requests_session</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Response</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="n">_NOT_SET</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_get_target_url</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct the target URL for the Nozomi API request.</span>
+
+<span class="sd">        :return: The constructed URL for the API request.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">order_by</span> <span class="o">==</span> <span class="s1">&#39;popular&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;https://n.nozomi.la/index-Popular.nozomi&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;https://n.nozomi.la/index.nozomi&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="p">:</span> <span class="nb">str</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">order_by</span> <span class="o">==</span> <span class="s1">&#39;popular&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;https://j.nozomi.la/nozomi/popular/</span><span class="si">{</span><span class="n">quote_plus</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span><span class="si">}</span><span class="s1">-Popular.nozomi&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;https://j.nozomi.la/nozomi/</span><span class="si">{</span><span class="n">quote_plus</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span><span class="si">}</span><span class="s1">.nozomi&#39;</span>
+
+    <span class="k">def</span> <span class="nf">_make_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make the HTTP request to the Nozomi API and process the response.</span>
+
+<span class="sd">        This method is responsible for initiating the API request and handling the response,</span>
+<span class="sd">        including setting the length of the iterator if possible.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_target_url</span><span class="p">(),</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;Content-Length&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_resp</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Content-Length&#39;</span><span class="p">])</span> <span class="o">//</span> <span class="mi">4</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterate over the Nozomi IDs.</span>
+
+<span class="sd">        This method yields the Nozomi IDs retrieved from the API, decoding them as needed.</span>
+
+<span class="sd">        :return: An iterator of Nozomi IDs.</span>
+<span class="sd">        :rtype: Iterator[int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+                <span class="n">prev</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">20</span><span class="p">):</span>
+                    <span class="n">chunk</span> <span class="o">=</span> <span class="n">prev</span> <span class="o">+</span> <span class="n">chunk</span>
+                    <span class="n">chunk</span><span class="p">,</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">4</span><span class="p">],</span> <span class="n">chunk</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">4</span><span class="p">:]</span>
+                    <span class="k">yield from</span> <span class="n">_decode_nozomi</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                <span class="k">assert</span> <span class="ow">not</span> <span class="n">prev</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Still rest of the stream - </span><span class="si">{</span><span class="n">prev</span><span class="si">!r}</span><span class="s1">.&#39;</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_close</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Close the HTTP response if it exists.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Safely close the iterator and its associated HTTP response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_close</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the length of the iterator.</span>
+
+<span class="sd">        :return: The number of Nozomi IDs in the iterator, or None if unknown.</span>
+<span class="sd">        :rtype: int or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+
+
+<span class="k">def</span> <span class="nf">iter_nozomi_ids</span><span class="p">(</span><span class="n">tags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">negative_tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">order_by</span><span class="p">:</span> <span class="n">OrderByTyping</span> <span class="o">=</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Iterate over Nozomi IDs based on given tags and negative tags.</span>
+
+<span class="sd">    This function combines multiple NozomiIdIterators to filter Nozomi IDs based on</span>
+<span class="sd">    the provided tags and negative tags. It supports ordering the results.</span>
+
+<span class="sd">    :param tags: A list of tags to filter the Nozomi IDs.</span>
+<span class="sd">    :type tags: List[str]</span>
+<span class="sd">    :param negative_tags: A list of tags to exclude from the results (optional).</span>
+<span class="sd">    :type negative_tags: Optional[List[str]]</span>
+<span class="sd">    :param order_by: The ordering method for the IDs (&#39;popular&#39; or &#39;date&#39;).</span>
+<span class="sd">    :type order_by: OrderByTyping</span>
+<span class="sd">    :param session: A custom session object for making HTTP requests (optional).</span>
+<span class="sd">    :type session: requests.Session, optional</span>
+<span class="sd">    :return: An iterator of filtered Nozomi IDs.</span>
+<span class="sd">    :rtype: Iterator[int]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tags</span><span class="p">:</span>
+        <span class="n">iters</span> <span class="o">=</span> <span class="p">[</span><span class="n">NozomiIdIterator</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">order_by</span><span class="o">=</span><span class="n">order_by</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">iters</span> <span class="o">=</span> <span class="p">[</span><span class="n">NozomiIdIterator</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">order_by</span><span class="o">=</span><span class="n">order_by</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span> <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">]</span>
+    <span class="n">neg_iters</span> <span class="o">=</span> <span class="p">[</span><span class="n">NozomiIdIterator</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">order_by</span><span class="o">=</span><span class="n">order_by</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span> <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">negative_tags</span> <span class="ow">or</span> <span class="p">[])]</span>
+
+    <span class="n">prev_iters</span><span class="p">,</span> <span class="n">last_iter</span> <span class="o">=</span> <span class="n">iters</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">id_set</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="n">prev_iters</span><span class="p">:</span>
+        <span class="n">id_tag_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tqdm</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Tag </span><span class="si">{</span><span class="n">it</span><span class="o">.</span><span class="n">tag</span><span class="si">!r}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">it</span><span class="o">.</span><span class="n">tag</span> <span class="k">else</span> <span class="s1">&#39;ALL&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">id_set</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">id_set</span> <span class="o">=</span> <span class="n">id_tag_set</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">id_set</span> <span class="o">=</span> <span class="n">id_set</span> <span class="o">&amp;</span> <span class="n">id_tag_set</span>
+
+    <span class="n">id_neg_set</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="n">neg_iters</span><span class="p">:</span>
+        <span class="n">id_tag_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tqdm</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Negative Tag </span><span class="si">{</span><span class="n">it</span><span class="o">.</span><span class="n">tag</span><span class="si">!r}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">it</span><span class="o">.</span><span class="n">tag</span> <span class="k">else</span> <span class="s1">&#39;Negative ALL&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">id_neg_set</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">id_neg_set</span> <span class="o">=</span> <span class="n">id_tag_set</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">id_neg_set</span> <span class="o">=</span> <span class="n">id_neg_set</span> <span class="o">&amp;</span> <span class="n">id_tag_set</span>
+
+    <span class="k">for</span> <span class="n">id_</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">last_iter</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Tag </span><span class="si">{</span><span class="n">last_iter</span><span class="o">.</span><span class="n">tag</span><span class="si">!r}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">last_iter</span><span class="o">.</span><span class="n">tag</span> <span class="k">else</span> <span class="s1">&#39;ALL&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">id_set</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">id_</span> <span class="ow">in</span> <span class="n">id_set</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">id_neg_set</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">id_</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">id_neg_set</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">id_</span>
+
+
+<div class="viewcode-block" id="NozomiIdQuery"><a class="viewcode-back" href="../../../api_doc/query/nozomi.html#cheesechaser.query.nozomi.NozomiIdQuery">[docs]</a><span class="k">class</span> <span class="nc">NozomiIdQuery</span><span class="p">(</span><span class="n">BaseWebQuery</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A query class for retrieving Nozomi IDs based on tags and ordering.</span>
+
+<span class="sd">    This class extends BaseWebQuery to provide a query interface for Nozomi IDs.</span>
+<span class="sd">    It supports filtering by tags, negative tags, and ordering the results.</span>
+
+<span class="sd">    :param tags: A list of tags to filter the Nozomi IDs.</span>
+<span class="sd">    :type tags: List[str]</span>
+<span class="sd">    :param negative_tags: A list of tags to exclude from the results (optional).</span>
+<span class="sd">    :type negative_tags: List[str]</span>
+<span class="sd">    :param order_by: The ordering method for the IDs (&#39;popular&#39; or &#39;date&#39;).</span>
+<span class="sd">    :type order_by: OrderByTyping</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="NozomiIdQuery.__init__"><a class="viewcode-back" href="../../../api_doc/query/nozomi.html#cheesechaser.query.nozomi.NozomiIdQuery.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">negative_tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">order_by</span><span class="p">:</span> <span class="n">OrderByTyping</span> <span class="o">=</span> <span class="s1">&#39;date&#39;</span><span class="p">):</span>
+        <span class="n">BaseWebQuery</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="n">tags</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">negative_tags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">negative_tags</span> <span class="ow">or</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order_by</span> <span class="o">=</span> <span class="n">order_by</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_session</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">httpx</span><span class="o">.</span><span class="n">Client</span><span class="p">,</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the session object for making HTTP requests.</span>
+
+<span class="sd">        :return: A session object for HTTP requests.</span>
+<span class="sd">        :rtype: Union[httpx.Client, requests.Session]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">get_requests_session</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_iter_items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterate over the Nozomi IDs based on the query parameters.</span>
+
+<span class="sd">        :return: An iterator of Nozomi IDs.</span>
+<span class="sd">        :rtype: Iterator[Any]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">yield from</span> <span class="n">iter_nozomi_ids</span><span class="p">(</span>
+            <span class="n">tags</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">,</span>
+            <span class="n">negative_tags</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">negative_tags</span><span class="p">,</span>
+            <span class="n">order_by</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">order_by</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_id_from_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract the ID from an item in the iterator.</span>
+
+<span class="sd">        :param item: The item from the iterator.</span>
+<span class="sd">        :type item: Any</span>
+<span class="sd">        :return: The Nozomi ID.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">item</span>
+
+    <span class="k">def</span> <span class="nf">_get_length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the length of the query results.</span>
+
+<span class="sd">        :return: The number of items in the query results, or None if unknown.</span>
+<span class="sd">        :rtype: Optional[int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+</pre></div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, narugo1992.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: v0.2.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+        <div class="rst-other-versions">
+                <dl>
+                    <dt>Tags</dt>
+                        <dd><a href="../../../../v0.0.1/index.html">v0.0.1</a></dd>
+                        <dd><a href="../../../../v0.0.2/index.html">v0.0.2</a></dd>
+                        <dd><a href="../../../../v0.0.3/index.html">v0.0.3</a></dd>
+                        <dd><a href="../../../../v0.1.0/index.html">v0.1.0</a></dd>
+                        <dd><a href="../../../../v0.1.1/index.html">v0.1.1</a></dd>
+                        <dd><a href="../../../../v0.1.2/index.html">v0.1.2</a></dd>
+                        <dd><a href="../../../../v0.1.3/index.html">v0.1.3</a></dd>
+                        <dd><a href="../../../../v0.1.4/index.html">v0.1.4</a></dd>
+                        <dd><a href="../../../../v0.1.5/index.html">v0.1.5</a></dd>
+                        <dd><a href="../../../../v0.1.6/index.html">v0.1.6</a></dd>
+                        <dd><a href="nozomi.html">v0.2.0</a></dd>
+                </dl>
+                <dl>
+                    <dt>Branches</dt>
+                        <dd><a href="../../../../main/index.html">main</a></dd>
+                </dl>
+        </div>
+    </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

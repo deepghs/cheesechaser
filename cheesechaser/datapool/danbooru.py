@@ -359,3 +359,47 @@ class DanbooruNewestWebpDataPool(DataPool):
 
         if not found:
             raise ResourceNotFoundError(f'Resource {resource_id!r} not found.')
+
+
+_DANBOORU2024_SFW_REPO_ID = 'deepghs/danbooru2024-sfw'
+_DANBOORU2024_REPO_ID = 'deepghs/danbooru2024'
+_DANBOORU2024_WEBP_REPO_ID = 'deepghs/danbooru2024-webp-4Mpixel'
+
+
+class Danbooru2024SfwDataPool(IncrementIDDataPool):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
+        IncrementIDDataPool.__init__(
+            self,
+            data_repo_id=_DANBOORU2024_SFW_REPO_ID,
+            data_revision=revision,
+            idx_repo_id=_DANBOORU2024_SFW_REPO_ID,
+            idx_revision=revision,
+            base_level=3,
+            hf_token=hf_token,
+        )
+
+
+class Danbooru2024DataPool(IncrementIDDataPool):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
+        IncrementIDDataPool.__init__(
+            self,
+            data_repo_id=_DANBOORU2024_REPO_ID,
+            data_revision=revision,
+            idx_repo_id=_DANBOORU2024_REPO_ID,
+            idx_revision=revision,
+            base_level=3,
+            hf_token=hf_token,
+        )
+
+
+class Danbooru2024WebpDataPool(IncrementIDDataPool):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
+        IncrementIDDataPool.__init__(
+            self,
+            data_repo_id=_DANBOORU2024_WEBP_REPO_ID,
+            data_revision=revision,
+            idx_repo_id=_DANBOORU2024_WEBP_REPO_ID,
+            idx_revision=revision,
+            base_level=3,
+            hf_token=hf_token,
+        )

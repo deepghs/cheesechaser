@@ -23,6 +23,7 @@ cheesechaser.datapool
     nozomi
     realbooru
     rule34
+    safebooru
     table
     threedbooru
     yande

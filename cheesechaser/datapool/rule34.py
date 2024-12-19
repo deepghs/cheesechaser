@@ -40,12 +40,14 @@ class Rule34DataPool(IncrementIDDataPool):
         the images are stored in a directory structure with 4 levels of subdirectories.
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the Rule34DataPool.
 
         :param revision: The revision of the dataset to use, defaults to 'main'.
         :type revision: str
+        :param hf_token: Hugging Face authentication token, defaults to None.
+        :type hf_token: Optional[str]
         """
         IncrementIDDataPool.__init__(
             self,
@@ -54,6 +56,7 @@ class Rule34DataPool(IncrementIDDataPool):
             idx_repo_id=_RULE34_REPO,
             idx_revision=revision,
             base_level=[3, 4],
+            hf_token=hf_token,
         )
 
 

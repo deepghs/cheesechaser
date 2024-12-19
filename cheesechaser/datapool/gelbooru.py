@@ -46,6 +46,8 @@ class GelbooruDataPool(IncrementIDDataPool):
 
         :param revision: The revision of the dataset to use, defaults to 'main'.
         :type revision: str
+        :param hf_token: Hugging Face authentication token, defaults to None.
+        :type hf_token: Optional[str]
         """
         IncrementIDDataPool.__init__(
             self,

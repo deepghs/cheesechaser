@@ -40,7 +40,7 @@ class GelbooruDataPool(IncrementIDDataPool):
         the images are stored in a directory structure with 4 levels of subdirectories.
     """
 
-    def __init__(self, revision: str = 'main'):
+    def __init__(self, revision: str = 'main', hf_token: Optional[str] = None):
         """
         Initialize the GelbooruDataPool.
 
@@ -54,6 +54,7 @@ class GelbooruDataPool(IncrementIDDataPool):
             idx_repo_id=_GELBOORU_REPO,
             idx_revision=revision,
             base_level=[3, 4],
+            hf_token=hf_token,
         )
 
 

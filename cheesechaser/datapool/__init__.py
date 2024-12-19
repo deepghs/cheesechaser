@@ -15,6 +15,7 @@ from .nozomi import NozomiDataPool
 from .realbooru import RealbooruDataPool
 from .rule34 import Rule34DataPool, Rule34WebpDataPool
 from .safebooru import SafebooruDataPool, SafebooruWebpDataPool
+from .sankaku import SankakuDataPool, SankakuWebpDataPool
 from .table import TableBasedHfDataPool, SimpleTableHfDataPool
 from .threedbooru import ThreedbooruDataPool
 from .yande import YandeDataPool, YandeWebpDataPool

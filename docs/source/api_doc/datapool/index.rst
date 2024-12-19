@@ -24,6 +24,7 @@ cheesechaser.datapool
     realbooru
     rule34
     safebooru
+    sankaku
     table
     threedbooru
     yande
